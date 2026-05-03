@@ -1432,11 +1432,46 @@ footer {
     color: #D4AF37;
 }
 
+/* Liquid Gold Pro Button */
+.btn-pro {
+    background: linear-gradient(135deg, #D4AF37, #F9E27D, #D4AF37);
+    background-size: 200% 200%;
+    animation: gold-flow 3s infinite;
+    color: #000 !important;
+    font-weight: 800;
+    padding: 0.8rem 1.5rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    margin-right: 1rem;
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+    transition: all 0.3s;
+    border: none;
+    display: inline-block;
+}
+
+.btn-pro:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5);
+}
+
+@keyframes gold-flow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
 /* Responsive */
 @media (max-width: 968px) {
     .hero-content, .ai-grid {
         grid-template-columns: 1fr;
         text-align: center;
+    }
+    .nav-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-top: 1rem;
     }
     .hero-text p { margin-left: auto; margin-right: auto; }
     .hero-actions { justify-content: center; }
