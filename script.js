@@ -347,12 +347,35 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentCategory = 'all';
 
     function renderLibrary(filter = '') {
+        // Only show results if there's a search term or a specific category selected
+        if (!filter && currentCategory === 'all') {
+            libraryGrid.innerHTML = `
+                <div class="empty-state" style="grid-column: 1 / -1; opacity: 0.5;">
+                    <div class="icon">🔍</div>
+                    <h3>Start Typing to Explore</h3>
+                    <p>Search over 10,000+ expert plant care guides.</p>
+                </div>
+            `;
+            return;
+        }
+
         const filtered = plantLibrary.filter(p => {
             const matchesSearch = p.name.toLowerCase().includes(filter.toLowerCase()) || 
                                 p.species.toLowerCase().includes(filter.toLowerCase());
             const matchesCategory = currentCategory === 'all' || p.category === currentCategory;
             return matchesSearch && matchesCategory;
         });
+
+        if (filtered.length === 0) {
+            libraryGrid.innerHTML = `
+                <div class="empty-state" style="grid-column: 1 / -1;">
+                    <div class="icon">🌿</div>
+                    <h3>No Plants Found</h3>
+                    <p>Try a different search term or browse by category.</p>
+                </div>
+            `;
+            return;
+        }
 
         libraryGrid.innerHTML = filtered.map(plant => `
             <div class="library-card animate-in" onclick="openAddModal('${plant.name}')">
