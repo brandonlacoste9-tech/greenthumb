@@ -108,24 +108,65 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const modalDropZone = document.getElementById('modal-drop-zone');
     const modalFileInput = document.getElementById('modal-plant-upload');
+    const linkCamera = document.getElementById('link-camera');
+    const cameraContainer = document.getElementById('camera-container');
+    const cameraPreview = document.getElementById('camera-preview');
+    const btnSnap = document.getElementById('btn-snap');
+    const cameraCanvas = document.getElementById('camera-canvas');
 
-    modalDropZone.onclick = () => modalFileInput.click();
+    let stream = null;
+
+    modalDropZone.onclick = (e) => {
+        if (e.target !== linkCamera) modalFileInput.click();
+    };
+
+    linkCamera.onclick = async (e) => {
+        e.stopPropagation();
+        try {
+            stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
+            cameraPreview.srcObject = stream;
+            cameraContainer.style.display = 'block';
+            modalDropZone.style.display = 'none';
+        } catch (err) {
+            alert("Could not access camera. Please check permissions.");
+        }
+    };
+
+    btnSnap.onclick = () => {
+        const context = cameraCanvas.getContext('2d');
+        cameraCanvas.width = cameraPreview.videoWidth;
+        cameraCanvas.height = cameraPreview.videoHeight;
+        context.drawImage(cameraPreview, 0, 0, cameraCanvas.width, cameraCanvas.height);
+        
+        // Stop stream
+        stream.getTracks().forEach(track => track.stop());
+        cameraContainer.style.display = 'none';
+        modalDropZone.style.display = 'block';
+        
+        showNotification("Photo captured! Analyzing care requirements...");
+        handlePhotoUploaded();
+    };
+
+    function handlePhotoUploaded() {
+        // Simulate care suggestion
+        setTimeout(() => {
+            const suggestions = [
+                { species: "Monstera", sun: "Partial Sun", interval: 7 },
+                { species: "Fern", sun: "Full Shade", interval: 3 },
+                { species: "Succulent", sun: "Full Sun", interval: 14 }
+            ];
+            const suggestion = suggestions[Math.floor(Math.random() * suggestions.length)];
+            document.getElementById('plant-species').value = suggestion.species;
+            document.getElementById('plant-sun').value = suggestion.sun;
+            document.getElementById('plant-interval').value = suggestion.interval;
+            showNotification("Suggestions applied based on your photo!");
+        }, 1500);
+    }
+
     modalFileInput.onchange = (e) => {
         if (e.target.files.length > 0) {
             showNotification("Analyzing photo for care requirements...");
-            // Simulate care suggestion
-            setTimeout(() => {
-                const suggestions = [
-                    { species: "Monstera", sun: "Partial Sun", interval: 7 },
-                    { species: "Fern", sun: "Full Shade", interval: 3 },
-                    { species: "Succulent", sun: "Full Sun", interval: 14 }
-                ];
-                const suggestion = suggestions[Math.floor(Math.random() * suggestions.length)];
-                document.getElementById('plant-species').value = suggestion.species;
-                document.getElementById('plant-sun').value = suggestion.sun;
-                document.getElementById('plant-interval').value = suggestion.interval;
-                showNotification("Suggestions applied based on photo!");
-            }, 1500);
+            handlePhotoUploaded();
         }
     };
 

@@ -381,6 +381,30 @@ h1 {
     margin-bottom: 0.2rem;
 }
 
+.accent-text {
+    color: var(--primary);
+    text-decoration: underline;
+    font-weight: 700;
+}
+
+.camera-container {
+    width: 100%;
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+#camera-preview {
+    width: 100%;
+    border-radius: 15px;
+    background: #000;
+    margin-bottom: 0.5rem;
+}
+
+#btn-snap {
+    width: 100%;
+    margin-top: 0.5rem;
+}
+
 /* Modal Styles */
 .modal {
     display: none;
