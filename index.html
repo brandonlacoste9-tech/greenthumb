@@ -146,10 +146,6 @@
                         <div class="diagnosis-form">
                             <div class="form-group">
                                 <label>Photo</label>
-                                <div class="camera-container" id="diag-camera-container" style="display: none;">
-                                    <video id="diag-camera-preview" autoplay playsinline style="width: 100%; border-radius: 15px; background: #000;"></video>
-                                    <button class="btn-primary" id="btn-diag-snap" style="width: 100%; margin-top: 0.5rem;">Capture Photo</button>
-                                </div>
                                 <div class="upload-zone" id="drop-zone">
                                     <div class="upload-icon">📸</div>
                                     <p>Drag & drop or <span class="accent-text" id="link-diag-camera">Take Photo</span></p>
@@ -157,7 +153,6 @@
                                     <input type="file" id="plant-upload" hidden accept="image/*">
                                 </div>
                                 <p class="tip">Tip: focus on the affected leaves in good light.</p>
-                                <canvas id="diag-camera-canvas" style="display: none;"></canvas>
                             </div>
 
                             <div class="form-group">
@@ -332,14 +327,9 @@
                 <div class="add-form">
                     <div class="form-group">
                         <label>Plant Photo</label>
-                        <div class="camera-container" id="camera-container" style="display: none;">
-                            <video id="camera-preview" autoplay playsinline></video>
-                            <button class="btn-primary" id="btn-snap">Capture Photo</button>
-                        </div>
-                        <div class="upload-zone-small" id="modal-drop-zone">
-                            <div class="upload-icon">📸</div>
-                            <p>Upload or <span class="accent-text" id="link-camera">Take Photo</span></p>
-                            <input type="file" id="modal-plant-upload" hidden accept="image/*">
+                        <div id="modal-drop-zone" class="upload-zone-small" style="height: 150px; border: 2px dashed rgba(0,0,0,0.1); border-radius: 15px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem; cursor: pointer; margin-bottom: 1.5rem;">
+                            <span>📸 Add Photo</span>
+                            <button class="btn-secondary" id="link-camera" style="font-size: 0.7rem;">Open Camera</button>
                         </div>
                         <canvas id="camera-canvas" style="display: none;"></canvas>
                     </div>
@@ -414,6 +404,17 @@
             <p>&copy; 2026 GardenGreen AI. All rights reserved. 🇨🇦</p>
         </div>
     </footer>
+
+    <!-- Universal Root Viewfinders (Escaping Containment) -->
+    <div id="diag-camera-container" class="camera-container" style="display: none;">
+        <video id="diag-camera-preview" autoplay playsinline></video>
+        <button class="btn-primary" id="btn-diag-snap">Capture</button>
+    </div>
+
+    <div id="camera-container" class="camera-container" style="display: none;">
+        <video id="camera-preview" autoplay playsinline></video>
+        <button class="btn-primary" id="btn-snap">Capture</button>
+    </div>
 
     <script src="script.js"></script>
 </body>

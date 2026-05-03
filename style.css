@@ -1519,7 +1519,7 @@ footer {
     gap: 1rem;
 }
 
-/* Sovereign Alignment & Luminous Pricing */
+/* --- IMPERIAL MOBILE PROTOCOL (Consolidated) --- */
 @media (max-width: 968px) {
     html, body {
         overflow-x: hidden !important;
@@ -1531,147 +1531,109 @@ footer {
         width: 100% !important;
         max-width: 100vw !important;
         padding: 0 1rem !important;
-        margin: 0 !important;
-        overflow: hidden;
     }
 
     header .container {
-        display: flex !important;
         flex-direction: column !important;
-        align-items: center !important;
         gap: 0.8rem !important;
     }
 
     .nav-actions {
-        display: flex !important;
-        width: 90% !important;
-        justify-content: space-around !important;
+        width: 100% !important;
+        justify-content: center !important;
+        gap: 1rem !important;
     }
 
-    /* Hero Vertical Stack */
+    /* Hero & Grid Stacking */
     .hero-actions {
-        display: flex !important;
         flex-direction: column !important;
-        width: 100% !important;
-        align-items: center !important;
+        gap: 1rem;
     }
 
     .btn-primary-large, .btn-secondary-large {
-        width: 90% !important;
-        margin: 0.5rem 0 !important;
+        width: 100% !important;
+        margin: 0 !important;
     }
 
-    /* Feature Grid Stack (Smart Mode) */
     .feature-grid {
         grid-template-columns: 1fr !important;
-        width: 100% !important;
-        padding: 0 1rem;
-        gap: 1.5rem;
+        gap: 1.5rem !important;
     }
 
-    /* Full-Screen Camera & Modal */
+    /* Modal Full-Screen Overhaul */
     .modal-content {
-        width: 100vw !important;
-        height: 100vh !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        border-radius: 0 !important;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        background: #000 !important;
-    }
-
-    .camera-container, #diag-camera-container {
-        position: fixed !important;
-        top: 0;
-        left: 0;
-        z-index: 2000 !important;
-        width: 100vw !important;
-        height: 100vh !important;
-        background: #000;
-    }
-
-    video {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        min-width: 100%;
-        min-height: 100%;
-        object-fit: cover;
-    }
-
-    /* True Full-Screen Optical Sovereignty */
-    .modal-content {
-        background: #000 !important;
-        border: none !important;
-        box-shadow: none !important;
-        padding: 0 !important;
         width: 100vw !important;
         height: 100vh !important;
         max-width: 100vw !important;
         max-height: 100vh !important;
         border-radius: 0 !important;
+        padding: 2rem 1.5rem !important;
+        display: flex;
+        flex-direction: column;
+        background: var(--bg-light) !important;
     }
 
-    .camera-container, #diag-camera-container {
-        position: fixed !important;
-        top: 0;
-        left: 0;
-        width: 100vw !important;
-        height: 100vh !important;
-        z-index: 2000 !important;
-        background: #000;
-        margin: 0 !important;
+    [data-theme="dark"] .modal-content {
+        background: #0a0a0a !important;
     }
 
-    video {
-        width: 100vw !important;
-        height: 100vh !important;
-        object-fit: cover !important;
-        position: absolute;
-        top: 0;
-        left: 0;
-    }
-
-    /* Precision Floating Shutter */
-    #btn-diag-snap, #btn-snap {
-        position: fixed !important;
-        bottom: 4rem !important;
-        left: 50% !important;
-        transform: translateX(-50%) !important;
-        width: 76px !important;
-        height: 76px !important;
-        border-radius: 50% !important;
-        background: #fff !important;
-        border: 6px solid rgba(212, 175, 55, 0.4) !important;
-        color: transparent !important;
-        z-index: 2100 !important;
-        cursor: pointer;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-        display: block !important;
-    }
-
-    .close-modal {
-        position: fixed !important;
-        top: 1.5rem !important;
-        right: 1.5rem !important;
-        z-index: 2101 !important;
-        background: rgba(0,0,0,0.5) !important;
-        color: #fff !important;
-        width: 44px !important;
-        height: 44px !important;
-        border-radius: 50% !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        font-size: 1.2rem !important;
-        border: none !important;
-    }
+    h1 { font-size: 2.2rem !important; }
 }
 
-/* Pricing Dark Mode Contrast */
+/* Universal Viewport Viewfinders (Absolute Root) */
+.camera-container {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 100vw !important;
+    height: 100vh !important;
+    z-index: 9999 !important;
+    background: #000;
+    display: none;
+}
+
+.camera-container video {
+    width: 100vw !important;
+    height: 100vh !important;
+    object-fit: cover !important;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* Precision Floating Controls */
+#btn-diag-snap, #btn-snap {
+    position: fixed !important;
+    bottom: 4rem !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 80px !important;
+    height: 80px !important;
+    border-radius: 50% !important;
+    background: #fff !important;
+    border: 6px solid rgba(212, 175, 55, 0.4) !important;
+    z-index: 10000 !important;
+    cursor: pointer;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+}
+
+.close-modal {
+    position: fixed !important;
+    top: 2rem !important;
+    right: 2rem !important;
+    z-index: 10001 !important;
+    background: rgba(0,0,0,0.5) !important;
+    color: #fff !important;
+    width: 44px !important;
+    height: 44px !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border: none !important;
+}
+
+/* Pricing Dark Mode Visibility */
 [data-theme="dark"] .pricing-card {
     background: rgba(255,255,255,0.03) !important;
     border: 1px solid rgba(212, 175, 55, 0.2) !important;
