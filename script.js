@@ -317,7 +317,31 @@ document.addEventListener('DOMContentLoaded', () => {
         { name: "Japanese Maple", species: "Acer Palmatum", water: "3 days", sun: "Partial Sun", difficulty: "Medium", icon: "🍁", category: "trees" },
         { name: "Bird of Paradise", species: "Strelitzia reginae", water: "7 days", sun: "Full Sun", difficulty: "Hard", icon: "🐦", category: "flowers" },
         { name: "English Ivy", species: "Hedera helix", water: "5 days", sun: "Partial Shade", difficulty: "Easy", icon: "🧗", category: "houseplants" },
-        { name: "Swiss Cheese Vine", species: "Monstera adansonii", water: "7 days", sun: "Partial Sun", difficulty: "Medium", icon: "🧀", category: "houseplants" }
+        { name: "Swiss Cheese Vine", species: "Monstera adansonii", water: "7 days", sun: "Partial Sun", difficulty: "Medium", icon: "🧀", category: "houseplants" },
+        { name: "Boston Fern", species: "Nephrolepis exaltata", water: "3 days", sun: "Full Shade", difficulty: "Medium", icon: "🌿", category: "houseplants" },
+        { name: "String of Pearls", species: "Senecio rowleyanus", water: "14 days", sun: "Full Sun", difficulty: "Hard", icon: "🔮", category: "succulents" },
+        { name: "Cactus (Barrel)", species: "Echinocactus grusonii", water: "21 days", sun: "Full Sun", difficulty: "Easy", icon: "🌵", category: "succulents" },
+        { name: "Orchid (Phalaenopsis)", species: "Phalaenopsis", water: "10 days", sun: "Partial Shade", difficulty: "Hard", icon: "🦋", category: "flowers" },
+        { name: "Dragon Tree", species: "Dracaena marginata", water: "10 days", sun: "Partial Sun", difficulty: "Easy", icon: "🐉", category: "houseplants" },
+        { name: "Chinese Money Plant", species: "Pilea peperomioides", water: "7 days", sun: "Partial Sun", difficulty: "Easy", icon: "💰", category: "houseplants" },
+        { name: "Strelitzia Nicolai", species: "Giant White Bird of Paradise", water: "7 days", sun: "Full Sun", difficulty: "Medium", icon: "🌴", category: "trees" },
+        { name: "Rose", species: "Rosa", water: "3 days", sun: "Full Sun", difficulty: "Hard", icon: "🌹", category: "flowers" },
+        { name: "Sunflower", species: "Helianthus annuus", water: "2 days", sun: "Full Sun", difficulty: "Easy", icon: "🌻", category: "flowers" },
+        { name: "Bonsai Pine", species: "Pinus thunbergii", water: "1 day", sun: "Full Sun", difficulty: "Pro", icon: "🌲", category: "trees" },
+        { name: "Air Plant", species: "Tillandsia", water: "7 days", sun: "Partial Sun", difficulty: "Easy", icon: "💨", category: "houseplants" },
+        { name: "Haworthia", species: "Haworthiopsis fasciata", water: "14 days", sun: "Partial Sun", difficulty: "Beginner", icon: "🦓", category: "succulents" },
+        { name: "Prayer Plant", species: "Maranta leuconeura", water: "4 days", sun: "Partial Shade", difficulty: "Medium", icon: "🙏", category: "houseplants" },
+        { name: "Yucca", species: "Yucca elephantipes", water: "14 days", sun: "Full Sun", difficulty: "Easy", icon: "🗡️", category: "houseplants" },
+        { name: "African Violet", species: "Saintpaulia", water: "5 days", sun: "Partial Shade", difficulty: "Medium", icon: "🟣", category: "flowers" },
+        { name: "Lemon Tree", species: "Citrus limon", water: "5 days", sun: "Full Sun", difficulty: "Hard", icon: "🍋", category: "trees" },
+        { name: "Olive Tree", species: "Olea europaea", water: "10 days", sun: "Full Sun", difficulty: "Medium", icon: "🫒", category: "trees" },
+        { name: "Hoya Carnosa", species: "Wax Plant", water: "10 days", sun: "Partial Sun", difficulty: "Easy", icon: "🕯️", category: "houseplants" },
+        { name: "Elephant Ear", species: "Alocasia", water: "4 days", sun: "Partial Shade", difficulty: "Hard", icon: "🐘", category: "houseplants" },
+        { name: "Peperomia", species: "Peperomia obtusifolia", water: "10 days", sun: "Partial Sun", difficulty: "Beginner", icon: "🍃", category: "houseplants" },
+        { name: "African Milk Tree", species: "Euphorbia trigona", water: "14 days", sun: "Full Sun", difficulty: "Easy", icon: "🥛", category: "succulents" },
+        { name: "Majesty Palm", species: "Ravenea rivularis", water: "3 days", sun: "Partial Sun", difficulty: "Hard", icon: "🏝️", category: "trees" },
+        { name: "Tulip", species: "Tulipa", water: "4 days", sun: "Full Sun", difficulty: "Medium", icon: "🌷", category: "flowers" },
+        { name: "Echeveria", species: "Echeveria elegans", water: "14 days", sun: "Full Sun", difficulty: "Easy", icon: "🌹", category: "succulents" }
     ];
 
     let currentCategory = 'all';
