@@ -89,6 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     showNotification(`Success! ${plant.name} has been watered.`);
                 }
             });
+        });
         document.querySelectorAll('.btn-delete').forEach(btn => {
             btn.addEventListener('click', function(e) {
                 e.stopPropagation();
