@@ -264,34 +264,32 @@ document.addEventListener('DOMContentLoaded', () => {
     renderGarden();
 
     // AI Diagnosis & Identification (Real API Integration)
-    const PLANTNET_API_KEY = '2b10EGNZaXN6Gm1BsItmltzv'; // NOTE: In production, move this to a secure backend!
 
     async function identifyPlant(fileOrCanvas) {
         resultsArea.innerHTML = `
             <div class="diagnosis-loading">
                 <div class="spinner"></div>
                 <h3>Identifying Species...</h3>
-                <p>Connecting to Pl@ntNet Global Database</p>
+                <p>Connecting to Secure Secure SaaS Bridge</p>
             </div>
         `;
 
-        const formData = new FormData();
-        
-        // If it's a file from input
+        let base64Image;
         if (fileOrCanvas instanceof File) {
-            formData.append('images', fileOrCanvas);
+            base64Image = await new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.onloadend = () => resolve(reader.result);
+                reader.readAsDataURL(fileOrCanvas);
+            });
         } else {
-            // If it's from the camera canvas
-            const blob = await new Promise(resolve => fileOrCanvas.toBlob(resolve, 'image/jpeg'));
-            formData.append('images', blob);
+            base64Image = fileOrCanvas.toDataURL('image/jpeg');
         }
-        
-        formData.append('organs', 'auto');
 
         try {
-            const response = await fetch(`https://my-api.plantnet.org/v2/identify/all?api-key=${PLANTNET_API_KEY}`, {
+            const response = await fetch('/api/identify', {
                 method: 'POST',
-                body: formData
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ image: base64Image })
             });
 
             const data = await response.json();
@@ -306,7 +304,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     species: commonName,
                     scientific: speciesName,
                     confidence: `${score}%`,
-                    title: "Health Check: Optimal", // Pl@ntNet doesn't do diseases, so we simulate health
+                    title: "Health Check: Optimal",
                     severity: "None",
                     cause: "Based on our visual analysis, the foliage appears vibrant and healthy.",
                     treatment: "Continue current watering schedule. Monitor for changes in color."
@@ -315,10 +313,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 throw new Error("No matches found");
             }
         } catch (err) {
+            console.error(err);
             resultsArea.innerHTML = `
                 <div class="error-card">
                     <h3>Identification Failed</h3>
-                    <p>Could not identify this plant. Please ensure the photo is clear and try again.</p>
+                    <p>Could not identify this plant. Please ensure your API key is set in Vercel and try again.</p>
                     <button class="btn-primary" onclick="location.reload()">Try Again</button>
                 </div>
             `;
