@@ -145,19 +145,56 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderLedger() {
         const ledgerGrid = document.getElementById('global-ledger');
         if (!ledgerGrid) return;
+
+        // Add Clear Button if it doesn't exist
+        let clearBtn = document.getElementById('btn-clear-ledger');
+        if (!clearBtn && ledgerEntries.length > 0) {
+            const header = ledgerGrid.parentElement.querySelector('h2, h3');
+            if (header) {
+                const btn = document.createElement('button');
+                btn.id = 'btn-clear-ledger';
+                btn.className = 'btn-secondary';
+                btn.style.fontSize = '0.7rem';
+                btn.style.padding = '0.3rem 0.8rem';
+                btn.style.float = 'right';
+                btn.innerText = 'Clear All';
+                btn.onclick = clearLedger;
+                header.appendChild(btn);
+            }
+        } else if (clearBtn && ledgerEntries.length === 0) {
+            clearBtn.remove();
+        }
+
         if (ledgerEntries.length === 0) {
             ledgerGrid.innerHTML = `<div class="empty-state" style="opacity: 0.5; text-align: center; padding: 2rem;"><p>Your ledger is empty.</p></div>`;
             return;
         }
         ledgerGrid.innerHTML = ledgerEntries.map(entry => `
-            <div class="ledger-entry">
+            <div class="ledger-entry animate-in">
                 <div class="entry-main">
                     <span class="entry-icon">${entry.icon}</span>
                     <span class="entry-text">${entry.text}</span>
                 </div>
-                <span class="entry-time">${entry.time}</span>
+                <div style="display: flex; align-items: center; gap: 0.8rem;">
+                    <span class="entry-time">${entry.time}</span>
+                    <button class="btn-delete-entry" onclick="deleteLedgerEntry(${entry.id})" style="background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 0; font-size: 0.8rem;">✕</button>
+                </div>
             </div>
         `).join('');
+    }
+
+    window.deleteLedgerEntry = (id) => {
+        ledgerEntries = ledgerEntries.filter(e => e.id !== id);
+        localStorage.setItem('greenthumb_ledger', JSON.stringify(ledgerEntries));
+        renderLedger();
+    };
+
+    function clearLedger() {
+        if (confirm('Clear entire botanical ledger? This cannot be undone.')) {
+            ledgerEntries = [];
+            localStorage.setItem('greenthumb_ledger', JSON.stringify(ledgerEntries));
+            renderLedger();
+        }
     }
 
     // --- Optical Intelligence (Camera Logic) ---
