@@ -88,13 +88,18 @@
                         <div class="diagnosis-form">
                             <div class="form-group">
                                 <label>Photo</label>
+                                <div class="camera-container" id="diag-camera-container" style="display: none;">
+                                    <video id="diag-camera-preview" autoplay playsinline style="width: 100%; border-radius: 15px; background: #000;"></video>
+                                    <button class="btn-primary" id="btn-diag-snap" style="width: 100%; margin-top: 0.5rem;">Capture Photo</button>
+                                </div>
                                 <div class="upload-zone" id="drop-zone">
                                     <div class="upload-icon">📸</div>
-                                    <p>Drag & drop or click to upload</p>
+                                    <p>Drag & drop or <span class="accent-text" id="link-diag-camera">Take Photo</span></p>
                                     <span class="file-hint">JPG, PNG · up to 8MB</span>
                                     <input type="file" id="plant-upload" hidden accept="image/*">
                                 </div>
                                 <p class="tip">Tip: focus on the affected leaves in good light.</p>
+                                <canvas id="diag-camera-canvas" style="display: none;"></canvas>
                             </div>
 
                             <div class="form-group">

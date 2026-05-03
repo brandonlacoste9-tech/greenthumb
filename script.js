@@ -106,49 +106,68 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnCloseModal = document.querySelector('.close-modal');
     const btnSavePlant = document.getElementById('save-plant');
 
-    const modalDropZone = document.getElementById('modal-drop-zone');
-    const modalFileInput = document.getElementById('modal-plant-upload');
-    const linkCamera = document.getElementById('link-camera');
-    const cameraContainer = document.getElementById('camera-container');
-    const cameraPreview = document.getElementById('camera-preview');
-    const btnSnap = document.getElementById('btn-snap');
-    const cameraCanvas = document.getElementById('camera-canvas');
+    // Modular Camera Logic
+    async function setupCamera(previewId, containerId, dropZoneId, snapBtnId, canvasId, onCapture) {
+        const preview = document.getElementById(previewId);
+        const container = document.getElementById(containerId);
+        const dropZone = document.getElementById(dropZoneId);
+        const snapBtn = document.getElementById(snapBtnId);
+        const canvas = document.getElementById(canvasId);
+        let stream = null;
 
-    let stream = null;
-
-    modalDropZone.onclick = (e) => {
-        if (e.target !== linkCamera) modalFileInput.click();
-    };
-
-    linkCamera.onclick = async (e) => {
-        e.stopPropagation();
         try {
             stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
-            cameraPreview.srcObject = stream;
-            cameraContainer.style.display = 'block';
-            modalDropZone.style.display = 'none';
+            preview.srcObject = stream;
+            container.style.display = 'block';
+            dropZone.style.display = 'none';
+
+            snapBtn.onclick = () => {
+                const context = canvas.getContext('2d');
+                canvas.width = preview.videoWidth;
+                canvas.height = preview.videoHeight;
+                context.drawImage(preview, 0, 0, canvas.width, canvas.height);
+                
+                stream.getTracks().forEach(track => track.stop());
+                container.style.display = 'none';
+                dropZone.style.display = 'block';
+                onCapture();
+            };
         } catch (err) {
             alert("Could not access camera. Please check permissions.");
         }
+    }
+
+    // Garden Modal Camera
+    document.getElementById('link-camera').onclick = (e) => {
+        e.stopPropagation();
+        setupCamera('camera-preview', 'camera-container', 'modal-drop-zone', 'btn-snap', 'camera-canvas', () => {
+            showNotification("Photo captured! Analyzing care requirements...");
+            handlePhotoUploaded();
+        });
     };
 
-    btnSnap.onclick = () => {
-        const context = cameraCanvas.getContext('2d');
-        cameraCanvas.width = cameraPreview.videoWidth;
-        cameraCanvas.height = cameraPreview.videoHeight;
-        context.drawImage(cameraPreview, 0, 0, cameraCanvas.width, cameraCanvas.height);
-        
-        // Stop stream
-        stream.getTracks().forEach(track => track.stop());
-        cameraContainer.style.display = 'none';
-        modalDropZone.style.display = 'block';
-        
-        showNotification("Photo captured! Analyzing care requirements...");
-        handlePhotoUploaded();
+    // Main Diagnosis Camera
+    document.getElementById('link-diag-camera').onclick = (e) => {
+        e.stopPropagation();
+        setupCamera('diag-camera-preview', 'diag-camera-container', 'drop-zone', 'btn-diag-snap', 'diag-camera-canvas', () => {
+            showNotification("Photo captured! Analyzing plant health...");
+            simulateDiagnosis(null); // Passing null because we use the canvas/simulation
+        });
+    };
+
+    const modalDropZone = document.getElementById('modal-drop-zone');
+    const modalFileInput = document.getElementById('modal-plant-upload');
+    modalDropZone.onclick = (e) => {
+        if (e.target.id !== 'link-camera') modalFileInput.click();
+    };
+
+    const mainDropZone = document.getElementById('drop-zone');
+    const mainFileInput = document.getElementById('plant-upload');
+    mainDropZone.onclick = (e) => {
+        if (e.target.id !== 'link-diag-camera') mainFileInput.click();
     };
 
     function handlePhotoUploaded() {
-        // Simulate care suggestion
         setTimeout(() => {
             const suggestions = [
                 { species: "Monstera", sun: "Partial Sun", interval: 7 },
@@ -167,6 +186,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.target.files.length > 0) {
             showNotification("Analyzing photo for care requirements...");
             handlePhotoUploaded();
+        }
+    };
+
+    mainFileInput.onchange = (e) => {
+        if (e.target.files.length > 0) {
+            simulateDiagnosis(e.target.files[0]);
         }
     };
 
