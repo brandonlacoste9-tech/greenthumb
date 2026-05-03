@@ -210,15 +210,41 @@ document.addEventListener('DOMContentLoaded', () => {
     const diagCanvas = document.getElementById('diag-camera-canvas');
 
     if (diagLink) diagLink.onclick = () => startCamera(diagVideo, diagContainer, diagZone);
-    if (diagSnap) diagSnap.onclick = () => {
-        const photo = capturePhoto(diagVideo, diagCanvas);
-        diagContainer.style.display = 'none';
-        diagZone.style.display = 'flex';
-        diagZone.innerHTML = `<img src="${photo}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 20px;">`;
-        logLedger('Captured photo for AI Diagnosis.', '📸');
-        runDiagnosis();
-    };
+    // High-Resilience Capture Triggers
+    function attachCaptureListeners() {
+        const diagSnap = document.getElementById('btn-diag-snap');
+        const mainSnap = document.getElementById('btn-snap');
 
+        const triggerDiag = () => {
+            const photo = capturePhoto(diagVideo, diagCanvas);
+            diagContainer.style.display = 'none';
+            diagZone.style.display = 'flex';
+            diagZone.innerHTML = `<img src="${photo}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 20px;">`;
+            logLedger('Captured photo for AI Diagnosis.', '📸');
+            runDiagnosis();
+        };
+
+        const triggerMain = () => {
+            const photo = capturePhoto(mainVideo, mainCanvas);
+            mainContainer.style.display = 'none';
+            mainZone.style.display = 'none';
+            mainCanvas.previousElementSibling.style.display = 'flex';
+            mainCanvas.previousElementSibling.innerHTML = `<img src="${photo}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 15px;">`;
+            logLedger('Captured photo for new garden asset.', '📸');
+        };
+
+        if (diagSnap) {
+            diagSnap.onclick = triggerDiag;
+            diagSnap.ontouchstart = (e) => { e.preventDefault(); triggerDiag(); };
+        }
+        if (mainSnap) {
+            mainSnap.onclick = triggerMain;
+            mainSnap.ontouchstart = (e) => { e.preventDefault(); triggerMain(); };
+        }
+    }
+
+    // Initialize listeners
+    attachCaptureListeners();
     function runDiagnosis() {
         triggerBriefing('Analyzing Botanical DNA... Accessing Imperial Database...', '🧬');
         setTimeout(() => {
