@@ -13,6 +13,11 @@
     --shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
     --radius: 24px;
     --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    
+    /* Hero Overlay Variables */
+    --hero-overlay: rgba(248, 250, 248, 0.82);
+    --hero-glow-1: rgba(212, 175, 55, 0.25);
+    --hero-glow-2: rgba(45, 90, 39, 0.2);
 }
 
 [data-theme="dark"] {
@@ -27,6 +32,11 @@
     --glass-border: rgba(212, 175, 55, 0.15);
     --shadow: 0 40px 80px rgba(0, 0, 0, 0.5);
     --bg-soft: #1C1715;
+    
+    /* Dark Mode Hero Overlays */
+    --hero-overlay: rgba(18, 14, 13, 0.85);
+    --hero-glow-1: rgba(212, 175, 55, 0.15);
+    --hero-glow-2: rgba(45, 90, 39, 0.3);
 }
 
 * {
@@ -181,9 +191,9 @@ nav {
     position: relative;
     overflow: hidden;
     background: 
-        radial-gradient(circle at 90% 10%, rgba(212, 175, 55, 0.25) 0%, transparent 50%),
-        radial-gradient(circle at 10% 90%, rgba(45, 90, 39, 0.2) 0%, transparent 50%),
-        linear-gradient(rgba(248, 250, 248, 0.82), rgba(248, 250, 248, 0.82)),
+        radial-gradient(circle at 90% 10%, var(--hero-glow-1) 0%, transparent 50%),
+        radial-gradient(circle at 10% 90%, var(--hero-glow-2) 0%, transparent 50%),
+        linear-gradient(var(--hero-overlay), var(--hero-overlay)),
         url('greenthumb_hero_v2.png') no-repeat center center;
     background-size: cover;
 }
