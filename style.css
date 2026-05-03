@@ -1590,16 +1590,20 @@ footer {
     }
 
     .camera-container, #diag-camera-container {
+        position: absolute !important;
+        top: 0;
+        left: 0;
         width: 100vw !important;
         height: 100vh !important;
         margin: 0 !important;
         border-radius: 0 !important;
-        position: relative;
+        z-index: 50;
+        background: #000;
     }
 
     video {
-        width: 100vw !important;
-        height: 100vh !important;
+        width: 100% !important;
+        height: 100% !important;
         object-fit: cover !important;
     }
 
