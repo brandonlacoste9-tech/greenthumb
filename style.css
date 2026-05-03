@@ -297,9 +297,11 @@ h1 {
 
 .dashboard-header {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
-    margin-bottom: 3rem;
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+    text-align: center;
 }
 
 .btn-add {
@@ -310,12 +312,19 @@ h1 {
     border-radius: 50px;
     font-weight: 600;
     cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-add:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(157, 141, 241, 0.4);
 }
 
 .plant-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2.5rem;
+    justify-content: center;
 }
 
 .plant-card {
@@ -324,20 +333,21 @@ h1 {
     overflow: hidden;
     box-shadow: var(--shadow);
     transition: var(--transition);
+    text-align: center;
 }
 
 .plant-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-10px);
 }
 
 .plant-thumb img {
     width: 100%;
-    height: 200px;
+    height: 250px;
     object-fit: cover;
 }
 
 .plant-info {
-    padding: 1.5rem;
+    padding: 2rem;
 }
 
 .care-stats {
@@ -356,23 +366,27 @@ h1 {
 }
 
 .progress-bar {
-    height: 8px;
+    height: 10px;
     background: #eee;
     border-radius: 10px;
     overflow: hidden;
+    margin: 0.5rem auto;
+    max-width: 200px;
 }
 
 .progress {
     height: 100%;
     background: var(--primary);
     border-radius: 10px;
+    transition: width 0.5s ease-in-out;
 }
 
 .plant-footer {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: 1rem;
     align-items: center;
-    padding-top: 1rem;
+    padding-top: 1.5rem;
     border-top: 1px solid #eee;
 }
 
