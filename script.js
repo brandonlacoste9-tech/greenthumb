@@ -47,6 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <img src="${plant.image}" alt="${plant.name}">
                         <span class="env-tag">${plant.env}</span>
                         ${isOverdue ? '<span class="alarm-badge">⚠️ ALARM</span>' : ''}
+                        <button class="btn-delete" title="Remove Plant">✕</button>
                     </div>
                     <div class="plant-info">
                         <div class="title-row">
@@ -86,6 +87,18 @@ document.addEventListener('DOMContentLoaded', () => {
                     saveGarden();
                     renderGarden();
                     showNotification(`Success! ${plant.name} has been watered.`);
+                }
+            });
+        document.querySelectorAll('.btn-delete').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const id = parseInt(this.closest('.plant-card').dataset.id);
+                const plant = myPlants.find(p => p.id === id);
+                if (confirm(`Are you sure you want to remove ${plant.name}?`)) {
+                    myPlants = myPlants.filter(p => p.id !== id);
+                    saveGarden();
+                    renderGarden();
+                    showNotification(`${plant.name} removed from your garden.`);
                 }
             });
         });
