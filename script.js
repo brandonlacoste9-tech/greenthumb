@@ -17,6 +17,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const db = firebase.firestore();
     let currentUser = null;
 
+    // Global Elements
+    const modal = document.getElementById('add-plant-modal');
+    const btnOpenModal = document.getElementById('open-add-modal');
+    const btnCloseModal = document.querySelector('.close-modal');
+    const btnSavePlant = document.getElementById('save-plant');
+    const resultsArea = document.getElementById('diagnosis-results');
+    const dropZone = document.getElementById('drop-zone');
+    const fileInput = document.getElementById('plant-upload');
+
     // Smooth scrolling for navigation
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
@@ -161,10 +170,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Modal Logic
-    const modal = document.getElementById('add-plant-modal');
-    const btnOpenModal = document.getElementById('open-add-modal');
-    const btnCloseModal = document.querySelector('.close-modal');
-    const btnSavePlant = document.getElementById('save-plant');
 
     // Modular Camera Logic
     async function setupCamera(previewId, containerId, dropZoneId, snapBtnId, canvasId, onCapture) {
