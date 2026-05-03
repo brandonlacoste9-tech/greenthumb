@@ -164,14 +164,24 @@ document.addEventListener('DOMContentLoaded', () => {
     let stream;
 
     async function startCamera(videoElement, containerElement, zoneElement) {
+        // Immediate UI Revelation
+        containerElement.style.display = 'block';
+        if (zoneElement) zoneElement.style.display = 'none';
+
         try {
-            stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
+            // High-Resilience Hardware Handshake
+            try {
+                stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
+            } catch (e) {
+                console.warn('Back camera failed, falling back to any available video source.');
+                stream = await navigator.mediaDevices.getUserMedia({ video: true });
+            }
             videoElement.srcObject = stream;
-            containerElement.style.display = 'block';
-            zoneElement.style.display = 'none';
         } catch (err) {
-            alert('Camera access denied. Please check permissions.');
+            alert('Camera access denied or unavailable. Please check your system settings.');
             console.error(err);
+            containerElement.style.display = 'none';
+            if (zoneElement) zoneElement.style.display = 'flex';
         }
     }
 
