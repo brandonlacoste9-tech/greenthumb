@@ -216,8 +216,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const diagLink = document.getElementById('link-diag-camera');
     const mainLink = document.getElementById('link-camera');
 
-    if (diagLink) diagLink.onclick = () => startCamera(diagVideo, diagContainer, diagZone);
-    if (mainLink) mainLink.onclick = () => startCamera(mainVideo, mainContainer, mainZone);
+    if (diagLink) diagLink.onclick = () => { startCamera(diagVideo, diagContainer, diagZone); pushNavigationState('diag-camera'); };
+    if (mainLink) mainLink.onclick = () => { startCamera(mainVideo, mainContainer, mainZone); pushNavigationState('main-camera'); };
 
     // High-Resilience Capture Triggers
     function attachCaptureListeners() {
@@ -415,15 +415,37 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Navigation Sovereignty: Back Button Management
+    function pushNavigationState(id) {
+        history.pushState({ activeUI: id }, "");
+    }
+
+    window.onpopstate = function(event) {
+        // If the back button is pressed, close all open modals and cameras
+        closeAllModals();
+        stopCamera();
+    };
+
+    function closeAllModals() {
+        modal.style.display = 'none';
+        diagContainer.style.display = 'none';
+        mainContainer.style.display = 'none';
+    }
+
     function openAddModal(species = '') {
         modal.style.display = 'flex';
         if (species) document.getElementById('plant-species').value = species;
+        pushNavigationState('add-modal');
     }
     window.openAddModal = openAddModal;
     window.showTimeline = (id) => triggerBriefing('Heritage record active.', '📈');
 
-    btnOpenModal.onclick = () => { modal.style.display = 'flex'; };
-    btnCloseModal.onclick = () => { modal.style.display = 'none'; stopCamera(); };
+    btnOpenModal.onclick = () => { openAddModal(); };
+    btnCloseModal.onclick = () => { 
+        closeAllModals(); 
+        stopCamera();
+        if (history.state && history.state.activeUI) history.back();
+    };
 
     btnSavePlant.onclick = () => {
         const name = document.getElementById('plant-name').value;
@@ -433,7 +455,8 @@ document.addEventListener('DOMContentLoaded', () => {
             myPlants.push({ id: Date.now(), name, species, interval, lastWatered: new Date().getTime(), image: window.currentCapturedPhoto || "greenthumb_hero_v2.png" });
             logLedger(`Added ${name}.`, '🪴');
             saveGarden(); renderGarden(); updateAtmosphereUI();
-            modal.style.display = 'none';
+            closeAllModals();
+            if (history.state && history.state.activeUI) history.back();
             window.currentCapturedPhoto = null;
         }
     };
