@@ -25,7 +25,12 @@
                 <li><a href="#features">Features</a></li>
                 <li><a href="#identify">Identify & Diagnose</a></li>
                 <li><a href="#dashboard">Dashboard</a></li>
-                <li><a href="#" class="btn-primary">Get Started</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><button id="btn-login" class="btn-primary">Login</button></li>
+                <li id="user-profile" style="display: none;">
+                    <span id="user-email"></span>
+                    <button id="btn-logout" class="btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.8rem;">Logout</button>
+                </li>
             </ul>
         </nav>
     </header>
@@ -192,6 +197,29 @@
             </div>
         </section>
 
+        <!-- Auth Modal -->
+        <div id="auth-modal" class="modal">
+            <div class="modal-content glass-card" style="max-width: 400px;">
+                <span class="close-modal" id="close-auth">&times;</span>
+                <h2 id="auth-title">Welcome Back</h2>
+                <div class="add-form">
+                    <div class="form-group">
+                        <label for="auth-email">Email</label>
+                        <input type="email" id="auth-email" placeholder="you@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="auth-pass">Password</label>
+                        <input type="password" id="auth-pass" placeholder="••••••••">
+                    </div>
+                    <button class="btn-primary" id="btn-auth-submit" style="width: 100%;">Login</button>
+                    <p style="text-align: center; margin-top: 1rem; font-size: 0.9rem;">
+                        <span id="auth-switch-text">Don't have an account?</span> 
+                        <a href="#" id="auth-switch" style="color: var(--primary); font-weight: 700;">Sign Up</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
         <!-- Add Plant Modal -->
         <div id="add-plant-modal" class="modal">
             <div class="modal-content glass-card">
@@ -273,6 +301,11 @@
             <p>&copy; 2026 GreenThumb AI. All rights reserved.</p>
         </div>
     </footer>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 
     <script src="script.js"></script>
 </body>

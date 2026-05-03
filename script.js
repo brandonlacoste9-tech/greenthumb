@@ -1,4 +1,22 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // --- Firebase Initialization (REPLACE WITH YOUR CONFIG) ---
+    const firebaseConfig = {
+        apiKey: "YOUR_API_KEY",
+        authDomain: "YOUR_PROJECT.firebaseapp.com",
+        projectId: "YOUR_PROJECT_ID",
+        storageBucket: "YOUR_PROJECT.appspot.com",
+        messagingSenderId: "YOUR_SENDER_ID",
+        appId: "YOUR_APP_ID"
+    };
+
+    if (firebaseConfig.apiKey !== "YOUR_API_KEY") {
+        firebase.initializeApp(firebaseConfig);
+    }
+
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+    let currentUser = null;
+
     // Smooth scrolling for navigation
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
@@ -10,10 +28,28 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Virtual Garden State & Persistence
-    let myPlants = JSON.parse(localStorage.getItem('greenthumb_garden')) || [];
+    let myPlants = [];
 
-    function saveGarden() {
-        localStorage.setItem('greenthumb_garden', JSON.stringify(myPlants));
+    async function saveGarden() {
+        if (currentUser) {
+            await db.collection('users').doc(currentUser.uid).set({
+                plants: myPlants
+            });
+        } else {
+            localStorage.setItem('greenthumb_garden', JSON.stringify(myPlants));
+        }
+    }
+
+    async function loadGarden() {
+        if (currentUser) {
+            const doc = await db.collection('users').doc(currentUser.uid).get();
+            if (doc.exists) {
+                myPlants = doc.data().plants || [];
+            }
+        } else {
+            myPlants = JSON.parse(localStorage.getItem('greenthumb_garden')) || [];
+        }
+        renderGarden();
     }
 
     function renderGarden() {
@@ -260,8 +296,62 @@ document.addEventListener('DOMContentLoaded', () => {
         simulateDiagnosis(fileInput.files[0]);
     };
 
-    // Initial Render
-    renderGarden();
+    // Auth Logic
+    const authModal = document.getElementById('auth-modal');
+    const btnLogin = document.getElementById('btn-login');
+    const btnLogout = document.getElementById('btn-logout');
+    const authTitle = document.getElementById('auth-title');
+    const btnAuthSubmit = document.getElementById('btn-auth-submit');
+    const authSwitch = document.getElementById('auth-switch');
+    const userProfile = document.getElementById('user-profile');
+    const userEmailSpan = document.getElementById('user-email');
+    let isSignUp = false;
+
+    btnLogin.onclick = () => authModal.style.display = 'flex';
+    document.getElementById('close-auth').onclick = () => authModal.style.display = 'none';
+
+    authSwitch.onclick = (e) => {
+        e.preventDefault();
+        isSignUp = !isSignUp;
+        authTitle.textContent = isSignUp ? "Create Account" : "Welcome Back";
+        btnAuthSubmit.textContent = isSignUp ? "Sign Up" : "Login";
+        document.getElementById('auth-switch-text').textContent = isSignUp ? "Already have an account?" : "Don't have an account?";
+        authSwitch.textContent = isSignUp ? "Login" : "Sign Up";
+    };
+
+    btnAuthSubmit.onclick = async () => {
+        const email = document.getElementById('auth-email').value;
+        const pass = document.getElementById('auth-pass').value;
+        try {
+            if (isSignUp) {
+                await auth.createUserWithEmailAndPassword(email, pass);
+                showNotification("Account created successfully!");
+            } else {
+                await auth.signInWithEmailAndPassword(email, pass);
+                showNotification("Logged in successfully!");
+            }
+            authModal.style.display = 'none';
+        } catch (err) {
+            alert(err.message);
+        }
+    };
+
+    btnLogout.onclick = () => auth.signOut();
+
+    auth.onAuthStateChanged(user => {
+        if (user) {
+            currentUser = user;
+            btnLogin.style.display = 'none';
+            userProfile.style.display = 'flex';
+            userEmailSpan.textContent = user.email;
+            loadGarden();
+        } else {
+            currentUser = null;
+            btnLogin.style.display = 'block';
+            userProfile.style.display = 'none';
+            loadGarden();
+        }
+    });
 
     // AI Diagnosis & Identification (Real API Integration)
 
