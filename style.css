@@ -1216,6 +1216,38 @@ footer {
     to { opacity: 1; transform: translateX(0); }
 }
 
+/* Safety Badges */
+.safety-badge {
+    padding: 0.3rem 0.8rem;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    display: inline-block;
+}
+
+.safety-badge.safe {
+    background: #dcfce7;
+    color: #16a34a;
+}
+
+.safety-badge.toxic {
+    background: #fee2e2;
+    color: #ef4444;
+}
+
+[data-theme="dark"] .safety-badge.safe {
+    background: rgba(22, 163, 74, 0.2);
+    color: #4ade80;
+    border: 1px solid rgba(74, 222, 128, 0.2);
+}
+
+[data-theme="dark"] .safety-badge.toxic {
+    background: rgba(239, 68, 68, 0.2);
+    color: #f87171;
+    border: 1px solid rgba(248, 113, 113, 0.2);
+}
+
 /* Responsive */
 @media (max-width: 968px) {
     .hero-content, .ai-grid {
