@@ -9,6 +9,111 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Virtual Garden State & Persistence
+    let myPlants = JSON.parse(localStorage.getItem('greenthumb_garden')) || [
+        {
+            id: 1,
+            name: "Monstera Deliciosa",
+            image: "greenthumb_hero.png",
+            waterLevel: 75,
+            light: "Partial Sun",
+            nextWater: "2 days"
+        },
+        {
+            id: 2,
+            name: "Fiddle Leaf Fig",
+            image: "fiddle_leaf_fig.png",
+            waterLevel: 30,
+            light: "Bright Indirect",
+            nextWater: "Needs Water!"
+        }
+    ];
+
+    function saveGarden() {
+        localStorage.setItem('greenthumb_garden', JSON.stringify(myPlants));
+    }
+
+    function renderGarden() {
+        const gardenGrid = document.getElementById('virtual-garden');
+        gardenGrid.innerHTML = myPlants.map(plant => `
+            <div class="plant-card animate-in" data-id="${plant.id}">
+                <div class="plant-thumb">
+                    <img src="${plant.image}" alt="${plant.name}">
+                </div>
+                <div class="plant-info">
+                    <h3>${plant.name}</h3>
+                    <div class="care-stats">
+                        <div class="stat">
+                            <span class="label">Water</span>
+                            <div class="progress-bar"><div class="progress" style="width: ${plant.waterLevel}%; background-color: ${plant.waterLevel < 40 ? '#ef4444' : '#4A7856'}"></div></div>
+                        </div>
+                        <div class="stat">
+                            <span class="label">Light</span>
+                            <span class="value">${plant.light}</span>
+                        </div>
+                    </div>
+                    <div class="plant-footer">
+                        <span class="remind-tag">${plant.nextWater}</span>
+                        <button class="btn-water" ${plant.waterLevel === 100 ? 'disabled' : ''}>
+                            ${plant.waterLevel === 100 ? 'Watered!' : 'Water Now'}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+
+        // Re-attach listeners
+        attachGardenListeners();
+    }
+
+    function attachGardenListeners() {
+        document.querySelectorAll('.btn-water').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const id = parseInt(this.closest('.plant-card').dataset.id);
+                const plant = myPlants.find(p => p.id === id);
+                if (plant) {
+                    plant.waterLevel = 100;
+                    plant.nextWater = "Next Water: 7 days";
+                    saveGarden();
+                    renderGarden();
+                    showNotification(`Success! ${plant.name} has been watered.`);
+                }
+            });
+        });
+    }
+
+    // Notification System
+    function showNotification(message) {
+        const toast = document.createElement('div');
+        toast.className = 'toast animate-in';
+        toast.textContent = message;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 3000);
+    }
+
+    // Add Plant Functionality
+    const btnAdd = document.querySelector('.btn-add');
+    btnAdd.addEventListener('click', () => {
+        const name = prompt("Enter plant name:");
+        if (name) {
+            const newPlant = {
+                id: Date.now(),
+                name: name,
+                image: "greenthumb_hero.png", // Default image
+                waterLevel: 50,
+                light: "Full Sun",
+                nextWater: "4 days"
+            };
+            myPlants.push(newPlant);
+            saveGarden();
+            renderGarden();
+            showNotification(`${name} added to your garden!`);
+        }
+    });
+
+    // Initial Render
+    renderGarden();
+
     // AI Diagnosis Simulation
     const dropZone = document.getElementById('drop-zone');
     const fileInput = document.getElementById('plant-upload');
@@ -23,7 +128,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function simulateDiagnosis(file) {
-        // Show loading state
         resultsArea.innerHTML = `
             <div class="diagnosis-loading">
                 <div class="spinner"></div>
@@ -32,26 +136,28 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
         `;
 
-        // Simulate network delay
         setTimeout(() => {
             const issues = [
                 {
                     title: "Leaf Spot Disease",
                     severity: "Moderate",
-                    cause: "Fungal infection from overwatering",
-                    treatment: "Prune affected leaves, reduce watering frequency, and improve air circulation."
+                    confidence: "94%",
+                    cause: "Fungal infection (Cercospora) likely from high humidity or overwatering.",
+                    treatment: "1. Prune affected leaves.\n2. Apply organic fungicide.\n3. Water only at the base."
                 },
                 {
                     title: "Spider Mites",
                     severity: "High",
-                    cause: "Dry, warm environment",
-                    treatment: "Mist the plant regularly, wipe leaves with neem oil solution, and isolate from other plants."
+                    confidence: "88%",
+                    cause: "Infestation of Tetranychidae, common in dry indoor environments.",
+                    treatment: "1. Isolate the plant.\n2. Wipe leaves with Neem Oil.\n3. Increase local humidity."
                 },
                 {
-                    title: "Perfectly Healthy",
+                    title: "Optimal Health",
                     severity: "None",
-                    cause: "Excellent care",
-                    treatment: "Keep doing what you're doing! Ensure consistent light levels."
+                    confidence: "99%",
+                    cause: "No issues detected. Your care routine is perfect.",
+                    treatment: "Maintain current light and water cycles. Fertilize every 2 weeks during growing season."
                 }
             ];
 
@@ -61,38 +167,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="diagnosis-card animate-in">
                     <div class="result-header">
                         <span class="severity-badge ${result.severity.toLowerCase()}">${result.severity}</span>
-                        <h3>${result.title}</h3>
+                        <span class="confidence">Confidence: ${result.confidence}</span>
                     </div>
+                    <h3>${result.title}</h3>
                     <div class="result-body">
-                        <p><strong>Cause:</strong> ${result.cause}</p>
-                        <p><strong>Treatment Plan:</strong></p>
-                        <p>${result.treatment}</p>
+                        <div class="result-section">
+                            <h4 style="margin: 1rem 0 0.5rem; color: var(--primary);">Analysis</h4>
+                            <p>${result.cause}</p>
+                        </div>
+                        <div class="result-section">
+                            <h4 style="margin: 1rem 0 0.5rem; color: var(--primary);">Action Plan</h4>
+                            <p style="white-space: pre-line;">${result.treatment}</p>
+                        </div>
                     </div>
-                    <button class="btn-primary" onclick="location.reload()">New Diagnosis</button>
+                    <button class="btn-primary" onclick="location.reload()" style="margin-top: 1.5rem; width: 100%;">Run New Check</button>
                 </div>
             `;
         }, 2500);
     }
-
-    // Dashboard Interaction
-    const waterButtons = document.querySelectorAll('.btn-water');
-    waterButtons.forEach(btn => {
-        btn.addEventListener('click', function() {
-            const card = this.closest('.plant-card');
-            const progressBar = card.querySelector('.progress');
-            const remindTag = card.querySelector('.remind-tag');
-            
-            // Update UI
-            progressBar.style.width = '100%';
-            progressBar.style.backgroundColor = '#4ade80';
-            this.textContent = 'Watered!';
-            this.disabled = true;
-            remindTag.textContent = 'Next Water: 7 days';
-            
-            // Particle effect or small animation could go here
-            console.log('Plant watered successfully');
-        });
-    });
 
     // Add Intersection Observer for scroll animations
     const observerOptions = {

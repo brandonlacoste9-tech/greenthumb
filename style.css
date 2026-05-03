@@ -491,6 +491,25 @@ footer {
 .severity-badge.moderate { background: #fef3c7; color: #d97706; }
 .severity-badge.none { background: #dcfce7; color: #16a34a; }
 
+.confidence {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+.toast {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--primary-dark);
+    color: var(--white);
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    z-index: 2000;
+}
+
 .result-body p {
     margin-bottom: 1rem;
 }
