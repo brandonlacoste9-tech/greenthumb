@@ -216,7 +216,23 @@ document.addEventListener('DOMContentLoaded', () => {
         diagZone.style.display = 'flex';
         diagZone.innerHTML = `<img src="${photo}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 20px;">`;
         logLedger('Captured photo for AI Diagnosis.', '📸');
+        runDiagnosis();
     };
+
+    function runDiagnosis() {
+        triggerBriefing('Analyzing Botanical DNA... Accessing Imperial Database...', '🧬');
+        setTimeout(() => {
+            const results = [
+                "Health Check: Optimal. VPD balance confirmed. No fungal signatures detected.",
+                "Diagnosis: Slight Nitrogen deficiency. Recommend Imperial Nutrient Shift.",
+                "Warning: Low hydration detected in soil telemetry. Resilience score -2.",
+                "Alert: Potential Spider Mite signature. Isolation recommended."
+            ];
+            const randomResult = results[Math.floor(Math.random() * results.length)];
+            triggerBriefing(`Diagnosis Complete: ${randomResult}`, '🧠');
+            logLedger(`AI Diagnosis: ${randomResult}`, '🧠');
+        }, 2000);
+    }
 
     // Add Plant Camera
     const modalLink = document.getElementById('link-camera');

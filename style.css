@@ -1602,9 +1602,31 @@ footer {
         object-fit: cover;
     }
 
-    h1 { font-size: 2.2rem !important; margin-bottom: 1rem !important; }
+    /* True Full-Screen Optical Sovereignty */
+    .modal-content {
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+    }
 
-    /* Floating Camera Controls Restoration */
+    .camera-container, #diag-camera-container {
+        position: fixed !important;
+        top: 0;
+        left: 0;
+        width: 100vw !important;
+        height: 100vh !important;
+        z-index: 2000 !important;
+        background: #000;
+    }
+
+    video {
+        width: 100vw !important;
+        height: 100vh !important;
+        object-fit: cover !important;
+    }
+
+    /* Floating Camera Controls */
     #btn-diag-snap, #btn-snap {
         position: fixed !important;
         bottom: 3rem !important;
