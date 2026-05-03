@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnCloseModal = document.querySelector('.close-modal');
     const btnSavePlant = document.getElementById('save-plant');
 
-    btnOpenModal.onclick = () => modal.style.display = 'flex';
+    btnOpenModal.onclick = () => openAddModal();
     btnCloseModal.onclick = () => modal.style.display = 'none';
     window.onclick = (e) => { if (e.target == modal) modal.style.display = 'none'; };
 
@@ -230,10 +230,23 @@ document.addEventListener('DOMContentLoaded', () => {
                             <p style="white-space: pre-line;">${result.treatment}</p>
                         </div>
                     </div>
-                    <button class="btn-primary" onclick="location.reload()" style="margin-top: 1.5rem; width: 100%;">Run New Check</button>
+                    <button class="btn-primary" id="btn-add-result" style="margin-top: 1rem; width: 100%; background: var(--secondary);">Add to My Garden</button>
+                    <button class="btn-secondary-large" onclick="location.reload()" style="margin-top: 1rem; width: 100%; border: none; font-size: 0.9rem;">Run New Check</button>
                 </div>
             `;
+
+            document.getElementById('btn-add-result').onclick = () => {
+                openAddModal(result.species);
+            };
         }, 2500);
+    }
+
+    function openAddModal(prefillSpecies = '') {
+        modal.style.display = 'flex';
+        if (prefillSpecies) {
+            document.getElementById('plant-species').value = prefillSpecies;
+            document.getElementById('plant-name').focus();
+        }
     }
 
     // Add Intersection Observer for scroll animations
