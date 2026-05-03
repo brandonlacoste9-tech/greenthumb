@@ -376,34 +376,51 @@
         </div>
     </div>
 
-    <footer>
-        <div class="container footer-content">
-            <div class="footer-brand">
-                <span>GardenGreen</span>
-                <p>Nurturing nature with technology.</p>
+    <footer style="padding: 6rem 0; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 8rem;">
+        <div class="container" style="text-align: center;">
+            <div style="font-size: 2rem; font-weight: 800; color: var(--primary); margin-bottom: 1.5rem;">GardenGreen.ca</div>
+            <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto 2.5rem;">The gold standard in botanical intelligence. Established 2026 to bring optical sovereignty to the modern estate.</p>
+            <div style="display: flex; justify-content: center; gap: 3rem; margin-bottom: 3rem; font-weight: 600;">
+                <a href="javascript:void(0)" data-modal="about-modal" style="color: var(--text-muted); text-decoration: none;">About Us</a>
+                <a href="javascript:void(0)" data-modal="privacy-modal" style="color: var(--text-muted); text-decoration: none;">Privacy Policy</a>
+                <a href="#" style="color: var(--text-muted); text-decoration: none;">Terms</a>
             </div>
-            <div class="footer-links">
-                <div class="link-group">
-                    <h4>Product</h4>
-                    <ul>
-                        <li><a href="#">AI Doctor</a></li>
-                        <li><a href="#">Reminders</a></li>
-                        <li><a href="#">Library</a></li>
-                    </ul>
-                </div>
-                <div class="link-group">
-                    <h4>Company</h4>
-                    <ul>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 GardenGreen AI. All rights reserved. 🇨🇦</p>
+            <p style="font-size: 0.8rem; color: rgba(255,255,255,0.15);">© 2026 GardenGreen Intelligence. All botanical rights reserved. 🇨🇦</p>
         </div>
     </footer>
+
+    <!-- About Modal -->
+    <div id="about-modal" class="modal">
+        <div class="modal-content glass-card" style="max-width: 700px; padding: 4rem;">
+            <button class="close-modal">✕</button>
+            <h2 style="color: var(--primary); margin-bottom: 1.5rem;">The Imperial Manifesto</h2>
+            <div style="line-height: 1.8; color: var(--text-muted);">
+                <p style="margin-bottom: 1rem;">GardenGreen is the result of a singular vision: to grant every plant owner **Total Optical Sovereignty**. Founded in 2026 by a collective of botanical engineers and AI specialists, we believe that garden management should be as precise as aerospace engineering.</p>
+                <p style="margin-bottom: 1rem;">Our platform utilizes advanced VPD-aware care engines, the Frost Sentinel™ climate network, and the sovereign Heritage Ledger to ensure your botanical assets thrive in any environment.</p>
+                <p>Welcome to the gold standard. Welcome to GardenGreen.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Privacy Modal -->
+    <div id="privacy-modal" class="modal">
+        <div class="modal-content glass-card" style="max-width: 700px; padding: 4rem;">
+            <button class="close-modal">✕</button>
+            <h2 style="color: var(--primary); margin-bottom: 1.5rem;">Sovereign Privacy Policy</h2>
+            <div style="line-height: 1.8; color: var(--text-muted); font-size: 0.95rem;">
+                <h4 style="color: #fff; margin-top: 1.5rem;">1. Data Sovereignty</h4>
+                <p>Your botanical telemetry is your property. GardenGreen does not sell, trade, or distribute your plant photos or care data.</p>
+                
+                <h4 style="color: #fff; margin-top: 1.5rem;">2. Local Intelligence</h4>
+                <p>Most of your garden's heritage is stored locally via our Imperial Vault (localStorage) to ensure zero-latency privacy.</p>
+
+                <h4 style="color: #fff; margin-top: 1.5rem;">3. AI Ethics</h4>
+                <p>Our diagnosis engine is trained on botanical signatures only. We do not use your personal images to train general-purpose models.</p>
+                
+                <p style="margin-top: 2rem; font-style: italic; color: var(--primary);">"Your garden is your sanctuary. We keep it that way."</p>
+            </div>
+        </div>
+    </div>
 
     <!-- Universal Root Viewfinders (Escaping Containment) -->
     <div id="diag-camera-container" class="camera-container" style="display: none;">
