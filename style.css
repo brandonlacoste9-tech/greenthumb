@@ -1402,6 +1402,31 @@ footer {
     100% { transform: translateX(100%) rotate(45deg); }
 }
 
+/* Library Card Visibility */
+.library-card {
+    background: white;
+    border: 1px solid rgba(0,0,0,0.05);
+    color: var(--text-main);
+}
+
+[data-theme="dark"] .library-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(212, 175, 55, 0.1);
+}
+
+[data-theme="dark"] .library-card h3 {
+    color: #fff;
+}
+
+[data-theme="dark"] .library-card p {
+    color: rgba(255,255,255,0.6) !important;
+}
+
+[data-theme="dark"] .lib-tag {
+    background: rgba(255,255,255,0.05) !important;
+    color: #fff !important;
+}
+
 /* Ledger Entry Styles */
 .ledger-entry {
     display: flex;
