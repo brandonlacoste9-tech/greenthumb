@@ -156,8 +156,9 @@ nav {
 /* Hero Section Update */
 .hero {
     padding: 14rem 0 10rem;
-    background: radial-gradient(circle at 80% 20%, #e8f5ed 0%, transparent 50%),
-                radial-gradient(circle at 20% 80%, #fef9e7 0%, transparent 50%);
+    background: radial-gradient(circle at 90% 10%, rgba(212, 175, 55, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 10% 90%, rgba(45, 90, 39, 0.1) 0%, transparent 40%),
+                var(--bg-light);
     position: relative;
     overflow: hidden;
 }
@@ -171,7 +172,8 @@ nav {
     bottom: 0;
     background: url('greenthumb_hero_v2.png') no-repeat center center;
     background-size: cover;
-    opacity: 0.05;
+    opacity: 0.18; /* Increased from 0.05 */
+    filter: blur(5px); /* Soft bokeh effect */
     z-index: -1;
 }
 
