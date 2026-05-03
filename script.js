@@ -32,33 +32,45 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        const now = new Date().getTime();
+
         gardenGrid.style.display = 'grid';
-        gardenGrid.innerHTML = myPlants.map(plant => `
-            <div class="plant-card animate-in" data-id="${plant.id}">
-                <div class="plant-thumb">
-                    <img src="${plant.image}" alt="${plant.name}">
-                    <span class="env-tag">${plant.env}</span>
-                </div>
-                <div class="plant-info">
-                    <div class="title-row">
-                        <h3>${plant.name}</h3>
-                        <span class="species">${plant.species}</span>
+        gardenGrid.innerHTML = myPlants.map(plant => {
+            const nextWaterTime = plant.lastWatered + (plant.interval * 24 * 60 * 60 * 1000);
+            const daysLeft = Math.ceil((nextWaterTime - now) / (1000 * 60 * 60 * 24));
+            const isOverdue = daysLeft <= 0;
+            const waterLevel = isOverdue ? 0 : Math.max(0, Math.min(100, (daysLeft / plant.interval) * 100));
+
+            return `
+                <div class="plant-card animate-in ${isOverdue ? 'overdue-alarm' : ''}" data-id="${plant.id}">
+                    <div class="plant-thumb">
+                        <img src="${plant.image}" alt="${plant.name}">
+                        <span class="env-tag">${plant.env}</span>
+                        ${isOverdue ? '<span class="alarm-badge">⚠️ ALARM</span>' : ''}
                     </div>
-                    <div class="care-stats">
-                        <div class="stat">
-                            <span class="label">Water Health</span>
-                            <div class="progress-bar"><div class="progress" style="width: ${plant.waterLevel}%; background-color: ${plant.waterLevel < 40 ? '#ef4444' : '#4A7856'}"></div></div>
+                    <div class="plant-info">
+                        <div class="title-row">
+                            <h3>${plant.name}</h3>
+                            <span class="species">${plant.species}</span>
+                        </div>
+                        <div class="care-stats">
+                            <div class="stat">
+                                <span class="label">Hydration Level</span>
+                                <div class="progress-bar"><div class="progress" style="width: ${waterLevel}%; background-color: ${isOverdue ? '#ef4444' : '#4A7856'}"></div></div>
+                            </div>
+                        </div>
+                        <div class="plant-footer">
+                            <span class="remind-tag ${isOverdue ? 'text-danger' : ''}">
+                                ${isOverdue ? 'Overdue!' : `Next Water: ${daysLeft} days`}
+                            </span>
+                            <button class="btn-water ${isOverdue ? 'btn-alarm' : ''}">
+                                ${isOverdue ? 'WATER NOW' : 'Watered'}
+                            </button>
                         </div>
                     </div>
-                    <div class="plant-footer">
-                        <span class="remind-tag">${plant.nextWater}</span>
-                        <button class="btn-water" ${plant.waterLevel === 100 ? 'disabled' : ''}>
-                            ${plant.waterLevel === 100 ? 'Watered!' : 'Water Now'}
-                        </button>
-                    </div>
                 </div>
-            </div>
-        `).join('');
+            `;
+        }).join('');
 
         attachGardenListeners();
     }
@@ -69,8 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const id = parseInt(this.closest('.plant-card').dataset.id);
                 const plant = myPlants.find(p => p.id === id);
                 if (plant) {
-                    plant.waterLevel = 100;
-                    plant.nextWater = "Next Water: 7 days";
+                    plant.lastWatered = new Date().getTime();
                     saveGarden();
                     renderGarden();
                     showNotification(`Success! ${plant.name} has been watered.`);
@@ -102,6 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const name = document.getElementById('plant-name').value;
         const species = document.getElementById('plant-species').value;
         const env = document.getElementById('plant-env').value;
+        const interval = parseInt(document.getElementById('plant-interval').value) || 7;
 
         if (name && species) {
             const newPlant = {
@@ -109,9 +121,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 name: name,
                 species: species,
                 env: env,
-                image: "greenthumb_hero.png",
-                waterLevel: 50,
-                nextWater: "4 days"
+                interval: interval,
+                lastWatered: new Date().getTime(),
+                image: "greenthumb_hero.png"
             };
             myPlants.push(newPlant);
             saveGarden();

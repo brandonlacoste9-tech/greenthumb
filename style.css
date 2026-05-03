@@ -450,6 +450,55 @@ h1 {
     transform: translateY(-10px);
 }
 
+.overdue-alarm {
+    border: 2px solid #ef4444;
+    animation: alarm-pulse 2s infinite;
+}
+
+@keyframes alarm-pulse {
+    0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+    70% { box-shadow: 0 0 0 15px rgba(239, 68, 68, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+}
+
+.alarm-badge {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: #ef4444;
+    color: white;
+    padding: 0.3rem 0.8rem;
+    border-radius: 50px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3);
+    animation: bounce 1s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+.text-danger {
+    color: #ef4444 !important;
+    font-weight: 700;
+}
+
+.btn-alarm {
+    background: #ef4444 !important;
+    color: white !important;
+    animation: shake 0.5s infinite;
+}
+
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-2px); }
+    50% { transform: translateX(2px); }
+    75% { transform: translateX(-2px); }
+    100% { transform: translateX(0); }
+}
+
 .plant-thumb {
     position: relative;
 }
