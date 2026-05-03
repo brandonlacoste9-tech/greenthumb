@@ -1,22 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // --- Firebase Initialization (REPLACE WITH YOUR CONFIG) ---
-    const firebaseConfig = {
-        apiKey: "YOUR_API_KEY",
-        authDomain: "YOUR_PROJECT.firebaseapp.com",
-        projectId: "YOUR_PROJECT_ID",
-        storageBucket: "YOUR_PROJECT.appspot.com",
-        messagingSenderId: "YOUR_SENDER_ID",
-        appId: "YOUR_APP_ID"
-    };
-
-    let auth = null;
-    let db = null;
-    let currentUser = null;
-
-    if (firebaseConfig.apiKey !== "YOUR_API_KEY") {
-        firebase.initializeApp(firebaseConfig);
-        auth = firebase.auth();
-        db = firebase.firestore();
+    // --- SaaS Device Identity ---
+    let deviceId = localStorage.getItem('greenthumb_device_id');
+    if (!deviceId) {
+        deviceId = 'user_' + Math.random().toString(36).substr(2, 9);
+        localStorage.setItem('greenthumb_device_id', deviceId);
     }
 
     // Global Elements
@@ -42,35 +29,34 @@ document.addEventListener('DOMContentLoaded', () => {
     let myPlants = [];
 
     async function saveGarden() {
-        if (currentUser) {
-            try {
-                await fetch('/api/garden', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ userId: currentUser.uid, plants: myPlants })
-                });
-            } catch (err) {
-                console.error("Failed to save to Neon:", err);
-            }
-        } else {
-            localStorage.setItem('greenthumb_garden', JSON.stringify(myPlants));
+        localStorage.setItem('greenthumb_garden', JSON.stringify(myPlants));
+        try {
+            await fetch('/api/garden', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ userId: deviceId, plants: myPlants })
+            });
+        } catch (err) {
+            console.error("Cloud Sync Failed (Check Neon Config):", err);
         }
     }
 
     async function loadGarden() {
-        if (currentUser) {
-            try {
-                const response = await fetch(`/api/garden?uid=${currentUser.uid}`);
-                const data = await response.json();
-                myPlants = data.plants || [];
-            } catch (err) {
-                console.error("Failed to load from Neon:", err);
-                myPlants = [];
-            }
-        } else {
-            myPlants = JSON.parse(localStorage.getItem('greenthumb_garden')) || [];
-        }
+        // First load from local for speed
+        myPlants = JSON.parse(localStorage.getItem('greenthumb_garden')) || [];
         renderGarden();
+
+        // Then try to sync from Neon cloud
+        try {
+            const response = await fetch(`/api/garden?uid=${deviceId}`);
+            const data = await response.json();
+            if (data.plants && data.plants.length > 0) {
+                myPlants = data.plants;
+                renderGarden();
+            }
+        } catch (err) {
+            console.error("Cloud Load Failed:", err);
+        }
     }
 
     function renderGarden() {
@@ -313,71 +299,8 @@ document.addEventListener('DOMContentLoaded', () => {
         simulateDiagnosis(fileInput.files[0]);
     };
 
-    // Auth Logic
-    const authModal = document.getElementById('auth-modal');
-    const btnLogin = document.getElementById('btn-login');
-    const btnLogout = document.getElementById('btn-logout');
-    const authTitle = document.getElementById('auth-title');
-    const btnAuthSubmit = document.getElementById('btn-auth-submit');
-    const authSwitch = document.getElementById('auth-switch');
-    const userProfile = document.getElementById('user-profile');
-    const userEmailSpan = document.getElementById('user-email');
-    let isSignUp = false;
-
-    btnLogin.onclick = () => authModal.style.display = 'flex';
-    document.getElementById('close-auth').onclick = () => authModal.style.display = 'none';
-
-    authSwitch.onclick = (e) => {
-        e.preventDefault();
-        isSignUp = !isSignUp;
-        authTitle.textContent = isSignUp ? "Create Account" : "Welcome Back";
-        btnAuthSubmit.textContent = isSignUp ? "Sign Up" : "Login";
-        document.getElementById('auth-switch-text').textContent = isSignUp ? "Already have an account?" : "Don't have an account?";
-        authSwitch.textContent = isSignUp ? "Login" : "Sign Up";
-    };
-
-    btnAuthSubmit.onclick = async () => {
-        if (!auth) {
-            alert("Firebase not configured. Please add your config to script.js.");
-            return;
-        }
-        const email = document.getElementById('auth-email').value;
-        const pass = document.getElementById('auth-pass').value;
-        try {
-            if (isSignUp) {
-                await auth.createUserWithEmailAndPassword(email, pass);
-                showNotification("Account created successfully!");
-            } else {
-                await auth.signInWithEmailAndPassword(email, pass);
-                showNotification("Logged in successfully!");
-            }
-            authModal.style.display = 'none';
-        } catch (err) {
-            alert(err.message);
-        }
-    };
-
-    btnLogout.onclick = () => auth && auth.signOut();
-
-    if (auth) {
-        auth.onAuthStateChanged(user => {
-            if (user) {
-                currentUser = user;
-                btnLogin.style.display = 'none';
-                userProfile.style.display = 'flex';
-                userEmailSpan.textContent = user.email;
-                loadGarden();
-            } else {
-                currentUser = null;
-                btnLogin.style.display = 'block';
-                userProfile.style.display = 'none';
-                loadGarden();
-            }
-        });
-    } else {
-        // Fallback for local use
-        loadGarden();
-    }
+    // Load garden on startup
+    loadGarden();
 
     // AI Diagnosis & Identification (Real API Integration)
 
