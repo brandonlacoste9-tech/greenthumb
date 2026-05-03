@@ -155,10 +155,24 @@ nav {
 
 /* Hero Section Update */
 .hero {
-    padding: 12rem 0 8rem;
-    background: radial-gradient(circle at top right, #e8f5ed 0%, transparent 60%);
+    padding: 14rem 0 10rem;
+    background: radial-gradient(circle at 80% 20%, #e8f5ed 0%, transparent 50%),
+                radial-gradient(circle at 20% 80%, #fef9e7 0%, transparent 50%);
     position: relative;
     overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('greenthumb_hero_v2.png') no-repeat center center;
+    background-size: cover;
+    opacity: 0.05;
+    z-index: -1;
 }
 
 .hero-content {
