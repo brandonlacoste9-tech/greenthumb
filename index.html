@@ -150,6 +150,14 @@
                 <h2>Add to My Garden</h2>
                 <div class="add-form">
                     <div class="form-group">
+                        <label>Plant Photo</label>
+                        <div class="upload-zone-small" id="modal-drop-zone">
+                            <div class="upload-icon">📸</div>
+                            <p>Click to upload photo</p>
+                            <input type="file" id="modal-plant-upload" hidden accept="image/*">
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label for="plant-name">Plant Name</label>
                         <input type="text" id="plant-name" placeholder="e.g. Bessy the Fern">
                     </div>
@@ -162,6 +170,15 @@
                         <select id="plant-env">
                             <option value="indoor">Indoor</option>
                             <option value="outdoor">Outdoor</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="plant-sun">Sun Requirement</label>
+                        <select id="plant-sun">
+                            <option value="Full Sun">Full Sun</option>
+                            <option value="Partial Sun">Partial Sun</option>
+                            <option value="Partial Shade">Partial Shade</option>
+                            <option value="Full Shade">Full Shade</option>
                         </select>
                     </div>
                     <div class="form-group">

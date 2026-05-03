@@ -52,6 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div class="title-row">
                             <h3>${plant.name}</h3>
                             <span class="species">${plant.species}</span>
+                            <span class="sun-requirement">☀️ ${plant.sun}</span>
                         </div>
                         <div class="care-stats">
                             <div class="stat">
@@ -105,6 +106,29 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnCloseModal = document.querySelector('.close-modal');
     const btnSavePlant = document.getElementById('save-plant');
 
+    const modalDropZone = document.getElementById('modal-drop-zone');
+    const modalFileInput = document.getElementById('modal-plant-upload');
+
+    modalDropZone.onclick = () => modalFileInput.click();
+    modalFileInput.onchange = (e) => {
+        if (e.target.files.length > 0) {
+            showNotification("Analyzing photo for care requirements...");
+            // Simulate care suggestion
+            setTimeout(() => {
+                const suggestions = [
+                    { species: "Monstera", sun: "Partial Sun", interval: 7 },
+                    { species: "Fern", sun: "Full Shade", interval: 3 },
+                    { species: "Succulent", sun: "Full Sun", interval: 14 }
+                ];
+                const suggestion = suggestions[Math.floor(Math.random() * suggestions.length)];
+                document.getElementById('plant-species').value = suggestion.species;
+                document.getElementById('plant-sun').value = suggestion.sun;
+                document.getElementById('plant-interval').value = suggestion.interval;
+                showNotification("Suggestions applied based on photo!");
+            }, 1500);
+        }
+    };
+
     btnOpenModal.onclick = () => openAddModal();
     btnCloseModal.onclick = () => modal.style.display = 'none';
     window.onclick = (e) => { if (e.target == modal) modal.style.display = 'none'; };
@@ -113,6 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const name = document.getElementById('plant-name').value;
         const species = document.getElementById('plant-species').value;
         const env = document.getElementById('plant-env').value;
+        const sun = document.getElementById('plant-sun').value;
         const interval = parseInt(document.getElementById('plant-interval').value) || 7;
 
         if (name && species) {
@@ -121,6 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 name: name,
                 species: species,
                 env: env,
+                sun: sun,
                 interval: interval,
                 lastWatered: new Date().getTime(),
                 image: "greenthumb_hero.png"
@@ -134,6 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Clear inputs
             document.getElementById('plant-name').value = '';
             document.getElementById('plant-species').value = '';
+            document.getElementById('plant-interval').value = '7';
         } else {
             alert("Please fill in both Name and Species.");
         }
