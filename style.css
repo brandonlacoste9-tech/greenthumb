@@ -129,10 +129,12 @@ nav {
 }
 
 .hero-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    flex-direction: column;
     align-items: center;
+    text-align: center;
     gap: 4rem;
+    margin: 0 auto;
 }
 
 h1 {
@@ -140,6 +142,7 @@ h1 {
     line-height: 1.1;
     margin-bottom: 1.5rem;
     font-weight: 700;
+    max-width: 900px;
 }
 
 .accent {
@@ -151,16 +154,22 @@ h1 {
     font-size: 1.25rem;
     color: var(--text-muted);
     margin-bottom: 2.5rem;
-    max-width: 500px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .hero-actions {
     display: flex;
-    gap: 1rem;
+    gap: 1.5rem;
+    justify-content: center;
 }
 
 .hero-image {
     position: relative;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 .glass-card {
@@ -267,10 +276,13 @@ h1 {
 }
 
 .ai-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    flex-direction: column;
     gap: 4rem;
     align-items: center;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 .upload-zone {
@@ -322,9 +334,12 @@ h1 {
 
 .plant-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 2.5rem;
+    justify-items: center;
     justify-content: center;
+    max-width: 1000px;
+    margin: 0 auto;
 }
 
 .plant-card {
