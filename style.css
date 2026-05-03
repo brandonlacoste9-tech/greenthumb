@@ -1604,10 +1604,15 @@ footer {
 
     /* True Full-Screen Optical Sovereignty */
     .modal-content {
-        background: transparent !important;
+        background: #000 !important;
         border: none !important;
         box-shadow: none !important;
         padding: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        max-width: 100vw !important;
+        max-height: 100vh !important;
+        border-radius: 0 !important;
     }
 
     .camera-container, #diag-camera-container {
@@ -1618,35 +1623,40 @@ footer {
         height: 100vh !important;
         z-index: 2000 !important;
         background: #000;
+        margin: 0 !important;
     }
 
     video {
         width: 100vw !important;
         height: 100vh !important;
         object-fit: cover !important;
+        position: absolute;
+        top: 0;
+        left: 0;
     }
 
-    /* Floating Camera Controls */
+    /* Precision Floating Shutter */
     #btn-diag-snap, #btn-snap {
         position: fixed !important;
-        bottom: 3rem !important;
+        bottom: 4rem !important;
         left: 50% !important;
         transform: translateX(-50%) !important;
-        width: 80px !important;
-        height: 80px !important;
+        width: 76px !important;
+        height: 76px !important;
         border-radius: 50% !important;
         background: #fff !important;
         border: 6px solid rgba(212, 175, 55, 0.4) !important;
         color: transparent !important;
         z-index: 2100 !important;
         cursor: pointer;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+        display: block !important;
     }
 
     .close-modal {
         position: fixed !important;
-        top: 2rem !important;
-        right: 2rem !important;
+        top: 1.5rem !important;
+        right: 1.5rem !important;
         z-index: 2101 !important;
         background: rgba(0,0,0,0.5) !important;
         color: #fff !important;
@@ -1656,7 +1666,7 @@ footer {
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
-        font-size: 1.5rem !important;
+        font-size: 1.2rem !important;
         border: none !important;
     }
 }
