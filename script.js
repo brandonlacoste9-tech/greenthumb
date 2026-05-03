@@ -17,6 +17,28 @@ document.addEventListener('DOMContentLoaded', () => {
     const libraryGrid = document.getElementById('library-grid');
     const librarySearch = document.getElementById('library-search');
     const header = document.querySelector('header');
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+
+    // Theme Toggle Logic
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    if (currentTheme === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        themeIcon.innerText = '☀️';
+    }
+
+    themeToggle.addEventListener('click', () => {
+        let theme = document.documentElement.getAttribute('data-theme');
+        if (theme === 'dark') {
+            document.documentElement.removeAttribute('data-theme');
+            themeIcon.innerText = '🌙';
+            localStorage.setItem('theme', 'light');
+        } else {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            themeIcon.innerText = '☀️';
+            localStorage.setItem('theme', 'dark');
+        }
+    });
 
     window.onscroll = () => {
         if (window.scrollY > 50) {

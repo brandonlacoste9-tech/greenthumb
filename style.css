@@ -15,6 +15,20 @@
     --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+[data-theme="dark"] {
+    --bg-light: #120E0D; /* Smoked Obsidian */
+    --text-main: #FDF5E6; /* Cream Silk */
+    --text-muted: #A89584;
+    --white: #1C1715; /* Espresso Oak */
+    --primary: #D4AF37; /* Burnished Gold */
+    --primary-light: #2A2421;
+    --primary-dark: #0A0807;
+    --glass: rgba(28, 23, 21, 0.85);
+    --glass-border: rgba(212, 175, 55, 0.15);
+    --shadow: 0 40px 80px rgba(0, 0, 0, 0.5);
+    --bg-soft: #1C1715;
+}
+
 * {
     margin: 0;
     padding: 0;
