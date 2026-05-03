@@ -1299,6 +1299,71 @@ footer {
     color: var(--primary);
 }
 
+/* Frost Sentinel Pulse */
+.frost-pulse {
+    animation: frost-glow 2s infinite alternate;
+    border: 1px solid rgba(58, 134, 255, 0.4) !important;
+}
+
+@keyframes frost-glow {
+    from { box-shadow: 0 0 10px rgba(58, 134, 255, 0.1); }
+    to { box-shadow: 0 0 25px rgba(58, 134, 255, 0.3); }
+}
+
+/* Imperial Alert Modal */
+.imperial-modal {
+    background: rgba(255, 255, 255, 0.1) !important;
+    backdrop-filter: blur(25px) !important;
+    border: 2px solid #D4AF37 !important;
+    color: #fff !important;
+    max-width: 500px;
+    border-radius: 30px;
+    padding: 3rem;
+    text-align: center;
+}
+
+.imperial-modal h2 {
+    color: #D4AF37;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+}
+
+.btn-imperial {
+    background: #D4AF37;
+    color: #000;
+    font-weight: 800;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    margin-top: 2rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-imperial:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+}
+
+/* Garden Portfolio Badge */
+.btn-share-portfolio {
+    background: none;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    color: var(--primary);
+    font-size: 0.65rem;
+    padding: 0.3rem 0.6rem;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    transition: all 0.3s;
+}
+
+.btn-share-portfolio:hover {
+    background: rgba(212, 175, 55, 0.1);
+    border-color: #D4AF37;
+}
+
 /* Responsive */
 @media (max-width: 968px) {
     .hero-content, .ai-grid {
