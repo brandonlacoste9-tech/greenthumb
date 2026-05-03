@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /private-ledger/
+
+# Specifically inviting AI crawlers to index the care intelligence
+User-agent: GPTBot
+Allow: /library/
+
+User-agent: Google-InspectionTool
+Allow: /
