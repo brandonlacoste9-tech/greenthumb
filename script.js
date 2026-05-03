@@ -201,15 +201,24 @@ document.addEventListener('DOMContentLoaded', () => {
         return canvasElement.toDataURL('image/png');
     }
 
-    // Diagnosis Camera
-    const diagLink = document.getElementById('link-diag-camera');
+    // Global Root-Level Optical Components
     const diagVideo = document.getElementById('diag-camera-preview');
     const diagContainer = document.getElementById('diag-camera-container');
-    const diagZone = document.getElementById('drop-zone');
-    const diagSnap = document.getElementById('btn-diag-snap');
     const diagCanvas = document.getElementById('diag-camera-canvas');
+    const diagZone = document.getElementById('drop-zone');
+
+    const mainVideo = document.getElementById('camera-preview');
+    const mainContainer = document.getElementById('camera-container');
+    const mainCanvas = document.getElementById('camera-canvas');
+    const mainZone = document.getElementById('modal-drop-zone');
+
+    // Initiation Triggers
+    const diagLink = document.getElementById('link-diag-camera');
+    const mainLink = document.getElementById('link-camera');
 
     if (diagLink) diagLink.onclick = () => startCamera(diagVideo, diagContainer, diagZone);
+    if (mainLink) mainLink.onclick = () => startCamera(mainVideo, mainContainer, mainZone);
+
     // High-Resilience Capture Triggers
     function attachCaptureListeners() {
         const diagSnap = document.getElementById('btn-diag-snap');
@@ -218,8 +227,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const triggerDiag = () => {
             const photo = capturePhoto(diagVideo, diagCanvas);
             diagContainer.style.display = 'none';
-            diagZone.style.display = 'flex';
-            diagZone.innerHTML = `<img src="${photo}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 20px;">`;
+            if (diagZone) {
+                diagZone.style.display = 'flex';
+                diagZone.innerHTML = `<img src="${photo}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 20px;">`;
+            }
             logLedger('Captured photo for AI Diagnosis.', '📸');
             runDiagnosis();
         };
@@ -227,9 +238,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const triggerMain = () => {
             const photo = capturePhoto(mainVideo, mainCanvas);
             mainContainer.style.display = 'none';
-            mainZone.style.display = 'none';
-            mainCanvas.previousElementSibling.style.display = 'flex';
-            mainCanvas.previousElementSibling.innerHTML = `<img src="${photo}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 15px;">`;
+            if (mainZone) {
+                mainZone.style.display = 'none';
+                const previewContainer = mainCanvas.previousElementSibling;
+                if (previewContainer) {
+                    previewContainer.style.display = 'flex';
+                    previewContainer.innerHTML = `<img src="${photo}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 15px;">`;
+                }
+            }
             logLedger('Captured photo for new garden asset.', '📸');
         };
 
