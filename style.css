@@ -1402,6 +1402,33 @@ footer {
     100% { transform: translateX(100%) rotate(45deg); }
 }
 
+/* Ledger Entry Styles */
+.ledger-entry {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: rgba(0,0,0,0.02);
+    border-radius: 12px;
+    border-left: 4px solid var(--primary);
+    animation: slide-in 0.4s ease-out;
+}
+
+.ledger-entry .entry-main { display: flex; align-items: center; gap: 1rem; }
+.ledger-entry .entry-icon { font-size: 1.2rem; }
+.ledger-entry .entry-text { font-size: 0.9rem; font-weight: 600; }
+.ledger-entry .entry-time { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+
+[data-theme="dark"] .ledger-entry {
+    background: rgba(255,255,255,0.03);
+    border-left-color: #D4AF37;
+}
+
+@keyframes slide-in {
+    from { opacity: 0; transform: translateX(-10px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
 /* Botanical Heritage Ledger */
 .btn-timeline {
     background: none;

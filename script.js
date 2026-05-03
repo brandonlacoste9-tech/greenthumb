@@ -42,8 +42,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Virtual Garden State
     let myPlants = [];
+    let ledgerEntries = JSON.parse(localStorage.getItem('greenthumb_ledger')) || [];
 
-    // --- Atmosphere Intelligence (Heritage Edition) ---
+    // --- Atmosphere Intelligence ---
     let localWeather = { temp: 3, humidity: 76, isRaining: true, uvIndex: 1 }; 
     let hasBriefed = false;
     let wasInDanger = false;
@@ -92,6 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
             card.classList.add('frost-pulse');
             adviceEl.innerText = '❄️ FROST ALERT: Move outdoor plants inside!';
             iconEl.innerText = '🧊';
+            if (!wasInDanger) logLedger('Frost Sentinel Alert: Temperature dropped below 5°C.', '❄️');
             wasInDanger = true;
             if (!hasBriefed) triggerBriefing('Frost detected. Protecting your botanical assets is our priority.', '🧊');
         } else if (localWeather.temp > 10 && wasInDanger) {
@@ -99,9 +101,12 @@ document.addEventListener('DOMContentLoaded', () => {
             adviceEl.innerText = '✅ SUCCESS: Frost snap avoided. Assets secured.';
             adviceEl.style.color = '#16a34a';
             iconEl.innerText = '🌿';
+            logLedger('Recovery Success: Garden survived the cold snap.', '✅');
+            wasInDanger = false;
         } else if (localWeather.temp > 30) {
             adviceEl.innerText = localWeather.humidity < 40 ? '🔥 Heatwave: Water after 7 PM.' : '🌡️ Hot/Humid: Watch for root rot.';
             iconEl.innerText = '🔥';
+            if (!wasInDanger) logLedger('Heatwave Warning: High-evaporation state detected.', '🔥');
             wasInDanger = true;
         } else {
             adviceEl.innerText = '✨ Optimal: Your garden is in the Green Zone.';
@@ -115,12 +120,52 @@ document.addEventListener('DOMContentLoaded', () => {
         const bText = document.getElementById('briefing-text');
         const bIcon = document.getElementById('briefing-icon');
         if (!briefing || !bText || !bIcon) return;
-        
         bText.innerText = text;
         bIcon.innerText = icon;
         briefing.style.display = 'flex';
         hasBriefed = true;
     }
+
+    // --- Botanical Ledger (Diary) Logic ---
+    function logLedger(text, icon = '📖') {
+        const entry = {
+            id: Date.now(),
+            text: text,
+            icon: icon,
+            time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        };
+        ledgerEntries.unshift(entry);
+        if (ledgerEntries.length > 50) ledgerEntries.pop(); // Keep last 50
+        localStorage.setItem('greenthumb_ledger', JSON.stringify(ledgerEntries));
+        renderLedger();
+    }
+
+    function renderLedger() {
+        const ledgerGrid = document.getElementById('global-ledger');
+        if (!ledgerGrid) return;
+        if (ledgerEntries.length === 0) {
+            ledgerGrid.innerHTML = `<div class="empty-state" style="opacity: 0.5; text-align: center; padding: 2rem;"><p>Your ledger is empty. Start caring for your plants to build their history.</p></div>`;
+            return;
+        }
+        ledgerGrid.innerHTML = ledgerEntries.map(entry => `
+            <div class="ledger-entry">
+                <div class="entry-main">
+                    <span class="entry-icon">${entry.icon}</span>
+                    <span class="entry-text">${entry.text}</span>
+                </div>
+                <span class="entry-time">${entry.time}</span>
+            </div>
+        `).join('');
+    }
+
+    function clearLedger() {
+        if (confirm('Are you sure you want to archive all records? This will clear the current view.')) {
+            ledgerEntries = [];
+            localStorage.setItem('greenthumb_ledger', JSON.stringify(ledgerEntries));
+            renderLedger();
+        }
+    }
+    window.clearLedger = clearLedger;
 
     function calculateGardenScore() {
         if (myPlants.length === 0) return 100;
@@ -134,7 +179,6 @@ document.addEventListener('DOMContentLoaded', () => {
         score -= (overdueCount / myPlants.length) * 50;
         const toxicCount = myPlants.filter(p => p.toxicity === 'toxic').length;
         score -= (toxicCount / myPlants.length) * 30;
-        if (localWeather.temp > 10 && wasInDanger) score += 5; 
         return Math.min(100, Math.max(0, Math.round(score)));
     }
 
@@ -153,6 +197,7 @@ document.addEventListener('DOMContentLoaded', () => {
     async function loadGarden() {
         myPlants = JSON.parse(localStorage.getItem('greenthumb_garden')) || [];
         renderGarden();
+        renderLedger();
         syncAtmosphere();
     }
 
@@ -210,6 +255,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (plant) {
                     plant.lastWatered = new Date().getTime();
                     saveGarden(); renderGarden(); updateAtmosphereUI();
+                    logLedger(`Watered ${plant.name}.`, '💧');
                 }
             });
         });
@@ -217,7 +263,9 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.addEventListener('click', function(e) {
                 e.stopPropagation();
                 const id = parseInt(this.closest('.plant-card').dataset.id);
+                const plant = myPlants.find(p => p.id === id);
                 if (confirm(`Remove plant?`)) {
+                    logLedger(`Removed ${plant.name} from garden.`, '🗑️');
                     myPlants = myPlants.filter(p => p.id !== id);
                     saveGarden(); renderGarden(); updateAtmosphereUI();
                 }
@@ -229,6 +277,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const plant = myPlants.find(p => p.id === id);
         if (!plant) return;
         triggerBriefing(`${plant.name} Heritage Ledger: Successfully navigated 1 frost event. Resilience score +5. Photo time-lapse active.`, '📈');
+        logLedger(`Consulted Heritage Timeline for ${plant.name}.`, '📈');
     }
     window.showTimeline = showTimeline;
 
@@ -241,6 +290,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const env = document.getElementById('plant-env').value;
         if (name && species) {
             myPlants.push({ id: Date.now(), name, species, env, sun: 'Partial Sun', interval: 7, toxicity: 'safe', lastWatered: new Date().getTime(), image: "greenthumb_hero_v2.png" });
+            logLedger(`Added ${name} (${species}) to garden.`, '🪴');
             saveGarden(); renderGarden(); updateAtmosphereUI();
             modal.style.display = 'none';
         }
