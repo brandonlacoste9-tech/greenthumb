@@ -237,6 +237,22 @@
                         <h2 style="margin-bottom: 0.5rem;">My Virtual Garden</h2>
                         <p style="color: var(--text-muted);">Real-time care tracking across all your devices.</p>
                     </div>
+                    
+                    <!-- Atmosphere Intelligence Card -->
+                    <div id="atmosphere-card" class="atmosphere-card glass-card">
+                        <div class="atmo-icon">🌦️</div>
+                        <div class="atmo-data">
+                            <div class="atmo-row">
+                                <span class="atmo-label">Local Humidity</span>
+                                <span id="atmo-humidity" class="atmo-value">--%</span>
+                            </div>
+                            <div class="atmo-row">
+                                <span class="atmo-label">Garden Status</span>
+                                <span id="atmo-status" class="atmo-value">Syncing...</span>
+                            </div>
+                        </div>
+                    </div>
+                    
                     <button class="btn-primary" id="open-add-modal" style="padding: 1rem 2rem;">+ Add New Plant</button>
                 </div>
                 <div class="plant-grid glass-card" id="virtual-garden" style="padding: 3rem; border-radius: 40px; border: none; min-height: 400px; display: grid; gap: 2rem;">

@@ -1248,6 +1248,57 @@ footer {
     border: 1px solid rgba(248, 113, 113, 0.2);
 }
 
+/* Atmosphere Card */
+.atmosphere-card {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.2rem 2rem !important;
+    border-radius: 25px !important;
+    background: rgba(74, 120, 86, 0.05) !important;
+    border: 1px solid rgba(74, 120, 86, 0.1) !important;
+    min-width: 280px;
+}
+
+[data-theme="dark"] .atmosphere-card {
+    background: rgba(212, 175, 55, 0.05) !important;
+    border-color: rgba(212, 175, 55, 0.1) !important;
+}
+
+.atmo-icon {
+    font-size: 2.2rem;
+    animation: atmo-float 3s ease-in-out infinite;
+}
+
+@keyframes atmo-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+.atmo-data {
+    flex-grow: 1;
+}
+
+.atmo-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.2rem;
+}
+
+.atmo-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--text-muted);
+}
+
+.atmo-value {
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: var(--primary);
+}
+
 /* Responsive */
 @media (max-width: 968px) {
     .hero-content, .ai-grid {

@@ -61,6 +61,58 @@ document.addEventListener('DOMContentLoaded', () => {
     // Virtual Garden State & Persistence
     let myPlants = [];
 
+    // --- Atmosphere Intelligence (Phase 2) ---
+    let localWeather = { humidity: 45, isRaining: false, uvIndex: 5 };
+
+    async function syncAtmosphere() {
+        // Simulate API Fetch (Tomorrow.io / OpenWeatherMap)
+        setTimeout(() => {
+            localWeather = { 
+                humidity: Math.floor(Math.random() * 40) + 30, 
+                isRaining: Math.random() > 0.8,
+                uvIndex: Math.floor(Math.random() * 10)
+            };
+            updateAtmosphereUI();
+            renderGarden(); 
+        }, 1500);
+    }
+
+    function updateAtmosphereUI() {
+        const humidityEl = document.getElementById('atmo-humidity');
+        const statusEl = document.getElementById('atmo-status');
+        const iconEl = document.querySelector('.atmo-icon');
+        if (!humidityEl || !statusEl || !iconEl) return;
+
+        humidityEl.innerText = `${localWeather.humidity}%`;
+        
+        if (localWeather.isRaining) {
+            statusEl.innerText = 'Rain: Delayed';
+            statusEl.style.color = '#3a86ff';
+            iconEl.innerText = '🌧️';
+        } else if (localWeather.uvIndex > 7) {
+            statusEl.innerText = 'High UV: Check Shade';
+            statusEl.style.color = '#ffaa00';
+            iconEl.innerText = '☀️';
+        } else {
+            statusEl.innerText = 'Optimal Care';
+            statusEl.style.color = 'var(--primary)';
+            iconEl.innerText = '🌦️';
+        }
+    }
+
+    function calculateWeatherModifier(plant) {
+        let modifier = 1.0;
+        // Outdoor plants are heavily affected by rain
+        if (plant.env === 'Outdoor' && localWeather.isRaining) return 2.0; 
+        
+        // Indoor plants are affected by humidity
+        if (plant.env === 'Indoor') {
+            if (localWeather.humidity > 60) modifier = 1.15; 
+            if (localWeather.humidity < 30) modifier = 0.85; 
+        }
+        return modifier;
+    }
+
     async function saveGarden() {
         localStorage.setItem('greenthumb_garden', JSON.stringify(myPlants));
         try {
@@ -70,16 +122,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 body: JSON.stringify({ userId: deviceId, plants: myPlants })
             });
         } catch (err) {
-            console.error("Cloud Sync Failed (Check Neon Config):", err);
+            console.error("Cloud Sync Failed:", err);
         }
     }
 
     async function loadGarden() {
-        // First load from local for speed
         myPlants = JSON.parse(localStorage.getItem('greenthumb_garden')) || [];
         renderGarden();
+        syncAtmosphere(); // Sync weather on load
 
-        // Then try to sync from Neon cloud
         try {
             const response = await fetch(`/api/garden?uid=${deviceId}`);
             const data = await response.json();
@@ -94,23 +145,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function renderGarden() {
         const gardenGrid = document.getElementById('virtual-garden');
+        if (!gardenGrid) return;
         
         if (myPlants.length === 0) {
             gardenGrid.innerHTML = `
-                <div class="empty-state">
-                    <div class="icon">🪴</div>
+                <div class="empty-state" style="padding: 4rem; text-align: center; grid-column: 1 / -1;">
+                    <div class="icon" style="font-size: 4rem; margin-bottom: 1rem;">🪴</div>
                     <h3>Your Garden is Empty</h3>
                     <p>Add your first plant to start tracking its care!</p>
                 </div>
             `;
             gardenGrid.style.display = 'block';
-            gardenGrid.style.textAlign = 'center';
             return;
         }
 
         const now = new Date().getTime();
-
         gardenGrid.style.display = 'grid';
+        
+        gardenGrid.innerHTML = myPlants.map(plant => {
+            const modifier = calculateWeatherModifier(plant);
+            const dynamicInterval = (plant.interval || 7) * modifier;
+            const nextWaterTime = plant.lastWatered + (dynamicInterval * 24 * 60 * 60 * 1000);
+            const daysLeft = Math.ceil((nextWaterTime - now) / (1000 * 60 * 60 * 24));
+            const isOverdue = daysLeft <= 0;
+            const waterLevel = isOverdue ? 0 : Math.max(0, Math.min(100, (daysLeft / dynamicInterval) * 100));
+
             const safetyHTML = plant.toxicity === 'safe' 
                 ? '<span class="safety-badge safe" style="display: inline-block; font-size: 0.7rem; margin-top: 0.5rem;">🐾 Pet Safe</span>' 
                 : plant.toxicity === 'toxic' 
@@ -120,7 +179,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return `
                 <div class="plant-card animate-in ${isOverdue ? 'overdue-alarm' : ''}" data-id="${plant.id}">
                     <div class="plant-thumb">
-                        <img src="${plant.image}" alt="${plant.name}">
+                        <img src="${plant.image || 'greenthumb_hero_v2.png'}" alt="${plant.name}">
                         <span class="env-tag">${plant.env}</span>
                         ${isOverdue ? '<span class="alarm-badge">⚠️ ALARM</span>' : ''}
                         <button class="btn-delete" title="Remove Plant">✕</button>
@@ -139,7 +198,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div class="care-stats">
                             <div class="stat">
                                 <span class="label">Hydration Level</span>
-                                <div class="progress-bar"><div class="progress" style="width: ${waterLevel}%; background-color: ${isOverdue ? '#ef4444' : '#4A7856'}"></div></div>
+                                <div class="progress-bar"><div class="progress" style="width: ${waterLevel}%; background-color: ${isOverdue ? '#ef4444' : 'var(--primary)'}"></div></div>
                             </div>
                         </div>
                         <div class="plant-footer">
@@ -195,8 +254,6 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => toast.remove(), 3000);
     }
 
-    // Modal Logic
-
     // Modular Camera Logic
     async function setupCamera(previewId, containerId, dropZoneId, snapBtnId, canvasId, onCapture) {
         const preview = document.getElementById(previewId);
@@ -242,7 +299,7 @@ document.addEventListener('DOMContentLoaded', () => {
         e.stopPropagation();
         setupCamera('diag-camera-preview', 'diag-camera-container', 'drop-zone', 'btn-diag-snap', 'diag-camera-canvas', () => {
             showNotification("Photo captured! Analyzing plant health...");
-            simulateDiagnosis(null); // Passing null because we use the canvas/simulation
+            simulateDiagnosis(null); 
         });
     };
 
@@ -296,6 +353,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const env = document.getElementById('plant-env').value;
         const sun = document.getElementById('plant-sun').value;
         const interval = parseInt(document.getElementById('plant-interval').value) || 7;
+        
+        // Find toxicity from library
+        const libEntry = plantLibrary.find(p => p.name.toLowerCase() === species.toLowerCase() || p.species.toLowerCase() === species.toLowerCase());
+        const toxicity = libEntry ? libEntry.toxicity : 'unknown';
 
         if (name && species) {
             const newPlant = {
@@ -305,8 +366,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 env: env,
                 sun: sun,
                 interval: interval,
+                toxicity: toxicity,
                 lastWatered: new Date().getTime(),
-                image: "greenthumb_hero.png"
+                image: "greenthumb_hero_v2.png"
             };
             myPlants.push(newPlant);
             saveGarden();
@@ -383,7 +445,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentCategory = 'all';
 
     function renderLibrary(filter = '') {
-        // Only show results if there's a search term or a specific category selected
         if (!filter && currentCategory === 'all') {
             libraryGrid.innerHTML = `
                 <div class="empty-state" style="grid-column: 1 / -1; opacity: 0.5;">
@@ -450,14 +511,13 @@ document.addEventListener('DOMContentLoaded', () => {
     loadGarden();
     renderLibrary();
 
-    // AI Diagnosis & Identification (Real API Integration)
-
+    // AI Diagnosis Logic
     async function identifyPlant(fileOrCanvas) {
         resultsArea.innerHTML = `
             <div class="diagnosis-loading">
                 <div class="spinner"></div>
                 <h3>Identifying Species...</h3>
-                <p>Connecting to Secure Secure SaaS Bridge</p>
+                <p>Connecting to Secure SaaS Bridge</p>
             </div>
         `;
 
@@ -545,7 +605,6 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     }
 
-    // Update simulation triggers to use real identification
     function simulateDiagnosis(file) {
         const canvas = document.getElementById('diag-camera-canvas');
         identifyPlant(file || canvas);
@@ -559,14 +618,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Expose openAddModal globally for onclick handlers
     window.openAddModal = openAddModal;
 
-    // Add Intersection Observer for scroll animations
-    const observerOptions = {
-        threshold: 0.1
-    };
-
+    const observerOptions = { threshold: 0.1 };
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -582,6 +636,3 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.observe(el);
     });
 });
-
-// Helper for CSS animation class
-document.write('<style>.fade-in-up { opacity: 1 !important; transform: translateY(0) !important; }</style>');
