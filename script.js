@@ -179,8 +179,9 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
 
         setTimeout(() => {
-            const issues = [
+            const results = [
                 {
+                    species: "Monstera Deliciosa",
                     title: "Leaf Spot Disease",
                     severity: "Moderate",
                     confidence: "94%",
@@ -188,6 +189,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     treatment: "1. Prune affected leaves.\n2. Apply organic fungicide.\n3. Water only at the base."
                 },
                 {
+                    species: "Fiddle Leaf Fig",
                     title: "Spider Mites",
                     severity: "High",
                     confidence: "88%",
@@ -195,6 +197,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     treatment: "1. Isolate the plant.\n2. Wipe leaves with Neem Oil.\n3. Increase local humidity."
                 },
                 {
+                    species: "Snake Plant",
                     title: "Optimal Health",
                     severity: "None",
                     confidence: "99%",
@@ -203,7 +206,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             ];
 
-            const result = issues[Math.floor(Math.random() * issues.length)];
+            const result = results[Math.floor(Math.random() * results.length)];
             
             resultsArea.innerHTML = `
                 <div class="diagnosis-card animate-in">
@@ -211,7 +214,12 @@ document.addEventListener('DOMContentLoaded', () => {
                         <span class="severity-badge ${result.severity.toLowerCase()}">${result.severity}</span>
                         <span class="confidence">Confidence: ${result.confidence}</span>
                     </div>
-                    <h3>${result.title}</h3>
+                    <div class="id-row">
+                        <span class="id-label">Identified Species:</span>
+                        <h3 class="id-value">${result.species}</h3>
+                    </div>
+                    <hr style="margin: 1rem 0; border: none; border-top: 1px solid #eee;">
+                    <h3 style="color: var(--text-main);">${result.title}</h3>
                     <div class="result-body">
                         <div class="result-section">
                             <h4 style="margin: 1rem 0 0.5rem; color: var(--primary);">Analysis</h4>
