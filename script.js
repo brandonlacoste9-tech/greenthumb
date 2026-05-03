@@ -467,6 +467,8 @@ document.addEventListener('DOMContentLoaded', () => {
         modal.style.display = 'none';
         diagContainer.style.display = 'none';
         mainContainer.style.display = 'none';
+        // Close all modals by class as well
+        document.querySelectorAll('.modal').forEach(m => m.style.display = 'none');
     }
 
     function openAddModal(species = '') {
@@ -477,12 +479,33 @@ document.addEventListener('DOMContentLoaded', () => {
     window.openAddModal = openAddModal;
     window.showTimeline = (id) => triggerBriefing('Heritage record active.', '📈');
 
-    btnOpenModal.onclick = () => { openAddModal(); };
-    btnCloseModal.onclick = () => { 
-        closeAllModals(); 
-        stopCamera();
-        if (history.state && history.state.activeUI) history.back();
-    };
+    // Imperial Modal Engine
+    function initModalEngine() {
+        const openModalBtns = document.querySelectorAll('[data-modal]');
+        openModalBtns.forEach(btn => {
+            btn.onclick = (e) => {
+                e.preventDefault();
+                const modalId = btn.getAttribute('data-modal');
+                const modalElement = document.getElementById(modalId);
+                if (modalElement) {
+                    modalElement.style.display = 'flex';
+                    pushNavigationState(modalId);
+                }
+            };
+        });
+
+        const closeModalBtns = document.querySelectorAll('.close-modal');
+        closeModalBtns.forEach(btn => {
+            btn.onclick = () => {
+                closeAllModals();
+                stopCamera();
+                if (history.state && history.state.activeUI) history.back();
+            };
+        });
+    }
+
+    // Initialize the engine
+    initModalEngine();
 
     btnSavePlant.onclick = () => {
         const name = document.getElementById('plant-name').value;
