@@ -303,14 +303,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Plant Library Data
     const plantLibrary = [
+        { name: "Spider Plant", species: "Chlorophytum comosum", water: "7 days", sun: "Partial Sun", difficulty: "Easy", icon: "🕷️", category: "houseplants" },
         { name: "Monstera Deliciosa", species: "Swiss Cheese Plant", water: "7 days", sun: "Partial Sun", difficulty: "Easy", icon: "🌿", category: "houseplants" },
-        { name: "Sansevieria", species: "Snake Plant", water: "14 days", sun: "Full Sun", difficulty: "Beginner", icon: "🌵", category: "succulents" },
-        { name: "Ficus Lyrata", species: "Fiddle Leaf Fig", water: "7 days", sun: "Full Sun", difficulty: "Hard", icon: "🎻", category: "houseplants" },
-        { name: "Epipremnum", species: "Pothos", water: "7 days", sun: "Partial Shade", difficulty: "Easy", icon: "🍃", category: "houseplants" },
-        { name: "Calathea", species: "Prayer Plant", water: "3 days", sun: "Partial Shade", difficulty: "Medium", icon: "🙏", category: "houseplants" },
-        { name: "Aloe Vera", species: "Medicinal Aloe", water: "14 days", sun: "Full Sun", difficulty: "Easy", icon: "🪴", category: "succulents" },
+        { name: "Snake Plant", species: "Sansevieria", water: "14 days", sun: "Full Sun", difficulty: "Beginner", icon: "🌵", category: "succulents" },
+        { name: "Peace Lily", species: "Spathiphyllum", water: "3 days", sun: "Partial Shade", difficulty: "Medium", icon: "🏳️", category: "flowers" },
+        { name: "Fiddle Leaf Fig", species: "Ficus Lyrata", water: "7 days", sun: "Full Sun", difficulty: "Hard", icon: "🎻", category: "houseplants" },
+        { name: "Pothos", species: "Epipremnum aureum", water: "7 days", sun: "Partial Shade", difficulty: "Easy", icon: "🍃", category: "houseplants" },
+        { name: "ZZ Plant", species: "Zamioculcas zamiifolia", water: "14 days", sun: "Full Shade", difficulty: "Beginner", icon: "🪴", category: "houseplants" },
+        { name: "Rubber Plant", species: "Ficus elastica", water: "7 days", sun: "Partial Sun", difficulty: "Easy", icon: "🌳", category: "houseplants" },
+        { name: "Aloe Vera", species: "Medicinal Aloe", water: "14 days", sun: "Full Sun", difficulty: "Easy", icon: "🩹", category: "succulents" },
+        { name: "Jade Plant", species: "Crassula ovata", water: "14 days", sun: "Full Sun", difficulty: "Easy", icon: "💎", category: "succulents" },
         { name: "Lavender", species: "Lavandula", water: "7 days", sun: "Full Sun", difficulty: "Medium", icon: "🌸", category: "flowers" },
-        { name: "Japanese Maple", species: "Acer Palmatum", water: "3 days", sun: "Partial Sun", difficulty: "Medium", icon: "🍁", category: "trees" }
+        { name: "Japanese Maple", species: "Acer Palmatum", water: "3 days", sun: "Partial Sun", difficulty: "Medium", icon: "🍁", category: "trees" },
+        { name: "Bird of Paradise", species: "Strelitzia reginae", water: "7 days", sun: "Full Sun", difficulty: "Hard", icon: "🐦", category: "flowers" },
+        { name: "English Ivy", species: "Hedera helix", water: "5 days", sun: "Partial Shade", difficulty: "Easy", icon: "🧗", category: "houseplants" },
+        { name: "Swiss Cheese Vine", species: "Monstera adansonii", water: "7 days", sun: "Partial Sun", difficulty: "Medium", icon: "🧀", category: "houseplants" }
     ];
 
     let currentCategory = 'all';
