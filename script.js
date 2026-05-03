@@ -27,7 +27,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p>Add your first plant to start tracking its care!</p>
                 </div>
             `;
-            // Center the empty state
             gardenGrid.style.display = 'block';
             gardenGrid.style.textAlign = 'center';
             return;
@@ -38,17 +37,17 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="plant-card animate-in" data-id="${plant.id}">
                 <div class="plant-thumb">
                     <img src="${plant.image}" alt="${plant.name}">
+                    <span class="env-tag">${plant.env}</span>
                 </div>
                 <div class="plant-info">
-                    <h3>${plant.name}</h3>
+                    <div class="title-row">
+                        <h3>${plant.name}</h3>
+                        <span class="species">${plant.species}</span>
+                    </div>
                     <div class="care-stats">
                         <div class="stat">
-                            <span class="label">Water</span>
+                            <span class="label">Water Health</span>
                             <div class="progress-bar"><div class="progress" style="width: ${plant.waterLevel}%; background-color: ${plant.waterLevel < 40 ? '#ef4444' : '#4A7856'}"></div></div>
-                        </div>
-                        <div class="stat">
-                            <span class="label">Light</span>
-                            <span class="value">${plant.light}</span>
                         </div>
                     </div>
                     <div class="plant-footer">
@@ -61,7 +60,6 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
         `).join('');
 
-        // Re-attach listeners
         attachGardenListeners();
     }
 
@@ -90,25 +88,58 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => toast.remove(), 3000);
     }
 
-    // Add Plant Functionality
-    const btnAdd = document.querySelector('.btn-add');
-    btnAdd.addEventListener('click', () => {
-        const name = prompt("Enter plant name:");
-        if (name) {
+    // Modal Logic
+    const modal = document.getElementById('add-plant-modal');
+    const btnOpenModal = document.getElementById('open-add-modal');
+    const btnCloseModal = document.querySelector('.close-modal');
+    const btnSavePlant = document.getElementById('save-plant');
+
+    btnOpenModal.onclick = () => modal.style.display = 'flex';
+    btnCloseModal.onclick = () => modal.style.display = 'none';
+    window.onclick = (e) => { if (e.target == modal) modal.style.display = 'none'; };
+
+    btnSavePlant.onclick = () => {
+        const name = document.getElementById('plant-name').value;
+        const species = document.getElementById('plant-species').value;
+        const env = document.getElementById('plant-env').value;
+
+        if (name && species) {
             const newPlant = {
                 id: Date.now(),
                 name: name,
-                image: "greenthumb_hero.png", // Default image
+                species: species,
+                env: env,
+                image: "greenthumb_hero.png",
                 waterLevel: 50,
-                light: "Full Sun",
                 nextWater: "4 days"
             };
             myPlants.push(newPlant);
             saveGarden();
             renderGarden();
+            modal.style.display = 'none';
             showNotification(`${name} added to your garden!`);
+            
+            // Clear inputs
+            document.getElementById('plant-name').value = '';
+            document.getElementById('plant-species').value = '';
+        } else {
+            alert("Please fill in both Name and Species.");
         }
-    });
+    };
+
+    // AI Diagnosis Logic
+    const btnDiagnose = document.getElementById('btn-diagnose');
+    const diagName = document.getElementById('diag-name');
+    const diagEnv = document.getElementById('diag-env');
+    const diagNotes = document.getElementById('diag-notes');
+
+    btnDiagnose.onclick = () => {
+        if (!fileInput.files.length) {
+            alert("Please upload a photo first.");
+            return;
+        }
+        simulateDiagnosis(fileInput.files[0]);
+    };
 
     // Initial Render
     renderGarden();

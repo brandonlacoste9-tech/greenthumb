@@ -82,18 +82,48 @@
             <div class="container glass-container">
                 <div class="ai-grid">
                     <div class="ai-upload">
-                        <h2>Diagnose Your Plant</h2>
-                        <p>Upload a photo of your plant's leaves to identify issues.</p>
-                        <div class="upload-zone" id="drop-zone">
-                            <div class="upload-icon">📸</div>
-                            <p>Click or drag photo here</p>
-                            <input type="file" id="plant-upload" hidden>
+                        <h2>Diagnose a plant</h2>
+                        <p>Upload a clear photo and add any context you have.</p>
+                        
+                        <div class="diagnosis-form">
+                            <div class="form-group">
+                                <label>Photo</label>
+                                <div class="upload-zone" id="drop-zone">
+                                    <div class="upload-icon">📸</div>
+                                    <p>Drag & drop or click to upload</p>
+                                    <span class="file-hint">JPG, PNG · up to 8MB</span>
+                                    <input type="file" id="plant-upload" hidden accept="image/*">
+                                </div>
+                                <p class="tip">Tip: focus on the affected leaves in good light.</p>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="diag-name">Plant name (optional)</label>
+                                <input type="text" id="diag-name" placeholder="e.g. Monstera deliciosa">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="diag-env">Environment</label>
+                                <select id="diag-env">
+                                    <option value="indoor">Indoor</option>
+                                    <option value="outdoor">Outdoor</option>
+                                    <option value="greenhouse">Greenhouse</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="diag-notes">Symptoms or notes (optional)</label>
+                                <textarea id="diag-notes" placeholder="Yellowing leaves, brown spots, recently repotted…"></textarea>
+                            </div>
+
+                            <button class="btn-primary-large" id="btn-diagnose" style="width: 100%;">Diagnose</button>
                         </div>
                     </div>
                     <div class="ai-results" id="diagnosis-results">
                         <div class="placeholder-results">
-                            <h3>Awaiting Upload...</h3>
-                            <p>Your diagnosis results will appear here.</p>
+                            <div class="icon">🩺</div>
+                            <h3>Awaiting Data...</h3>
+                            <p>Complete the form and upload a photo to receive your AI diagnosis.</p>
                         </div>
                     </div>
                 </div>
@@ -105,58 +135,39 @@
             <div class="container">
                 <div class="dashboard-header">
                     <h2>My Virtual Garden</h2>
-                    <button class="btn-add">+ Add Plant</button>
+                    <button class="btn-add" id="open-add-modal">+ Add Plant</button>
                 </div>
                 <div class="plant-grid" id="virtual-garden">
-                    <!-- Plant Card 1 -->
-                    <div class="plant-card">
-                        <div class="plant-thumb">
-                            <img src="greenthumb_hero.png" alt="Monstera Deliciosa">
-                        </div>
-                        <div class="plant-info">
-                            <h3>Monstera Deliciosa</h3>
-                            <div class="care-stats">
-                                <div class="stat">
-                                    <span class="label">Water</span>
-                                    <div class="progress-bar"><div class="progress" style="width: 75%;"></div></div>
-                                </div>
-                                <div class="stat">
-                                    <span class="label">Light</span>
-                                    <span class="value">Partial Sun</span>
-                                </div>
-                            </div>
-                            <div class="plant-footer">
-                                <span class="remind-tag">Next Water: 2 days</span>
-                                <button class="btn-water">Water Now</button>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Plant Card 2 -->
-                    <div class="plant-card">
-                        <div class="plant-thumb">
-                            <img src="fiddle_leaf_fig.png" alt="Fiddle Leaf Fig">
-                        </div>
-                        <div class="plant-info">
-                            <h3>Fiddle Leaf Fig</h3>
-                            <div class="care-stats">
-                                <div class="stat">
-                                    <span class="label">Water</span>
-                                    <div class="progress-bar"><div class="progress" style="width: 30%;"></div></div>
-                                </div>
-                                <div class="stat">
-                                    <span class="label">Light</span>
-                                    <span class="value">Bright Indirect</span>
-                                </div>
-                            </div>
-                            <div class="plant-footer">
-                                <span class="remind-tag">Needs Water!</span>
-                                <button class="btn-water">Water Now</button>
-                            </div>
-                        </div>
-                    </div>
+                    <!-- Dynamic Content -->
                 </div>
             </div>
         </section>
+
+        <!-- Add Plant Modal -->
+        <div id="add-plant-modal" class="modal">
+            <div class="modal-content glass-card">
+                <span class="close-modal">&times;</span>
+                <h2>Add to My Garden</h2>
+                <div class="add-form">
+                    <div class="form-group">
+                        <label for="plant-name">Plant Name</label>
+                        <input type="text" id="plant-name" placeholder="e.g. Bessy the Fern">
+                    </div>
+                    <div class="form-group">
+                        <label for="plant-species">Species</label>
+                        <input type="text" id="plant-species" placeholder="e.g. Boston Fern">
+                    </div>
+                    <div class="form-group">
+                        <label for="plant-env">Environment</label>
+                        <select id="plant-env">
+                            <option value="indoor">Indoor</option>
+                            <option value="outdoor">Outdoor</option>
+                        </select>
+                    </div>
+                    <button class="btn-primary" id="save-plant">Save Plant</button>
+                </div>
+            </div>
+        </div>
     </main>
 
     <footer>

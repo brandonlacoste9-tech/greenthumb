@@ -305,7 +305,97 @@ h1 {
     border-color: var(--primary);
 }
 
-.upload-icon { font-size: 3rem; margin-bottom: 1rem; }
+.upload-icon { font-size: 3rem; margin-bottom: 0.5rem; }
+
+.file-hint {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 0.5rem;
+}
+
+.diagnosis-form {
+    text-align: left;
+    margin-top: 2rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--text-main);
+}
+
+.form-group input, 
+.form-group select, 
+.form-group textarea {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    font-family: inherit;
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
+.form-group textarea {
+    height: 100px;
+    resize: none;
+}
+
+.form-group input:focus, 
+.form-group select:focus, 
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(74, 120, 86, 0.1);
+}
+
+.tip {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-top: 0.5rem;
+    font-style: italic;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    backdrop-filter: blur(5px);
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    padding: 3rem;
+}
+
+.close-modal {
+    position: absolute;
+    right: 1.5rem;
+    top: 1rem;
+    font-size: 2rem;
+    cursor: pointer;
+    color: var(--text-muted);
+}
+
+.close-modal:hover {
+    color: var(--primary);
+}
 
 /* Dashboard */
 .dashboard-preview {
@@ -360,6 +450,24 @@ h1 {
     transform: translateY(-10px);
 }
 
+.plant-thumb {
+    position: relative;
+}
+
+.env-tag {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: var(--white);
+    padding: 0.3rem 0.8rem;
+    border-radius: 50px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--primary);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
 .plant-thumb img {
     width: 100%;
     height: 250px;
@@ -368,6 +476,22 @@ h1 {
 
 .plant-info {
     padding: 2rem;
+}
+
+.title-row {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
+
+.title-row h3 {
+    margin-bottom: 0.2rem;
+}
+
+.species {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    font-style: italic;
 }
 
 .care-stats {
