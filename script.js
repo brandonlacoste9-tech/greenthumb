@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Virtual Garden State
     let myPlants = [];
 
-    // --- Atmosphere Intelligence (Shepherd Edition) ---
+    // --- Atmosphere Intelligence (Heritage Edition) ---
     let localWeather = { temp: 3, humidity: 76, isRaining: true, uvIndex: 1 }; 
     let hasBriefed = false;
     let wasInDanger = false;
@@ -68,7 +68,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function simulateWeather() {
-        // Toggle for testing: set to 12 to see recovery
         localWeather = { temp: 3, humidity: 76, isRaining: true }; 
         updateAtmosphereUI();
         renderGarden();
@@ -86,11 +85,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const score = calculateGardenScore();
         scoreEl.innerText = `${score}/100`;
 
-        // Reset states
         card.classList.remove('frost-pulse');
         card.classList.remove('recovery-glow');
 
-        // Logic Arc
         if (localWeather.temp < 5) {
             card.classList.add('frost-pulse');
             adviceEl.innerText = '❄️ FROST ALERT: Move outdoor plants inside!';
@@ -98,7 +95,6 @@ document.addEventListener('DOMContentLoaded', () => {
             wasInDanger = true;
             if (!hasBriefed) triggerBriefing('Frost detected. Protecting your botanical assets is our priority.', '🧊');
         } else if (localWeather.temp > 10 && wasInDanger) {
-            // Recovery Success Report
             card.classList.add('recovery-glow');
             adviceEl.innerText = '✅ SUCCESS: Frost snap avoided. Assets secured.';
             adviceEl.style.color = '#16a34a';
@@ -138,7 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
         score -= (overdueCount / myPlants.length) * 50;
         const toxicCount = myPlants.filter(p => p.toxicity === 'toxic').length;
         score -= (toxicCount / myPlants.length) * 30;
-        if (localWeather.temp > 10 && wasInDanger) score += 5; // Resilience Bonus
+        if (localWeather.temp > 10 && wasInDanger) score += 5; 
         return Math.min(100, Math.max(0, Math.round(score)));
     }
 
@@ -192,9 +188,12 @@ document.addEventListener('DOMContentLoaded', () => {
                             </div>
                         </div>
                         <div class="progress-bar" style="margin-top: 1rem;"><div class="progress" style="width: ${waterLevel}%; background-color: ${isOverdue ? '#ef4444' : 'var(--primary)'}"></div></div>
-                        <div class="plant-footer" style="margin-top: 1rem;">
-                            <span class="remind-tag ${isOverdue ? 'text-danger' : ''}">${isOverdue ? 'Overdue!' : `Next Water: ${daysLeft} days`}</span>
-                            <button class="btn-water ${isOverdue ? 'btn-alarm' : ''}">${isOverdue ? 'Watered' : 'Watered'}</button>
+                        <div class="plant-footer" style="margin-top: 1rem; display: flex; justify-content: space-between; align-items: center;">
+                            <div class="footer-actions">
+                                <button class="btn-timeline" onclick="showTimeline(${plant.id})">Timeline</button>
+                                <button class="btn-water ${isOverdue ? 'btn-alarm' : ''}">${isOverdue ? 'Watered' : 'Watered'}</button>
+                            </div>
+                            <span class="remind-tag ${isOverdue ? 'text-danger' : ''}">${isOverdue ? 'Overdue!' : `Next: ${daysLeft}d`}</span>
                         </div>
                     </div>
                 </div>
@@ -225,6 +224,13 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+
+    function showTimeline(id) {
+        const plant = myPlants.find(p => p.id === id);
+        if (!plant) return;
+        triggerBriefing(`${plant.name} Heritage Ledger: Successfully navigated 1 frost event. Resilience score +5. Photo time-lapse active.`, '📈');
+    }
+    window.showTimeline = showTimeline;
 
     btnOpenModal.onclick = () => { modal.style.display = 'flex'; };
     btnCloseModal.onclick = () => modal.style.display = 'none';
