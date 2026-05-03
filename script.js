@@ -32,9 +32,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function saveGarden() {
         if (currentUser) {
-            await db.collection('users').doc(currentUser.uid).set({
-                plants: myPlants
-            });
+            try {
+                await fetch('/api/garden', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ userId: currentUser.uid, plants: myPlants })
+                });
+            } catch (err) {
+                console.error("Failed to save to Neon:", err);
+            }
         } else {
             localStorage.setItem('greenthumb_garden', JSON.stringify(myPlants));
         }
@@ -42,9 +48,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function loadGarden() {
         if (currentUser) {
-            const doc = await db.collection('users').doc(currentUser.uid).get();
-            if (doc.exists) {
-                myPlants = doc.data().plants || [];
+            try {
+                const response = await fetch(`/api/garden?uid=${currentUser.uid}`);
+                const data = await response.json();
+                myPlants = data.plants || [];
+            } catch (err) {
+                console.error("Failed to load from Neon:", err);
+                myPlants = [];
             }
         } else {
             myPlants = JSON.parse(localStorage.getItem('greenthumb_garden')) || [];
