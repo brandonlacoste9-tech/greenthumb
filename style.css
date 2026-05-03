@@ -107,7 +107,13 @@ nav {
     gap: 0.8rem;
     font-weight: 700;
     font-size: 1.6rem;
-    color: var(--primary-dark);
+    color: var(--text-main);
+    transition: var(--transition);
+}
+
+[data-theme="dark"] header.scrolled {
+    background: rgba(28, 23, 21, 0.85);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.1);
 }
 
 .nav-links {
@@ -122,10 +128,12 @@ nav {
     color: var(--text-main);
     font-weight: 600;
     transition: var(--transition);
+    opacity: 0.9;
 }
 
 .nav-links a:hover {
     color: var(--primary);
+    opacity: 1;
 }
 
 /* Buttons */
