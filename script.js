@@ -43,9 +43,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Virtual Garden State
     let myPlants = [];
 
-    // --- Atmosphere Intelligence (Imperial Edition) ---
-    let localWeather = { temp: 3, humidity: 76, isRaining: true, uvIndex: 1 }; // Live MTL Alignment
+    // --- Atmosphere Intelligence (Shepherd Edition) ---
+    let localWeather = { temp: 3, humidity: 76, isRaining: true, uvIndex: 1 }; 
     let hasBriefed = false;
+    let wasInDanger = false;
 
     async function syncAtmosphere() {
         if (navigator.geolocation) {
@@ -67,7 +68,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function simulateWeather() {
-        localWeather = { temp: 3, humidity: 76, isRaining: true }; // MTL Snap
+        // Toggle for testing: set to 12 to see recovery
+        localWeather = { temp: 3, humidity: 76, isRaining: true }; 
         updateAtmosphereUI();
         renderGarden();
     }
@@ -86,19 +88,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Reset states
         card.classList.remove('frost-pulse');
+        card.classList.remove('recovery-glow');
 
-        // Imperial Briefing Logic
+        // Logic Arc
         if (localWeather.temp < 5) {
             card.classList.add('frost-pulse');
             adviceEl.innerText = '❄️ FROST ALERT: Move outdoor plants inside!';
             iconEl.innerText = '🧊';
+            wasInDanger = true;
             if (!hasBriefed) triggerBriefing('Frost detected. Protecting your botanical assets is our priority.', '🧊');
+        } else if (localWeather.temp > 10 && wasInDanger) {
+            // Recovery Success Report
+            card.classList.add('recovery-glow');
+            adviceEl.innerText = '✅ SUCCESS: Frost snap avoided. Assets secured.';
+            adviceEl.style.color = '#16a34a';
+            iconEl.innerText = '🌿';
         } else if (localWeather.temp > 30) {
-            adviceEl.innerText = localWeather.humidity < 40 ? '🔥 Heatwave: Water after 7 PM (Sunset Shift).' : '🌡️ Hot/Humid: Monitor for root rot.';
+            adviceEl.innerText = localWeather.humidity < 40 ? '🔥 Heatwave: Water after 7 PM.' : '🌡️ Hot/Humid: Watch for root rot.';
             iconEl.innerText = '🔥';
-            if (!hasBriefed) triggerBriefing('Heatwave detected. Shifting to Sunset Hydration protocol.', '🔥');
+            wasInDanger = true;
         } else {
             adviceEl.innerText = '✨ Optimal: Your garden is in the Green Zone.';
+            adviceEl.style.color = 'var(--text-muted)';
             iconEl.innerText = '🌦️';
         }
     }
@@ -127,13 +138,14 @@ document.addEventListener('DOMContentLoaded', () => {
         score -= (overdueCount / myPlants.length) * 50;
         const toxicCount = myPlants.filter(p => p.toxicity === 'toxic').length;
         score -= (toxicCount / myPlants.length) * 30;
-        return Math.max(0, Math.round(score));
+        if (localWeather.temp > 10 && wasInDanger) score += 5; // Resilience Bonus
+        return Math.min(100, Math.max(0, Math.round(score)));
     }
 
     function calculateWeatherModifier(plant) {
         let modifier = 1.0;
         if (localWeather.temp > 30 && localWeather.humidity < 40) modifier *= 0.8;
-        if (localWeather.temp < 15) modifier *= 1.4; // Stronger dormancy in MTL snap
+        if (localWeather.temp < 15) modifier *= 1.4; 
         if (plant.env === 'Outdoor' && localWeather.isRaining) return 2.0; 
         return modifier;
     }
