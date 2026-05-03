@@ -73,7 +73,7 @@ h1 {
     font-size: 4.5rem;
     font-weight: 700;
     line-height: 1.1;
-    color: var(--primary-dark);
+    color: var(--text-main); /* Fixed: Ensuring all h1 text is visible in dark mode */
 }
 
 h2 {
@@ -387,7 +387,7 @@ h1 {
 /* AI Tool & Results */
 .ai-tool {
     padding: 8rem 0;
-    background: #ffffff;
+    background: var(--bg-light); /* Fixed: Use theme variable instead of hardcoded white */
     position: relative;
 }
 
@@ -837,7 +837,7 @@ footer::after {
 /* Pricing Redesign */
 .pricing {
     padding: 10rem 0;
-    background: #fdfdfd;
+    background: var(--bg-light); /* Fixed: Use theme variable */
 }
 
 .pricing-grid {
@@ -915,7 +915,7 @@ footer::after {
 /* Library Styles */
 .library {
     padding: 8rem 0;
-    background: #fdfdfd;
+    background: var(--bg-light); /* Fixed: Use theme variable */
 }
 
 .category-nav {
@@ -1115,7 +1115,7 @@ footer {
     text-align: center;
     padding-top: 2rem;
     border-top: 1px solid rgba(255,255,255,0.1);
-    color: rgba(255,255,255,0.5);
+    color: rgba(255,255,255,0.7); /* Fixed: Increase visibility */
     font-size: 0.9rem;
 }
 
