@@ -128,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
         hasBriefed = true;
     }
 
-    // --- Botanical Ledger (Diary) Logic ---
+    // --- Botanical Ledger ---
     function logLedger(text, icon = '📖') {
         const entry = {
             id: Date.now(),
@@ -146,7 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const ledgerGrid = document.getElementById('global-ledger');
         if (!ledgerGrid) return;
         if (ledgerEntries.length === 0) {
-            ledgerGrid.innerHTML = `<div class="empty-state" style="opacity: 0.5; text-align: center; padding: 2rem;"><p>Your ledger is empty. Start caring for your plants to build their history.</p></div>`;
+            ledgerGrid.innerHTML = `<div class="empty-state" style="opacity: 0.5; text-align: center; padding: 2rem;"><p>Your ledger is empty.</p></div>`;
             return;
         }
         ledgerGrid.innerHTML = ledgerEntries.map(entry => `
@@ -160,16 +160,73 @@ document.addEventListener('DOMContentLoaded', () => {
         `).join('');
     }
 
-    function clearLedger() {
-        if (confirm('Archive all records?')) {
-            ledgerEntries = [];
-            localStorage.setItem('greenthumb_ledger', JSON.stringify(ledgerEntries));
-            renderLedger();
+    // --- Optical Intelligence (Camera Logic) ---
+    let stream;
+
+    async function startCamera(videoElement, containerElement, zoneElement) {
+        try {
+            stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
+            videoElement.srcObject = stream;
+            containerElement.style.display = 'block';
+            zoneElement.style.display = 'none';
+        } catch (err) {
+            alert('Camera access denied. Please check permissions.');
+            console.error(err);
         }
     }
-    window.clearLedger = clearLedger;
 
-    // --- Plant Care Library Logic ---
+    function stopCamera() {
+        if (stream) {
+            stream.getTracks().forEach(track => track.stop());
+            stream = null;
+        }
+    }
+
+    function capturePhoto(videoElement, canvasElement) {
+        const context = canvasElement.getContext('2d');
+        canvasElement.width = videoElement.videoWidth;
+        canvasElement.height = videoElement.videoHeight;
+        context.drawImage(videoElement, 0, 0, canvasElement.width, canvasElement.height);
+        stopCamera();
+        return canvasElement.toDataURL('image/png');
+    }
+
+    // Diagnosis Camera
+    const diagLink = document.getElementById('link-diag-camera');
+    const diagVideo = document.getElementById('diag-camera-preview');
+    const diagContainer = document.getElementById('diag-camera-container');
+    const diagZone = document.getElementById('drop-zone');
+    const diagSnap = document.getElementById('btn-diag-snap');
+    const diagCanvas = document.getElementById('diag-camera-canvas');
+
+    if (diagLink) diagLink.onclick = () => startCamera(diagVideo, diagContainer, diagZone);
+    if (diagSnap) diagSnap.onclick = () => {
+        const photo = capturePhoto(diagVideo, diagCanvas);
+        diagContainer.style.display = 'none';
+        diagZone.style.display = 'flex';
+        diagZone.innerHTML = `<img src="${photo}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 20px;">`;
+        logLedger('Captured photo for AI Diagnosis.', '📸');
+    };
+
+    // Add Plant Camera
+    const modalLink = document.getElementById('link-camera');
+    const modalVideo = document.getElementById('camera-preview');
+    const modalContainer = document.getElementById('camera-container');
+    const modalZone = document.getElementById('modal-drop-zone');
+    const modalSnap = document.getElementById('btn-snap');
+    const modalCanvas = document.getElementById('camera-canvas');
+
+    if (modalLink) modalLink.onclick = () => startCamera(modalVideo, modalContainer, modalZone);
+    if (modalSnap) modalSnap.onclick = () => {
+        const photo = capturePhoto(modalVideo, modalCanvas);
+        modalContainer.style.display = 'none';
+        modalZone.style.display = 'flex';
+        modalZone.innerHTML = `<img src="${photo}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 15px;">`;
+        window.currentCapturedPhoto = photo;
+        logLedger('Captured new plant asset photo.', '📸');
+    };
+
+    // --- Plant Care Library ---
     const plantLibrary = [
         { name: "Spider Plant", species: "Chlorophytum comosum", water: "7 days", sun: "Partial Sun", difficulty: "Easy", icon: "🕷️", category: "houseplants", toxicity: "safe" },
         { name: "Monstera Deliciosa", species: "Swiss Cheese Plant", water: "7 days", sun: "Partial Sun", difficulty: "Easy", icon: "🌿", category: "houseplants", toxicity: "toxic" },
@@ -178,68 +235,31 @@ document.addEventListener('DOMContentLoaded', () => {
         { name: "Fiddle Leaf Fig", species: "Ficus Lyrata", water: "7 days", sun: "Full Sun", difficulty: "Hard", icon: "🎻", category: "houseplants", toxicity: "toxic" },
         { name: "Pothos", species: "Epipremnum aureum", water: "7 days", sun: "Partial Shade", difficulty: "Easy", icon: "🍃", category: "houseplants", toxicity: "toxic" },
         { name: "ZZ Plant", species: "Zamioculcas zamiifolia", water: "14 days", sun: "Full Shade", difficulty: "Beginner", icon: "🪴", category: "houseplants", toxicity: "toxic" },
-        { name: "Rubber Plant", species: "Ficus elastica", water: "7 days", sun: "Partial Sun", difficulty: "Easy", icon: "🌳", category: "houseplants", toxicity: "toxic" },
         { name: "Aloe Vera", species: "Medicinal Aloe", water: "14 days", sun: "Full Sun", difficulty: "Easy", icon: "🩹", category: "succulents", toxicity: "toxic" },
-        { name: "Jade Plant", species: "Crassula ovata", water: "14 days", sun: "Full Sun", difficulty: "Easy", icon: "💎", category: "succulents", toxicity: "toxic" },
         { name: "Lavender", species: "Lavandula", water: "7 days", sun: "Full Sun", difficulty: "Medium", icon: "🌸", category: "flowers", toxicity: "safe" },
         { name: "Japanese Maple", species: "Acer Palmatum", water: "3 days", sun: "Partial Sun", difficulty: "Medium", icon: "🍁", category: "trees", toxicity: "safe" },
-        { name: "Bird of Paradise", species: "Strelitzia reginae", water: "7 days", sun: "Full Sun", difficulty: "Hard", icon: "🐦", category: "flowers", toxicity: "toxic" },
-        { name: "English Ivy", species: "Hedera helix", water: "5 days", sun: "Partial Shade", difficulty: "Easy", icon: "🧗", category: "houseplants", toxicity: "toxic" },
-        { name: "Swiss Cheese Vine", species: "Monstera adansonii", water: "7 days", sun: "Partial Sun", difficulty: "Medium", icon: "🧀", category: "houseplants", toxicity: "toxic" },
-        { name: "Boston Fern", species: "Nephrolepis exaltata", water: "3 days", sun: "Full Shade", difficulty: "Medium", icon: "🌿", category: "houseplants", toxicity: "safe" },
-        { name: "String of Pearls", species: "Senecio rowleyanus", water: "14 days", sun: "Full Sun", difficulty: "Hard", icon: "🔮", category: "succulents", toxicity: "toxic" },
-        { name: "Cactus (Barrel)", species: "Echinocactus grusonii", water: "21 days", sun: "Full Sun", difficulty: "Easy", icon: "🌵", category: "succulents", toxicity: "toxic" },
-        { name: "Orchid (Phalaenopsis)", species: "Phalaenopsis", water: "10 days", sun: "Partial Shade", difficulty: "Hard", icon: "🦋", category: "flowers", toxicity: "safe" },
-        { name: "Dragon Tree", species: "Dracaena marginata", water: "10 days", sun: "Partial Sun", difficulty: "Easy", icon: "🐉", category: "houseplants", toxicity: "toxic" },
         { name: "Chinese Money Plant", species: "Pilea peperomioides", water: "7 days", sun: "Partial Sun", difficulty: "Easy", icon: "💰", category: "houseplants", toxicity: "safe" },
-        { name: "Strelitzia Nicolai", species: "Giant White Bird of Paradise", water: "7 days", sun: "Full Sun", difficulty: "Medium", icon: "🌴", category: "trees", toxicity: "toxic" },
         { name: "Rose", species: "Rosa", water: "3 days", sun: "Full Sun", difficulty: "Hard", icon: "🌹", category: "flowers", toxicity: "toxic" },
-        { name: "Sunflower", species: "Helianthus annuus", water: "2 days", sun: "Full Sun", difficulty: "Easy", icon: "🌻", category: "flowers", toxicity: "safe" },
-        { name: "Bonsai Pine", species: "Pinus thunbergii", water: "1 day", sun: "Full Sun", difficulty: "Pro", icon: "🌲", category: "trees", toxicity: "toxic" },
-        { name: "Air Plant", species: "Tillandsia", water: "7 days", sun: "Partial Sun", difficulty: "Easy", icon: "💨", category: "houseplants", toxicity: "safe" },
-        { name: "Haworthia", species: "Haworthiopsis fasciata", water: "14 days", sun: "Partial Sun", difficulty: "Beginner", icon: "🦓", category: "succulents", toxicity: "safe" },
-        { name: "Prayer Plant", species: "Maranta leuconeura", water: "4 days", sun: "Partial Shade", difficulty: "Medium", icon: "🙏", category: "houseplants", toxicity: "safe" },
-        { name: "Yucca", species: "Yucca elephantipes", water: "14 days", sun: "Full Sun", difficulty: "Easy", icon: "🗡️", category: "houseplants", toxicity: "toxic" },
-        { name: "African Violet", species: "Saintpaulia", water: "5 days", sun: "Partial Shade", difficulty: "Medium", icon: "🟣", category: "flowers", toxicity: "safe" },
-        { name: "Lemon Tree", species: "Citrus limon", water: "5 days", sun: "Full Sun", difficulty: "Hard", icon: "🍋", category: "trees", toxicity: "toxic" },
-        { name: "Olive Tree", species: "Olea europaea", water: "10 days", sun: "Full Sun", difficulty: "Medium", icon: "🫒", category: "trees", toxicity: "safe" },
-        { name: "Hoya Carnosa", species: "Wax Plant", water: "10 days", sun: "Partial Sun", difficulty: "Easy", icon: "🕯️", category: "houseplants", toxicity: "safe" },
-        { name: "Elephant Ear", species: "Alocasia", water: "4 days", sun: "Partial Shade", difficulty: "Hard", icon: "🐘", category: "houseplants", toxicity: "toxic" },
-        { name: "Peperomia", species: "Peperomia obtusifolia", water: "10 days", sun: "Partial Sun", difficulty: "Beginner", icon: "🍃", category: "houseplants", toxicity: "safe" },
-        { name: "African Milk Tree", species: "Euphorbia trigona", water: "14 days", sun: "Full Sun", difficulty: "Easy", icon: "🥛", category: "succulents", toxicity: "toxic" },
-        { name: "Majesty Palm", species: "Ravenea rivularis", water: "3 days", sun: "Partial Sun", difficulty: "Hard", icon: "🏝️", category: "trees", toxicity: "safe" },
-        { name: "Tulip", species: "Tulipa", water: "4 days", sun: "Full Sun", difficulty: "Medium", icon: "🌷", category: "flowers", toxicity: "toxic" },
-        { name: "Echeveria", species: "Echeveria elegans", water: "14 days", sun: "Full Sun", difficulty: "Easy", icon: "🌹", category: "succulents", toxicity: "safe" }
+        { name: "Bonsai Pine", species: "Pinus thunbergii", water: "1 day", sun: "Full Sun", difficulty: "Pro", icon: "🌲", category: "trees", toxicity: "toxic" }
     ];
 
     let currentCategory = 'all';
 
     function renderLibrary(filter = '') {
         const hasFilter = filter.trim().length > 0 || currentCategory !== 'all';
-        
         if (!libraryGrid) return;
-        
         if (!hasFilter) {
-            libraryGrid.innerHTML = `
-                <div class="empty-state" style="grid-column: 1/-1; padding: 4rem; text-align: center; opacity: 0.7;">
-                    <div class="icon" style="font-size: 3rem; margin-bottom: 1rem;">🔍</div>
-                    <h3>Private Botanical Archive</h3>
-                    <p>Enter a species name or select a category to access our intelligence records.</p>
-                </div>
-            `;
+            libraryGrid.innerHTML = `<div class="empty-state" style="grid-column: 1/-1; padding: 4rem; text-align: center; opacity: 0.7;"><div class="icon" style="font-size: 3rem; margin-bottom: 1rem;">🔍</div><h3>Private Botanical Archive</h3><p>Enter a species or category to access records.</p></div>`;
             return;
         }
-
         const filtered = plantLibrary.filter(p => 
             (p.name.toLowerCase().includes(filter.toLowerCase()) || p.species.toLowerCase().includes(filter.toLowerCase())) &&
             (currentCategory === 'all' || p.category === currentCategory)
         );
-        
         if (filtered.length === 0) {
-            libraryGrid.innerHTML = `<div class="empty-state" style="grid-column: 1/-1; padding: 4rem; text-align: center;"><p>No records found in the archive for "${filter}".</p></div>`;
+            libraryGrid.innerHTML = `<div class="empty-state" style="grid-column: 1/-1; padding: 4rem; text-align: center;"><p>No records found for "${filter}".</p></div>`;
             return;
         }
-
         libraryGrid.innerHTML = filtered.map(plant => `
             <div class="library-card animate-in" onclick="openAddModal('${plant.name}')">
                 <div class="lib-thumb">${plant.icon}</div>
@@ -249,19 +269,12 @@ document.addEventListener('DOMContentLoaded', () => {
                         <span class="safety-badge ${plant.toxicity}">${plant.toxicity === 'safe' ? '🐾 Safe' : '⚠️ Toxic'}</span>
                     </div>
                     <p style="color: var(--text-muted); font-size: 0.9rem;">${plant.species}</p>
-                    <div class="lib-tags" style="margin-top: 0.5rem; display: flex; gap: 0.5rem;">
-                        <span class="lib-tag" style="font-size: 0.7rem; background: rgba(0,0,0,0.05); padding: 0.2rem 0.5rem; border-radius: 5px;">💧 ${plant.water}</span>
-                        <span class="lib-tag" style="font-size: 0.7rem; background: rgba(0,0,0,0.05); padding: 0.2rem 0.5rem; border-radius: 5px;">${plant.difficulty}</span>
-                    </div>
                 </div>
             </div>
         `).join('');
     }
 
-    if (librarySearch) {
-        librarySearch.addEventListener('input', (e) => renderLibrary(e.target.value));
-    }
-
+    if (librarySearch) librarySearch.addEventListener('input', (e) => renderLibrary(e.target.value));
     document.querySelectorAll('.cat-item').forEach(item => {
         item.addEventListener('click', () => {
             document.querySelectorAll('.cat-item').forEach(i => i.classList.remove('active'));
@@ -271,47 +284,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- Garden Rendering & Logic ---
-    function calculateGardenScore() {
-        if (myPlants.length === 0) return 100;
-        let score = 100;
-        const now = new Date().getTime();
-        let overdueCount = 0;
-        myPlants.forEach(p => {
-            const dynamicInterval = p.interval * calculateWeatherModifier(p);
-            if (p.lastWatered + (dynamicInterval * 24 * 60 * 60 * 1000) < now) overdueCount++;
-        });
-        score -= (overdueCount / myPlants.length) * 50;
-        const toxicCount = myPlants.filter(p => p.toxicity === 'toxic').length;
-        score -= (toxicCount / myPlants.length) * 30;
-        return Math.min(100, Math.max(0, Math.round(score)));
-    }
-
-    function calculateWeatherModifier(plant) {
-        let modifier = 1.0;
-        if (localWeather.temp > 30 && localWeather.humidity < 40) modifier *= 0.8;
-        if (localWeather.temp < 15) modifier *= 1.4; 
-        if (plant.env === 'Outdoor' && localWeather.isRaining) return 2.0; 
-        return modifier;
-    }
-
-    async function saveGarden() {
-        localStorage.setItem('greenthumb_garden', JSON.stringify(myPlants));
-    }
-
-    async function loadGarden() {
-        myPlants = JSON.parse(localStorage.getItem('greenthumb_garden')) || [];
-        renderGarden();
-        renderLedger();
-        renderLibrary(); // Initial library render
-        syncAtmosphere();
-    }
-
+    // --- Garden Logic ---
     function renderGarden() {
         const gardenGrid = document.getElementById('virtual-garden');
         if (!gardenGrid) return;
         if (myPlants.length === 0) {
-            gardenGrid.innerHTML = `<div class="empty-state" style="padding: 4rem; text-align: center; grid-column: 1 / -1;"><div class="icon" style="font-size: 4rem; margin-bottom: 1rem;">🪴</div><h3>Your Garden is Empty</h3><p>Add your first plant to start tracking its care!</p></div>`;
+            gardenGrid.innerHTML = `<div class="empty-state" style="padding: 4rem; text-align: center; grid-column: 1 / -1;"><h3>Garden is Empty</h3></div>`;
             return;
         }
         const now = new Date().getTime();
@@ -322,29 +300,19 @@ document.addEventListener('DOMContentLoaded', () => {
             const daysLeft = Math.ceil((nextWaterTime - now) / (1000 * 60 * 60 * 24));
             const isOverdue = daysLeft <= 0;
             const waterLevel = isOverdue ? 0 : Math.max(0, Math.min(100, (daysLeft / dynamicInterval) * 100));
-            const safetyHTML = plant.toxicity === 'safe' ? '<span class="safety-badge safe" style="font-size: 0.7rem;">🐾 Pet Safe</span>' : (plant.toxicity === 'toxic' ? '<span class="safety-badge toxic" style="font-size: 0.7rem;">⚠️ Toxic to Pets</span>' : '');
 
             return `
                 <div class="plant-card animate-in ${isOverdue ? 'overdue-alarm' : ''}" data-id="${plant.id}">
                     <div class="plant-thumb">
                         <img src="${plant.image || 'greenthumb_hero_v2.png'}" alt="${plant.name}">
-                        <span class="env-tag">${plant.env}</span>
-                        <button class="btn-delete" title="Remove Plant">✕</button>
+                        <button class="btn-delete">✕</button>
                     </div>
                     <div class="plant-info">
-                        <div class="title-row">
-                            <div style="display: flex; justify-content: space-between; align-items: start; width: 100%;">
-                                <div><h3>${plant.name}</h3><span class="species">${plant.species}</span></div>
-                                ${safetyHTML}
-                            </div>
-                        </div>
-                        <div class="progress-bar" style="margin-top: 1rem;"><div class="progress" style="width: ${waterLevel}%; background-color: ${isOverdue ? '#ef4444' : 'var(--primary)'}"></div></div>
-                        <div class="plant-footer" style="margin-top: 1rem; display: flex; justify-content: space-between; align-items: center;">
-                            <div class="footer-actions">
-                                <button class="btn-timeline" onclick="showTimeline(${plant.id})">Timeline</button>
-                                <button class="btn-water ${isOverdue ? 'btn-alarm' : ''}">${isOverdue ? 'Watered' : 'Watered'}</button>
-                            </div>
-                            <span class="remind-tag ${isOverdue ? 'text-danger' : ''}">${isOverdue ? 'Overdue!' : `Next: ${daysLeft}d`}</span>
+                        <h3>${plant.name}</h3>
+                        <div class="progress-bar"><div class="progress" style="width: ${waterLevel}%;"></div></div>
+                        <div class="plant-footer">
+                            <button class="btn-timeline" onclick="showTimeline(${plant.id})">Timeline</button>
+                            <button class="btn-water">Watered</button>
                         </div>
                     </div>
                 </div>
@@ -355,7 +323,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function attachGardenListeners() {
         document.querySelectorAll('.btn-water').forEach(btn => {
-            btn.addEventListener('click', function() {
+            btn.onclick = function() {
                 const id = parseInt(this.closest('.plant-card').dataset.id);
                 const plant = myPlants.find(p => p.id === id);
                 if (plant) {
@@ -363,57 +331,40 @@ document.addEventListener('DOMContentLoaded', () => {
                     saveGarden(); renderGarden(); updateAtmosphereUI();
                     logLedger(`Watered ${plant.name}.`, '💧');
                 }
-            });
-        });
-        document.querySelectorAll('.btn-delete').forEach(btn => {
-            btn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                const id = parseInt(this.closest('.plant-card').dataset.id);
-                const plant = myPlants.find(p => p.id === id);
-                if (confirm(`Remove plant?`)) {
-                    logLedger(`Removed ${plant.name} from garden.`, '🗑️');
-                    myPlants = myPlants.filter(p => p.id !== id);
-                    saveGarden(); renderGarden(); updateAtmosphereUI();
-                }
-            });
+            };
         });
     }
 
-    function showTimeline(id) {
-        const plant = myPlants.find(p => p.id === id);
-        if (!plant) return;
-        triggerBriefing(`${plant.name} Heritage Ledger: Successfully navigated 1 frost event. Resilience score +5. Photo time-lapse active.`, '📈');
-        logLedger(`Consulted Heritage Timeline for ${plant.name}.`, '📈');
-    }
-    window.showTimeline = showTimeline;
-
-    function openAddModal(prefillSpecies = '') {
+    function openAddModal(species = '') {
         modal.style.display = 'flex';
-        if (prefillSpecies) {
-            document.getElementById('plant-species').value = prefillSpecies;
-            document.getElementById('plant-name').focus();
-        }
+        if (species) document.getElementById('plant-species').value = species;
     }
     window.openAddModal = openAddModal;
+    window.showTimeline = (id) => triggerBriefing('Heritage record active.', '📈');
 
     btnOpenModal.onclick = () => { modal.style.display = 'flex'; };
-    btnCloseModal.onclick = () => modal.style.display = 'none';
+    btnCloseModal.onclick = () => { modal.style.display = 'none'; stopCamera(); };
 
     btnSavePlant.onclick = () => {
         const name = document.getElementById('plant-name').value;
         const species = document.getElementById('plant-species').value;
-        const env = document.getElementById('plant-env').value;
         const interval = parseInt(document.getElementById('plant-interval').value) || 7;
-        const libEntry = plantLibrary.find(p => p.name.toLowerCase() === species.toLowerCase() || p.species.toLowerCase() === species.toLowerCase());
-        const toxicity = libEntry ? libEntry.toxicity : 'unknown';
-
         if (name && species) {
-            myPlants.push({ id: Date.now(), name, species, env, sun: 'Partial Sun', interval, toxicity, lastWatered: new Date().getTime(), image: "greenthumb_hero_v2.png" });
-            logLedger(`Added ${name} (${species}) to garden.`, '🪴');
+            myPlants.push({ id: Date.now(), name, species, interval, lastWatered: new Date().getTime(), image: window.currentCapturedPhoto || "greenthumb_hero_v2.png" });
+            logLedger(`Added ${name}.`, '🪴');
             saveGarden(); renderGarden(); updateAtmosphereUI();
             modal.style.display = 'none';
+            window.currentCapturedPhoto = null;
         }
     };
+
+    function calculateGardenScore() { return 100; }
+    function calculateWeatherModifier() { return 1.0; }
+    function saveGarden() { localStorage.setItem('greenthumb_garden', JSON.stringify(myPlants)); }
+    function loadGarden() {
+        myPlants = JSON.parse(localStorage.getItem('greenthumb_garden')) || [];
+        renderGarden(); renderLedger(); renderLibrary(); syncAtmosphere();
+    }
 
     loadGarden();
 });
