@@ -355,7 +355,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initial Renders
     loadGarden();
     renderLibrary();
-});
 
     // AI Diagnosis & Identification (Real API Integration)
 
@@ -465,6 +464,9 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('plant-name').focus();
         }
     }
+
+    // Expose openAddModal globally for onclick handlers
+    window.openAddModal = openAddModal;
 
     // Add Intersection Observer for scroll animations
     const observerOptions = {
