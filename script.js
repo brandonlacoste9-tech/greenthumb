@@ -62,37 +62,59 @@ document.addEventListener('DOMContentLoaded', () => {
     let myPlants = [];
 
     // --- Atmosphere Intelligence (Phase 2) ---
-    let localWeather = { humidity: 45, isRaining: false, uvIndex: 5 };
+    let localWeather = { temp: 22, humidity: 45, isRaining: false, uvIndex: 5, city: 'Unknown' };
 
     async function syncAtmosphere() {
-        // Simulate API Fetch (Tomorrow.io / OpenWeatherMap)
-        setTimeout(() => {
-            localWeather = { 
-                humidity: Math.floor(Math.random() * 40) + 30, 
-                isRaining: Math.random() > 0.8,
-                uvIndex: Math.floor(Math.random() * 10)
-            };
-            updateAtmosphereUI();
-            renderGarden(); 
-        }, 1500);
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(async (position) => {
+                const { latitude, longitude } = position.coords;
+                try {
+                    const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true&relative_humidity_2m=true`);
+                    const data = await res.json();
+                    
+                    localWeather = {
+                        temp: data.current_weather.temperature,
+                        humidity: data.current_weather.relative_humidity_2m || 50,
+                        isRaining: data.current_weather.weathercode > 50,
+                        uvIndex: 5,
+                        city: 'Local'
+                    };
+                    updateAtmosphereUI();
+                    renderGarden();
+                } catch (err) {
+                    console.error("Weather Fetch Failed:", err);
+                    simulateWeather();
+                }
+            }, () => {
+                simulateWeather();
+            });
+        } else {
+            simulateWeather();
+        }
+    }
+
+    function simulateWeather() {
+        localWeather = { temp: 24, humidity: 40, isRaining: false, uvIndex: 4, city: 'Simulated' };
+        updateAtmosphereUI();
+        renderGarden();
     }
 
     function updateAtmosphereUI() {
-        const humidityEl = document.getElementById('atmo-humidity');
+        const tempHumEl = document.getElementById('atmo-temp-hum');
         const statusEl = document.getElementById('atmo-status');
         const iconEl = document.querySelector('.atmo-icon');
-        if (!humidityEl || !statusEl || !iconEl) return;
+        if (!tempHumEl || !statusEl || !iconEl) return;
 
-        humidityEl.innerText = `${localWeather.humidity}%`;
+        tempHumEl.innerText = `${localWeather.temp}°C / ${localWeather.humidity}%`;
         
-        if (localWeather.isRaining) {
+        if (localWeather.temp > 30) {
+            statusEl.innerText = 'Heatwave: High Water';
+            statusEl.style.color = '#ff4d4d';
+            iconEl.innerText = '🔥';
+        } else if (localWeather.isRaining) {
             statusEl.innerText = 'Rain: Delayed';
             statusEl.style.color = '#3a86ff';
             iconEl.innerText = '🌧️';
-        } else if (localWeather.uvIndex > 7) {
-            statusEl.innerText = 'High UV: Check Shade';
-            statusEl.style.color = '#ffaa00';
-            iconEl.innerText = '☀️';
         } else {
             statusEl.innerText = 'Optimal Care';
             statusEl.style.color = 'var(--primary)';
@@ -102,13 +124,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function calculateWeatherModifier(plant) {
         let modifier = 1.0;
-        // Outdoor plants are heavily affected by rain
+        if (localWeather.temp > 30) modifier *= 0.8; 
+        if (localWeather.temp < 15) modifier *= 1.2; 
+
         if (plant.env === 'Outdoor' && localWeather.isRaining) return 2.0; 
         
-        // Indoor plants are affected by humidity
         if (plant.env === 'Indoor') {
-            if (localWeather.humidity > 60) modifier = 1.15; 
-            if (localWeather.humidity < 30) modifier = 0.85; 
+            if (localWeather.humidity > 60) modifier *= 1.15; 
+            if (localWeather.humidity < 30) modifier *= 0.85; 
         }
         return modifier;
     }
@@ -129,7 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
     async function loadGarden() {
         myPlants = JSON.parse(localStorage.getItem('greenthumb_garden')) || [];
         renderGarden();
-        syncAtmosphere(); // Sync weather on load
+        syncAtmosphere();
 
         try {
             const response = await fetch(`/api/garden?uid=${deviceId}`);
@@ -245,7 +268,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Notification System
     function showNotification(message) {
         const toast = document.createElement('div');
         toast.className = 'toast animate-in';
@@ -254,7 +276,6 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => toast.remove(), 3000);
     }
 
-    // Modular Camera Logic
     async function setupCamera(previewId, containerId, dropZoneId, snapBtnId, canvasId, onCapture) {
         const preview = document.getElementById(previewId);
         const container = document.getElementById(containerId);
@@ -285,7 +306,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Garden Modal Camera
     document.getElementById('link-camera').onclick = (e) => {
         e.stopPropagation();
         setupCamera('camera-preview', 'camera-container', 'modal-drop-zone', 'btn-snap', 'camera-canvas', () => {
@@ -294,7 +314,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    // Main Diagnosis Camera
     document.getElementById('link-diag-camera').onclick = (e) => {
         e.stopPropagation();
         setupCamera('diag-camera-preview', 'diag-camera-container', 'drop-zone', 'btn-diag-snap', 'diag-camera-canvas', () => {
@@ -354,7 +373,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const sun = document.getElementById('plant-sun').value;
         const interval = parseInt(document.getElementById('plant-interval').value) || 7;
         
-        // Find toxicity from library
         const libEntry = plantLibrary.find(p => p.name.toLowerCase() === species.toLowerCase() || p.species.toLowerCase() === species.toLowerCase());
         const toxicity = libEntry ? libEntry.toxicity : 'unknown';
 
@@ -376,7 +394,6 @@ document.addEventListener('DOMContentLoaded', () => {
             modal.style.display = 'none';
             showNotification(`${name} added to your garden!`);
             
-            // Clear inputs
             document.getElementById('plant-name').value = '';
             document.getElementById('plant-species').value = '';
             document.getElementById('plant-interval').value = '7';
@@ -385,21 +402,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // AI Diagnosis Logic
-    const btnDiagnose = document.getElementById('btn-diagnose');
-    const diagName = document.getElementById('diag-name');
-    const diagEnv = document.getElementById('diag-env');
-    const diagNotes = document.getElementById('diag-notes');
-
-    btnDiagnose.onclick = () => {
-        if (!fileInput.files.length) {
-            alert("Please upload a photo first.");
-            return;
-        }
-        simulateDiagnosis(fileInput.files[0]);
-    };
-
-    // Plant Library Data
     const plantLibrary = [
         { name: "Spider Plant", species: "Chlorophytum comosum", water: "7 days", sun: "Partial Sun", difficulty: "Easy", icon: "🕷️", category: "houseplants", toxicity: "safe" },
         { name: "Monstera Deliciosa", species: "Swiss Cheese Plant", water: "7 days", sun: "Partial Sun", difficulty: "Easy", icon: "🌿", category: "houseplants", toxicity: "toxic" },
@@ -446,43 +448,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function renderLibrary(filter = '') {
         if (!filter && currentCategory === 'all') {
-            libraryGrid.innerHTML = `
-                <div class="empty-state" style="grid-column: 1 / -1; opacity: 0.5;">
-                    <div class="icon">🔍</div>
-                    <h3>Start Typing to Explore</h3>
-                    <p>Search over 10,000+ expert plant care guides.</p>
-                </div>
-            `;
+            libraryGrid.innerHTML = `<div class="empty-state" style="grid-column: 1 / -1; opacity: 0.5;"><div class="icon">🔍</div><h3>Start Typing to Explore</h3><p>Search over 10,000+ expert plant care guides.</p></div>`;
             return;
         }
-
-        const filtered = plantLibrary.filter(p => {
-            const matchesSearch = p.name.toLowerCase().includes(filter.toLowerCase()) || 
-                                p.species.toLowerCase().includes(filter.toLowerCase());
-            const matchesCategory = currentCategory === 'all' || p.category === currentCategory;
-            return matchesSearch && matchesCategory;
-        });
-
+        const filtered = plantLibrary.filter(p => (p.name.toLowerCase().includes(filter.toLowerCase()) || p.species.toLowerCase().includes(filter.toLowerCase())) && (currentCategory === 'all' || p.category === currentCategory));
         if (filtered.length === 0) {
-            libraryGrid.innerHTML = `
-                <div class="empty-state" style="grid-column: 1 / -1;">
-                    <div class="icon">🌿</div>
-                    <h3>No Plants Found</h3>
-                    <p>Try a different search term or browse by category.</p>
-                </div>
-            `;
+            libraryGrid.innerHTML = `<div class="empty-state" style="grid-column: 1 / -1;"><div class="icon">🌿</div><h3>No Plants Found</h3><p>Try a different search term.</p></div>`;
             return;
         }
-
         libraryGrid.innerHTML = filtered.map(plant => `
             <div class="library-card animate-in" onclick="openAddModal('${plant.name}')">
                 <div class="lib-thumb">${plant.icon}</div>
                 <div class="lib-info">
                     <div class="lib-header" style="display: flex; justify-content: space-between; align-items: start;">
                         <h3>${plant.name}</h3>
-                        <span class="safety-badge ${plant.toxicity}">
-                            ${plant.toxicity === 'safe' ? '🐾 Safe' : '⚠️ Toxic'}
-                        </span>
+                        <span class="safety-badge ${plant.toxicity}">${plant.toxicity === 'safe' ? '🐾 Safe' : '⚠️ Toxic'}</span>
                     </div>
                     <p style="color: var(--text-muted); font-size: 0.9rem;">${plant.species}</p>
                     <div class="lib-tags">
@@ -494,10 +474,7 @@ document.addEventListener('DOMContentLoaded', () => {
         `).join('');
     }
 
-    librarySearch.addEventListener('input', (e) => {
-        renderLibrary(e.target.value);
-    });
-
+    librarySearch.addEventListener('input', (e) => renderLibrary(e.target.value));
     document.querySelectorAll('.cat-item').forEach(item => {
         item.addEventListener('click', () => {
             document.querySelectorAll('.cat-item').forEach(i => i.classList.remove('active'));
@@ -507,20 +484,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Initial Renders
-    loadGarden();
-    renderLibrary();
-
-    // AI Diagnosis Logic
     async function identifyPlant(fileOrCanvas) {
-        resultsArea.innerHTML = `
-            <div class="diagnosis-loading">
-                <div class="spinner"></div>
-                <h3>Identifying Species...</h3>
-                <p>Connecting to Secure SaaS Bridge</p>
-            </div>
-        `;
-
+        resultsArea.innerHTML = `<div class="diagnosis-loading"><div class="spinner"></div><h3>Identifying Species...</h3><p>Connecting to Secure SaaS Bridge</p></div>`;
         let base64Image;
         if (fileOrCanvas instanceof File) {
             base64Image = await new Promise((resolve) => {
@@ -531,78 +496,21 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             base64Image = fileOrCanvas.toDataURL('image/jpeg');
         }
-
         try {
-            const response = await fetch('/api/identify', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ image: base64Image })
-            });
-
+            const response = await fetch('/api/identify', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ image: base64Image }) });
             const data = await response.json();
-
             if (data.results && data.results.length > 0) {
                 const bestMatch = data.results[0];
-                const speciesName = bestMatch.species.scientificNameWithoutAuthor;
-                const commonName = bestMatch.species.commonNames[0] || speciesName;
-                const score = (bestMatch.score * 100).toFixed(1);
-
-                renderResults({
-                    species: commonName,
-                    scientific: speciesName,
-                    confidence: `${score}%`,
-                    title: "Health Check: Optimal",
-                    severity: "None",
-                    cause: "Based on our visual analysis, the foliage appears vibrant and healthy.",
-                    treatment: "Continue current watering schedule. Monitor for changes in color."
-                });
-            } else {
-                throw new Error("No matches found");
-            }
+                renderResults({ species: bestMatch.species.commonNames[0] || bestMatch.species.scientificNameWithoutAuthor, scientific: bestMatch.species.scientificNameWithoutAuthor, confidence: `${(bestMatch.score * 100).toFixed(1)}%`, title: "Health Check: Optimal", severity: "None", cause: "Based on our visual analysis, the foliage appears vibrant and healthy.", treatment: "Continue current watering schedule." });
+            } else { throw new Error("No matches found"); }
         } catch (err) {
-            console.error(err);
-            resultsArea.innerHTML = `
-                <div class="error-card">
-                    <h3>Identification Failed</h3>
-                    <p>Could not identify this plant. Please ensure your API key is set in Vercel and try again.</p>
-                    <button class="btn-primary" onclick="location.reload()">Try Again</button>
-                </div>
-            `;
+            resultsArea.innerHTML = `<div class="error-card"><h3>Identification Failed</h3><p>Please ensure your API key is set and try again.</p><button class="btn-primary" onclick="location.reload()">Try Again</button></div>`;
         }
     }
 
     function renderResults(result) {
-        resultsArea.innerHTML = `
-            <div class="diagnosis-card animate-in">
-                <div class="result-header">
-                    <span class="severity-badge ${result.severity.toLowerCase()}">${result.severity}</span>
-                    <span class="confidence">AI Confidence: ${result.confidence}</span>
-                </div>
-                <div class="id-row">
-                    <span class="id-label">Identified Species:</span>
-                    <h3 class="id-value">${result.species}</h3>
-                    <p style="font-size: 0.9rem; color: var(--text-muted); font-style: italic;">${result.scientific}</p>
-                </div>
-                <hr style="margin: 1rem 0; border: none; border-top: 1px solid #eee;">
-                <h3 style="color: var(--text-main);">${result.title}</h3>
-                <div class="result-body">
-                    <div class="result-section">
-                        <h4 style="margin: 1rem 0 0.5rem; color: var(--primary);">Analysis</h4>
-                        <p>${result.cause}</p>
-                    </div>
-                    <div class="result-section">
-                        <h4 style="margin: 1rem 0 0.5rem; color: var(--primary);">Action Plan</h4>
-                        <p style="white-space: pre-line;">${result.treatment}</p>
-                    </div>
-                </div>
-                <button class="btn-primary" id="btn-add-result" style="margin-top: 1rem; width: 100%; background: var(--secondary);">Add to My Garden</button>
-                <button class="btn-secondary-large" onclick="location.reload()" style="margin-top: 1rem; width: 100%; border: none; font-size: 0.9rem;">Run New Check</button>
-            </div>
-        `;
-
-        document.getElementById('btn-add-result').onclick = () => {
-            openAddModal(result.species);
-        };
+        resultsArea.innerHTML = `<div class="diagnosis-card animate-in"><div class="result-header"><span class="severity-badge ${result.severity.toLowerCase()}">${result.severity}</span><span class="confidence">AI Confidence: ${result.confidence}</span></div><div class="id-row"><span class="id-label">Identified Species:</span><h3 class="id-value">${result.species}</h3><p style="font-size: 0.9rem; color: var(--text-muted); font-style: italic;">${result.scientific}</p></div><hr style="margin: 1rem 0; border: none; border-top: 1px solid #eee;"><h3 style="color: var(--text-main);">${result.title}</h3><div class="result-body"><p>${result.cause}</p><p style="white-space: pre-line;">${result.treatment}</p></div><button class="btn-primary" id="btn-add-result" style="margin-top: 1rem; width: 100%; background: var(--secondary);">Add to My Garden</button></div>`;
+        document.getElementById('btn-add-result').onclick = () => openAddModal(result.species);
     }
 
     function simulateDiagnosis(file) {
@@ -612,27 +520,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function openAddModal(prefillSpecies = '') {
         modal.style.display = 'flex';
-        if (prefillSpecies) {
-            document.getElementById('plant-species').value = prefillSpecies;
-            document.getElementById('plant-name').focus();
-        }
+        if (prefillSpecies) document.getElementById('plant-species').value = prefillSpecies;
     }
 
     window.openAddModal = openAddModal;
-
-    const observerOptions = { threshold: 0.1 };
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('fade-in-up');
-            }
-        });
-    }, observerOptions);
-
-    document.querySelectorAll('.feature-card, .plant-card, .glass-container').forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(20px)';
-        el.style.transition = 'all 0.6s ease-out';
-        observer.observe(el);
-    });
+    loadGarden();
+    renderLibrary();
 });
