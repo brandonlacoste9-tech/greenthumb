@@ -139,13 +139,40 @@
         <!-- Care Guides Section -->
         <section id="library" class="library">
             <div class="container">
-                <div class="section-header">
+                <div class="section-header text-center">
+                    <span class="sub-badge">Expert Knowledge</span>
                     <h2>Plant Care Library</h2>
-                    <p>Expert guides for every species in your collection.</p>
-                    <div class="search-container">
-                        <input type="text" id="library-search" placeholder="Search 10,000+ species...">
+                    <p>Browse by category or search our expert botanical database.</p>
+                </div>
+
+                <!-- Circular Categories -->
+                <div class="category-nav">
+                    <div class="cat-item active" data-category="all">
+                        <div class="cat-circle">🌿</div>
+                        <span>All Plants</span>
+                    </div>
+                    <div class="cat-item" data-category="houseplants">
+                        <div class="cat-circle">🏠</div>
+                        <span>Houseplants</span>
+                    </div>
+                    <div class="cat-item" data-category="succulents">
+                        <div class="cat-circle">🌵</div>
+                        <span>Succulents</span>
+                    </div>
+                    <div class="cat-item" data-category="flowers">
+                        <div class="cat-circle">🌸</div>
+                        <span>Flowers</span>
+                    </div>
+                    <div class="cat-item" data-category="trees">
+                        <div class="cat-circle">🌳</div>
+                        <span>Trees</span>
                     </div>
                 </div>
+
+                <div class="search-container">
+                    <input type="text" id="library-search" placeholder="Search 10,000+ care guides...">
+                </div>
+
                 <div class="library-grid" id="library-grid">
                     <!-- Dynamic Library Cards -->
                 </div>

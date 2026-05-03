@@ -303,19 +303,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Plant Library Data
     const plantLibrary = [
-        { name: "Monstera Deliciosa", species: "Swiss Cheese Plant", water: "7 days", sun: "Partial Sun", difficulty: "Easy", icon: "🌿" },
-        { name: "Sansevieria", species: "Snake Plant", water: "14 days", sun: "Full Sun", difficulty: "Beginner", icon: "🐍" },
-        { name: "Ficus Lyrata", species: "Fiddle Leaf Fig", water: "7 days", sun: "Full Sun", difficulty: "Hard", icon: "🎻" },
-        { name: "Epipremnum", species: "Pothos", water: "7 days", sun: "Partial Shade", difficulty: "Easy", icon: "🍃" },
-        { name: "Calathea", species: "Prayer Plant", water: "3 days", sun: "Partial Shade", difficulty: "Medium", icon: "🙏" },
-        { name: "Aloe Vera", species: "Medicinal Aloe", water: "14 days", sun: "Full Sun", difficulty: "Easy", icon: "🩹" }
+        { name: "Monstera Deliciosa", species: "Swiss Cheese Plant", water: "7 days", sun: "Partial Sun", difficulty: "Easy", icon: "🌿", category: "houseplants" },
+        { name: "Sansevieria", species: "Snake Plant", water: "14 days", sun: "Full Sun", difficulty: "Beginner", icon: "🌵", category: "succulents" },
+        { name: "Ficus Lyrata", species: "Fiddle Leaf Fig", water: "7 days", sun: "Full Sun", difficulty: "Hard", icon: "🎻", category: "houseplants" },
+        { name: "Epipremnum", species: "Pothos", water: "7 days", sun: "Partial Shade", difficulty: "Easy", icon: "🍃", category: "houseplants" },
+        { name: "Calathea", species: "Prayer Plant", water: "3 days", sun: "Partial Shade", difficulty: "Medium", icon: "🙏", category: "houseplants" },
+        { name: "Aloe Vera", species: "Medicinal Aloe", water: "14 days", sun: "Full Sun", difficulty: "Easy", icon: "🪴", category: "succulents" },
+        { name: "Lavender", species: "Lavandula", water: "7 days", sun: "Full Sun", difficulty: "Medium", icon: "🌸", category: "flowers" },
+        { name: "Japanese Maple", species: "Acer Palmatum", water: "3 days", sun: "Partial Sun", difficulty: "Medium", icon: "🍁", category: "trees" }
     ];
 
+    let currentCategory = 'all';
+
     function renderLibrary(filter = '') {
-        const filtered = plantLibrary.filter(p => 
-            p.name.toLowerCase().includes(filter.toLowerCase()) || 
-            p.species.toLowerCase().includes(filter.toLowerCase())
-        );
+        const filtered = plantLibrary.filter(p => {
+            const matchesSearch = p.name.toLowerCase().includes(filter.toLowerCase()) || 
+                                p.species.toLowerCase().includes(filter.toLowerCase());
+            const matchesCategory = currentCategory === 'all' || p.category === currentCategory;
+            return matchesSearch && matchesCategory;
+        });
 
         libraryGrid.innerHTML = filtered.map(plant => `
             <div class="library-card animate-in" onclick="openAddModal('${plant.name}')">
@@ -335,6 +341,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     librarySearch.addEventListener('input', (e) => {
         renderLibrary(e.target.value);
+    });
+
+    document.querySelectorAll('.cat-item').forEach(item => {
+        item.addEventListener('click', () => {
+            document.querySelectorAll('.cat-item').forEach(i => i.classList.remove('active'));
+            item.classList.add('active');
+            currentCategory = item.dataset.category;
+            renderLibrary(librarySearch.value);
+        });
     });
 
     // Initial Renders
