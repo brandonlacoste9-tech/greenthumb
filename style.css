@@ -426,6 +426,31 @@ h1 {
     cursor: pointer;
 }
 
+/* Empty State */
+.empty-state {
+    padding: 4rem 2rem;
+    background: var(--white);
+    border-radius: var(--radius);
+    border: 2px dashed #eee;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.empty-state .icon {
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+    opacity: 0.5;
+}
+
+.empty-state h3 {
+    margin-bottom: 0.5rem;
+    color: var(--text-main);
+}
+
+.empty-state p {
+    color: var(--text-muted);
+}
+
 /* Footer */
 footer {
     background: var(--primary-dark);

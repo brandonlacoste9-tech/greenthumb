@@ -10,24 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Virtual Garden State & Persistence
-    let myPlants = JSON.parse(localStorage.getItem('greenthumb_garden')) || [
-        {
-            id: 1,
-            name: "Monstera Deliciosa",
-            image: "greenthumb_hero.png",
-            waterLevel: 75,
-            light: "Partial Sun",
-            nextWater: "2 days"
-        },
-        {
-            id: 2,
-            name: "Fiddle Leaf Fig",
-            image: "fiddle_leaf_fig.png",
-            waterLevel: 30,
-            light: "Bright Indirect",
-            nextWater: "Needs Water!"
-        }
-    ];
+    let myPlants = JSON.parse(localStorage.getItem('greenthumb_garden')) || [];
 
     function saveGarden() {
         localStorage.setItem('greenthumb_garden', JSON.stringify(myPlants));
@@ -35,6 +18,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function renderGarden() {
         const gardenGrid = document.getElementById('virtual-garden');
+        
+        if (myPlants.length === 0) {
+            gardenGrid.innerHTML = `
+                <div class="empty-state">
+                    <div class="icon">🪴</div>
+                    <h3>Your Garden is Empty</h3>
+                    <p>Add your first plant to start tracking its care!</p>
+                </div>
+            `;
+            // Center the empty state
+            gardenGrid.style.display = 'block';
+            gardenGrid.style.textAlign = 'center';
+            return;
+        }
+
+        gardenGrid.style.display = 'grid';
         gardenGrid.innerHTML = myPlants.map(plant => `
             <div class="plant-card animate-in" data-id="${plant.id}">
                 <div class="plant-thumb">
