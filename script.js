@@ -215,14 +215,28 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentCategory = 'all';
 
     function renderLibrary(filter = '') {
+        const hasFilter = filter.trim().length > 0 || currentCategory !== 'all';
+        
+        if (!libraryGrid) return;
+        
+        if (!hasFilter) {
+            libraryGrid.innerHTML = `
+                <div class="empty-state" style="grid-column: 1/-1; padding: 4rem; text-align: center; opacity: 0.7;">
+                    <div class="icon" style="font-size: 3rem; margin-bottom: 1rem;">🔍</div>
+                    <h3>Private Botanical Archive</h3>
+                    <p>Enter a species name or select a category to access our intelligence records.</p>
+                </div>
+            `;
+            return;
+        }
+
         const filtered = plantLibrary.filter(p => 
             (p.name.toLowerCase().includes(filter.toLowerCase()) || p.species.toLowerCase().includes(filter.toLowerCase())) &&
             (currentCategory === 'all' || p.category === currentCategory)
         );
         
-        if (!libraryGrid) return;
         if (filtered.length === 0) {
-            libraryGrid.innerHTML = `<div class="empty-state" style="grid-column: 1/-1;"><p>No plants found.</p></div>`;
+            libraryGrid.innerHTML = `<div class="empty-state" style="grid-column: 1/-1; padding: 4rem; text-align: center;"><p>No records found in the archive for "${filter}".</p></div>`;
             return;
         }
 
