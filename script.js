@@ -229,7 +229,13 @@ document.addEventListener('DOMContentLoaded', () => {
             diagContainer.style.display = 'none';
             if (diagZone) {
                 diagZone.style.display = 'flex';
-                diagZone.innerHTML = `<img src="${photo}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 20px;">`;
+                diagZone.innerHTML = `
+                    <div style="width: 100%; position: relative;">
+                        <img src="${photo}" style="width: 100%; height: 200px; object-fit: cover; border-radius: 20px;">
+                        <button class="btn-secondary" id="retake-diag" style="margin-top: 1rem; width: 100%;">Retake Photo</button>
+                    </div>
+                `;
+                document.getElementById('retake-diag').onclick = () => startCamera(diagVideo, diagContainer, diagZone);
             }
             logLedger('Captured photo for AI Diagnosis.', '📸');
             runDiagnosis();
@@ -243,7 +249,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 const previewContainer = mainCanvas.previousElementSibling;
                 if (previewContainer) {
                     previewContainer.style.display = 'flex';
-                    previewContainer.innerHTML = `<img src="${photo}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 15px;">`;
+                    previewContainer.innerHTML = `
+                        <div style="width: 100%; position: relative;">
+                            <img src="${photo}" style="width: 100%; height: 150px; object-fit: cover; border-radius: 15px;">
+                            <button class="btn-secondary" id="retake-main" style="margin-top: 1rem; width: 100%; font-size: 0.7rem;">Retake Photo</button>
+                        </div>
+                    `;
+                    document.getElementById('retake-main').onclick = () => startCamera(mainVideo, mainContainer, mainZone);
                 }
             }
             logLedger('Captured photo for new garden asset.', '📸');
