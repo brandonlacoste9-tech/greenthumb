@@ -16,6 +16,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const fileInput = document.getElementById('plant-upload');
     const libraryGrid = document.getElementById('library-grid');
     const librarySearch = document.getElementById('library-search');
+    const header = document.querySelector('header');
+
+    window.onscroll = () => {
+        if (window.scrollY > 50) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+    };
 
     // Smooth scrolling for navigation
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {

@@ -14,12 +14,11 @@
     <header>
         <nav class="container">
             <div class="logo">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 3.5 1 8h-3"></path>
-                    <path d="M12 21a10 10 0 0 1-4-2c-1.5-1.2-2-3-1.5-5 .5-2 1.5-4 4-6 2.5 2 3.5 4 4 6 .5 2 0 3.8-1.5 5a10 10 0 0 1-4 2z"></path>
-                    <path d="M12 11c.5 1 1 2.5 1 4 0 2-1 3-1 3s-1-1-1-3c0-1.5.5-3 1-4z"></path>
+                    <circle cx="12" cy="12" r="3" fill="var(--secondary)"></circle>
                 </svg>
-                <span>GreenThumb</span>
+                <span style="letter-spacing: -0.03em;">GreenThumb</span>
             </div>
             <ul class="nav-links">
                 <li><a href="#features">Features</a></li>
@@ -36,18 +35,19 @@
         <section class="hero">
             <div class="container hero-content">
                 <div class="hero-text">
+                    <span class="sub-badge" style="background: var(--primary-light); color: var(--primary); padding: 0.5rem 1rem; border-radius: 50px; font-weight: 700; font-size: 0.8rem; margin-bottom: 1.5rem; display: inline-block;">AI BOTANICAL INTELLIGENCE</span>
                     <h1>Every Plant Deserves <br><span class="accent">Perfect Care.</span></h1>
-                    <p>Unlock the secrets of your garden with AI-powered diagnosis, personalized watering schedules, and expert health tracking.</p>
+                    <p style="font-size: 1.2rem; color: var(--text-muted); margin-bottom: 2.5rem; max-width: 600px;">Unlock the secrets of your garden with AI-powered diagnosis, automated watering schedules, and 10,000+ expert guides.</p>
                     <div class="hero-actions">
                         <a href="#identify" class="btn-primary-large" id="cta-start">Identify My Plant</a>
                         <a href="#library" class="btn-secondary-large">Browse Care Guides</a>
                     </div>
                 </div>
                 <div class="hero-image">
-                    <div class="glass-card floating">
-                        <img src="greenthumb_hero.png" alt="Lush indoor garden" id="main-hero-img">
-                        <div class="status-badge health-good">
-                            <span class="dot"></span> Healthy Monstera
+                    <div class="glass-card" style="padding: 1rem; border-radius: 30px; position: relative; overflow: hidden;">
+                        <img src="greenthumb_hero_v2_1777790745544.png" alt="Luxury Botanical Living Room" id="main-hero-img" style="width: 100%; border-radius: 20px; display: block;">
+                        <div class="status-badge health-good" style="position: absolute; bottom: 2rem; right: 2rem; background: white; padding: 0.8rem 1.5rem; border-radius: 50px; font-weight: 700; box-shadow: var(--shadow); display: flex; align-items: center; gap: 0.5rem;">
+                            <span class="dot" style="width: 10px; height: 10px; background: #16a34a; border-radius: 50%;"></span> Healthy Garden Active
                         </div>
                     </div>
                 </div>
@@ -80,8 +80,8 @@
 
         <!-- AI Doctor Tool Section -->
         <section id="identify" class="ai-tool">
-            <div class="container glass-container">
-                <div class="ai-grid">
+            <div class="container">
+                <div class="ai-grid glass-card" style="padding: 3rem; border-radius: 40px; border: none;">
                     <div class="ai-upload">
                         <h2>Identify & Diagnose</h2>
                         <p>Upload a clear photo to identify your plant and check its health.</p>
@@ -224,13 +224,17 @@
         </section>
 
         <!-- Dashboard Preview -->
-        <section id="dashboard" class="dashboard-preview">
+        <!-- Dashboard Preview -->
+        <section id="dashboard" class="dashboard-preview" style="padding: 6rem 0; background: #fdfdfd;">
             <div class="container">
-                <div class="dashboard-header">
-                    <h2>My Virtual Garden</h2>
-                    <button class="btn-add" id="open-add-modal">+ Add Plant</button>
+                <div class="dashboard-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 3rem;">
+                    <div>
+                        <h2 style="margin-bottom: 0.5rem;">My Virtual Garden</h2>
+                        <p style="color: var(--text-muted);">Real-time care tracking across all your devices.</p>
+                    </div>
+                    <button class="btn-primary" id="open-add-modal" style="padding: 1rem 2rem;">+ Add New Plant</button>
                 </div>
-                <div class="plant-grid" id="virtual-garden">
+                <div class="plant-grid glass-card" id="virtual-garden" style="padding: 3rem; border-radius: 40px; border: none; min-height: 400px; display: grid; gap: 2rem;">
                     <!-- Dynamic Content -->
                 </div>
             </div>
