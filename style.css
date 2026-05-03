@@ -1519,39 +1519,72 @@ footer {
     gap: 1rem;
 }
 
-/* Responsive Optimization */
+/* Absolute Sovereignty Mobile UI */
 @media (max-width: 968px) {
-    .hero-content, .ai-grid {
-        flex-direction: column;
-        text-align: center;
+    .container {
+        padding: 0 1.5rem;
     }
 
-    .nav-links {
-        display: none; /* Hide legacy links */
-    }
-
-    .nav-actions {
-        display: flex !important;
-        gap: 0.5rem;
-        align-items: center;
+    header {
+        padding: 1rem 0;
     }
 
     header .container {
-        justify-content: space-between;
+        flex-direction: column;
+        gap: 1.5rem;
+        align-items: center;
     }
 
-    .btn-pro {
-        padding: 0.5rem 1rem;
-        font-size: 0.7rem;
+    .nav-links {
+        display: none;
     }
 
-    /* Immersive Mobile Camera */
-    .camera-container, #diag-camera-container {
+    .nav-actions {
+        width: 100%;
+        display: flex !important;
+        justify-content: center;
+        gap: 1rem;
+        padding: 0.5rem;
+        background: rgba(0,0,0,0.03);
+        border-radius: 50px;
+    }
+
+    [data-theme="dark"] .nav-actions {
+        background: rgba(255,255,255,0.05);
+    }
+
+    /* Full-Screen Immersive Modals */
+    .modal {
+        padding: 0 !important;
+        background: var(--bg-light) !important;
+    }
+
+    [data-theme="dark"] .modal {
+        background: #0a0a0a !important;
+    }
+
+    .modal-content {
         width: 100vw !important;
-        height: 60vh !important;
-        margin-left: -2rem; /* Pull back from modal padding */
-        margin-right: -2rem;
-        position: relative;
+        height: 100vh !important;
+        max-width: none !important;
+        max-height: none !important;
+        border-radius: 0 !important;
+        border: none !important;
+        padding: 2rem 1.5rem !important;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Wall-to-Wall Camera Viewfinder */
+    .camera-container, #diag-camera-container {
+        width: 100% !important;
+        height: 50vh !important;
+        margin: 1.5rem 0 !important;
+        border-radius: 15px !important;
+        overflow: hidden;
+        background: #000;
+        flex-shrink: 0;
     }
 
     video {
@@ -1561,17 +1594,18 @@ footer {
         border-radius: 0 !important;
     }
 
-    .modal-content {
-        width: 100vw !important;
-        height: 100vh !important;
-        max-width: none !important;
-        border-radius: 0 !important;
-        padding: 1.5rem !important;
-        overflow-y: auto;
+    .upload-zone, .upload-zone-small {
+        height: 40vh !important;
     }
 
-    .btn-primary-large, .btn-pro {
-        width: 100%;
-        margin-top: 1rem;
+    .btn-primary-large, .btn-pro, .btn-primary {
+        height: 56px; /* Heavyweight thumb-target */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem !important;
     }
+
+    h1 { font-size: 2.8rem !important; line-height: 1.1; }
+    h2 { font-size: 2rem !important; }
 }
