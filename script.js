@@ -9,13 +9,15 @@ document.addEventListener('DOMContentLoaded', () => {
         appId: "YOUR_APP_ID"
     };
 
+    let auth = null;
+    let db = null;
+    let currentUser = null;
+
     if (firebaseConfig.apiKey !== "YOUR_API_KEY") {
         firebase.initializeApp(firebaseConfig);
+        auth = firebase.auth();
+        db = firebase.firestore();
     }
-
-    const auth = firebase.auth();
-    const db = firebase.firestore();
-    let currentUser = null;
 
     // Global Elements
     const modal = document.getElementById('add-plant-modal');
@@ -335,6 +337,10 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     btnAuthSubmit.onclick = async () => {
+        if (!auth) {
+            alert("Firebase not configured. Please add your config to script.js.");
+            return;
+        }
         const email = document.getElementById('auth-email').value;
         const pass = document.getElementById('auth-pass').value;
         try {
@@ -351,22 +357,27 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    btnLogout.onclick = () => auth.signOut();
+    btnLogout.onclick = () => auth && auth.signOut();
 
-    auth.onAuthStateChanged(user => {
-        if (user) {
-            currentUser = user;
-            btnLogin.style.display = 'none';
-            userProfile.style.display = 'flex';
-            userEmailSpan.textContent = user.email;
-            loadGarden();
-        } else {
-            currentUser = null;
-            btnLogin.style.display = 'block';
-            userProfile.style.display = 'none';
-            loadGarden();
-        }
-    });
+    if (auth) {
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                currentUser = user;
+                btnLogin.style.display = 'none';
+                userProfile.style.display = 'flex';
+                userEmailSpan.textContent = user.email;
+                loadGarden();
+            } else {
+                currentUser = null;
+                btnLogin.style.display = 'block';
+                userProfile.style.display = 'none';
+                loadGarden();
+            }
+        });
+    } else {
+        // Fallback for local use
+        loadGarden();
+    }
 
     // AI Diagnosis & Identification (Real API Integration)
 
