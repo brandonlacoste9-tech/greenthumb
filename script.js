@@ -14,6 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const resultsArea = document.getElementById('diagnosis-results');
     const dropZone = document.getElementById('drop-zone');
     const fileInput = document.getElementById('plant-upload');
+    const libraryGrid = document.getElementById('library-grid');
+    const librarySearch = document.getElementById('library-search');
 
     // Smooth scrolling for navigation
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -299,8 +301,46 @@ document.addEventListener('DOMContentLoaded', () => {
         simulateDiagnosis(fileInput.files[0]);
     };
 
-    // Load garden on startup
+    // Plant Library Data
+    const plantLibrary = [
+        { name: "Monstera Deliciosa", species: "Swiss Cheese Plant", water: "7 days", sun: "Partial Sun", difficulty: "Easy", icon: "🌿" },
+        { name: "Sansevieria", species: "Snake Plant", water: "14 days", sun: "Full Sun", difficulty: "Beginner", icon: "🐍" },
+        { name: "Ficus Lyrata", species: "Fiddle Leaf Fig", water: "7 days", sun: "Full Sun", difficulty: "Hard", icon: "🎻" },
+        { name: "Epipremnum", species: "Pothos", water: "7 days", sun: "Partial Shade", difficulty: "Easy", icon: "🍃" },
+        { name: "Calathea", species: "Prayer Plant", water: "3 days", sun: "Partial Shade", difficulty: "Medium", icon: "🙏" },
+        { name: "Aloe Vera", species: "Medicinal Aloe", water: "14 days", sun: "Full Sun", difficulty: "Easy", icon: "🩹" }
+    ];
+
+    function renderLibrary(filter = '') {
+        const filtered = plantLibrary.filter(p => 
+            p.name.toLowerCase().includes(filter.toLowerCase()) || 
+            p.species.toLowerCase().includes(filter.toLowerCase())
+        );
+
+        libraryGrid.innerHTML = filtered.map(plant => `
+            <div class="library-card animate-in" onclick="openAddModal('${plant.name}')">
+                <div class="lib-thumb">${plant.icon}</div>
+                <div class="lib-info">
+                    <h3>${plant.name}</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">${plant.species}</p>
+                    <div class="lib-tags">
+                        <span class="lib-tag">💧 ${plant.water}</span>
+                        <span class="lib-tag">☀️ ${plant.sun}</span>
+                        <span class="lib-tag">${plant.difficulty}</span>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    librarySearch.addEventListener('input', (e) => {
+        renderLibrary(e.target.value);
+    });
+
+    // Initial Renders
     loadGarden();
+    renderLibrary();
+});
 
     // AI Diagnosis & Identification (Real API Integration)
 
