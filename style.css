@@ -185,6 +185,96 @@ nav {
     background: var(--primary-light);
 }
 
+.btn-secondary {
+    padding: 0.55rem 1.1rem;
+    background: var(--primary-light);
+    color: var(--primary-dark);
+    border: 1px solid rgba(45, 90, 39, 0.15);
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    display: inline-block;
+    text-decoration: none;
+    font-family: inherit;
+}
+
+.btn-secondary:hover {
+    background: var(--primary);
+    color: #fff;
+}
+
+[data-theme="dark"] .btn-secondary {
+    background: rgba(212, 175, 55, 0.12);
+    color: #F9E27D;
+    border-color: rgba(212, 175, 55, 0.25);
+}
+
+[data-theme="dark"] .btn-secondary:hover {
+    background: #D4AF37;
+    color: #000;
+}
+
+.btn-delete-entry {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 0.2rem 0.4rem;
+    font-size: 0.8rem;
+    border-radius: 6px;
+}
+
+.btn-delete-entry:hover {
+    color: #ef4444;
+    background: rgba(239, 68, 68, 0.1);
+}
+
+/* AI Tool layout */
+.ai-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    align-items: start;
+}
+
+.ai-results {
+    min-height: 320px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.placeholder-results {
+    text-align: center;
+    opacity: 0.75;
+    padding: 2rem;
+}
+
+.placeholder-results .icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.plant-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 2rem;
+}
+
+.upload-zone.drag-over {
+    border-color: var(--primary);
+    background: var(--primary-light);
+    transform: scale(0.99);
+}
+
+@media (max-width: 900px) {
+    .ai-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 /* Hero Section Update */
 .hero {
     padding: 14rem 0 10rem;
@@ -1601,37 +1691,75 @@ footer {
     left: 0;
 }
 
-/* Precision Floating Controls */
-#btn-diag-snap, #btn-snap {
-        position: fixed !important;
-        bottom: 4rem !important;
-        left: 50% !important;
-        transform: translateX(-50%) !important;
-        width: 80px !important;
-        height: 80px !important;
-        border-radius: 50% !important;
-        background: #fff !important;
-        border: 6px solid rgba(212, 175, 55, 0.4) !important;
-        z-index: 10000 !important;
-        cursor: pointer;
-        box-shadow: 0 10px 40px rgba(0,0,0,0.6);
-        display: block !important;
-    }
+/* Precision Floating Controls (camera only) */
+.camera-container #btn-diag-snap,
+.camera-container #btn-snap {
+    position: absolute !important;
+    bottom: 4rem !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 80px !important;
+    height: 80px !important;
+    border-radius: 50% !important;
+    background: #fff !important;
+    border: 6px solid rgba(212, 175, 55, 0.4) !important;
+    z-index: 10000 !important;
+    cursor: pointer;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+    display: block !important;
+    padding: 0 !important;
+}
 
-.close-modal {
-    position: fixed !important;
-    top: 2rem !important;
-    right: 2rem !important;
-    z-index: 10001 !important;
-    background: rgba(0,0,0,0.5) !important;
-    color: #fff !important;
-    width: 44px !important;
-    height: 44px !important;
+/* Modal close stays inside modal chrome, not fixed over the whole page */
+.modal .close-modal {
+    position: absolute !important;
+    top: 1rem !important;
+    right: 1.25rem !important;
+    z-index: 5 !important;
+    background: rgba(0, 0, 0, 0.08) !important;
+    color: var(--text-main) !important;
+    width: 40px !important;
+    height: 40px !important;
     border-radius: 50% !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
     border: none !important;
+    font-size: 1.25rem !important;
+    cursor: pointer;
+}
+
+[data-theme="dark"] .modal .close-modal {
+    background: rgba(255, 255, 255, 0.08) !important;
+    color: #fff !important;
+}
+
+[data-theme="dark"] .feature-card {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="dark"] .feature-card h3 {
+    color: #FDF5E6;
+}
+
+[data-theme="dark"] .upload-zone {
+    background: rgba(255, 255, 255, 0.03);
+    border-color: rgba(212, 175, 55, 0.2);
+}
+
+[data-theme="dark"] .search-container input,
+[data-theme="dark"] .form-group input,
+[data-theme="dark"] .form-group select,
+[data-theme="dark"] .form-group textarea {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.12);
+    color: var(--text-main);
+}
+
+[data-theme="dark"] .cat-circle {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(212, 175, 55, 0.2);
 }
 
 /* Pricing & Garden Dark Mode Visibility */

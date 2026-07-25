@@ -1,14 +1,19 @@
 {
   "name": "greenthumb",
-  "version": "1.0.0",
-  "description": "AI-Powered Plant Care SaaS",
-  "main": "index.js",
+  "version": "1.1.0",
+  "description": "AI-Powered Plant Care SaaS (GardenGreen)",
+  "private": true,
+  "type": "module",
   "scripts": {
-    "start": "serve ."
+    "start": "npx --yes serve . -l 3000",
+    "dev": "npx --yes serve . -l 3000"
   },
   "dependencies": {
+    "@neondatabase/serverless": "^0.6.0",
     "axios": "^1.6.0",
-    "form-data": "^4.0.0",
-    "@neondatabase/serverless": "^0.6.0"
+    "form-data": "^4.0.0"
+  },
+  "engines": {
+    "node": ">=18"
   }
 }

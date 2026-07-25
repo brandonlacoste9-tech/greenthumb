@@ -306,7 +306,7 @@
                             <h3 style="margin-bottom: 0.3rem;">Botanical Ledger</h3>
                             <p style="font-size: 0.85rem; color: var(--text-muted);">Historical records of your garden's evolution.</p>
                         </div>
-                        <button class="btn-secondary" onclick="clearLedger()" style="font-size: 0.7rem; padding: 0.5rem 1rem;">Archive Records</button>
+                        <button type="button" class="btn-secondary" id="btn-clear-ledger" style="font-size: 0.7rem; padding: 0.5rem 1rem;">Archive Records</button>
                     </div>
                     <div id="global-ledger" style="max-height: 400px; overflow-y: auto; display: flex; flex-direction: column; gap: 1rem;">
                         <!-- Ledger entries appear here -->
@@ -329,9 +329,9 @@
                         <label>Plant Photo</label>
                         <div id="modal-drop-zone" class="upload-zone-small" style="height: 150px; border: 2px dashed rgba(0,0,0,0.1); border-radius: 15px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem; cursor: pointer; margin-bottom: 1.5rem;">
                             <span>📸 Add Photo</span>
-                            <button class="btn-secondary" id="link-camera" style="font-size: 0.7rem;">Open Camera</button>
+                            <button type="button" class="btn-secondary" id="link-camera" style="font-size: 0.7rem;">Open Camera</button>
+                            <input type="file" id="modal-plant-upload" hidden accept="image/*">
                         </div>
-                        <canvas id="camera-canvas" style="display: none;"></canvas>
                     </div>
                     <div class="form-group">
                         <label for="plant-name">Plant Name</label>
@@ -395,7 +395,7 @@
             <button class="close-modal">✕</button>
             <h2 style="color: var(--primary); margin-bottom: 1.5rem;">The Imperial Manifesto</h2>
             <div style="line-height: 1.8; color: var(--text-muted);">
-                <p style="margin-bottom: 1rem;">GardenGreen is the result of a singular vision: to grant every plant owner **Total Optical Sovereignty**. Founded in 2026 by a collective of botanical engineers and AI specialists, we believe that garden management should be as precise as aerospace engineering.</p>
+                <p style="margin-bottom: 1rem;">GardenGreen is the result of a singular vision: to grant every plant owner <strong>Total Optical Sovereignty</strong>. Founded in 2026 by a collective of botanical engineers and AI specialists, we believe that garden management should be as precise as aerospace engineering.</p>
                 <p style="margin-bottom: 1rem;">Our platform utilizes advanced VPD-aware care engines, the Frost Sentinel™ climate network, and the sovereign Heritage Ledger to ensure your botanical assets thrive in any environment.</p>
                 <p>Welcome to the gold standard. Welcome to GardenGreen.</p>
             </div>
@@ -408,13 +408,13 @@
             <button class="close-modal">✕</button>
             <h2 style="color: var(--primary); margin-bottom: 1.5rem;">Sovereign Privacy Policy</h2>
             <div style="line-height: 1.8; color: var(--text-muted); font-size: 0.95rem;">
-                <h4 style="color: #fff; margin-top: 1.5rem;">1. Data Sovereignty</h4>
+                <h4 style="color: var(--text-main); margin-top: 1.5rem;">1. Data Sovereignty</h4>
                 <p>Your botanical telemetry is your property. GardenGreen does not sell, trade, or distribute your plant photos or care data.</p>
                 
-                <h4 style="color: #fff; margin-top: 1.5rem;">2. Local Intelligence</h4>
+                <h4 style="color: var(--text-main); margin-top: 1.5rem;">2. Local Intelligence</h4>
                 <p>Most of your garden's heritage is stored locally via our Imperial Vault (localStorage) to ensure zero-latency privacy.</p>
 
-                <h4 style="color: #fff; margin-top: 1.5rem;">3. AI Ethics</h4>
+                <h4 style="color: var(--text-main); margin-top: 1.5rem;">3. AI Ethics</h4>
                 <p>Our diagnosis engine is trained on botanical signatures only. We do not use your personal images to train general-purpose models.</p>
                 
                 <p style="margin-top: 2rem; font-style: italic; color: var(--primary);">"Your garden is your sanctuary. We keep it that way."</p>
