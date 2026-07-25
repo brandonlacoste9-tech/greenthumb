@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- SaaS Device Identity ---
     let deviceId = localStorage.getItem('greenthumb_device_id');
     if (!deviceId) {
-        deviceId = 'user_' + Math.random().toString(36).substr(2, 9);
+        deviceId = typeof crypto !== 'undefined' && crypto.randomUUID ? 'user_' + crypto.randomUUID() : 'user_' + Math.random().toString(36).substr(2, 9);
         localStorage.setItem('greenthumb_device_id', deviceId);
     }
 

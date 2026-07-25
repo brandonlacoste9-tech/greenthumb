@@ -1,23 +1,27 @@
-const axios = require('axios');
-const FormData = require('form-data');
+import axios from 'axios';
+import FormData from 'form-data';
 
 export default async function handler(req, res) {
     if (req.method !== 'POST') {
         return res.status(405).json({ error: 'Method not allowed' });
     }
 
-    const { image } = req.body;
+    const { image } = req.body || {};
     const API_KEY = process.env.PLANTNET_API_KEY;
 
     if (!API_KEY) {
         return res.status(500).json({ error: 'API key not configured in Vercel' });
     }
 
+    if (!image) {
+        return res.status(400).json({ error: 'Image data is required' });
+    }
+
     try {
         // Pl@ntNet expects multipart form data
         const formData = new FormData();
-        // Since we are sending base64 from the frontend for simplicity in this proxy
-        const buffer = Buffer.from(image.split(',')[1], 'base64');
+        const base64Data = image.includes(',') ? image.split(',')[1] : image;
+        const buffer = Buffer.from(base64Data, 'base64');
         formData.append('images', buffer, 'plant.jpg');
         formData.append('organs', 'auto');
 
