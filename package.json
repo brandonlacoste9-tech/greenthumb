@@ -6,7 +6,10 @@
   "type": "module",
   "scripts": {
     "start": "npx --yes serve . -l 3000",
-    "dev": "npx --yes serve . -l 3000"
+    "dev": "npx --yes serve . -l 3000",
+    "plants": "node scripts/generate-plants.mjs",
+    "seo": "node scripts/generate-seo.mjs",
+    "build:content": "npm run plants && npm run seo"
   },
   "dependencies": {
     "@neondatabase/serverless": "^0.6.0",

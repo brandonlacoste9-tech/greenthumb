@@ -1,0 +1,235 @@
+/* Guide pages — article layout on top of main design system */
+
+.guides-body {
+    padding-top: var(--header-h, 64px);
+}
+
+.guide-main {
+    padding: 1.5rem 0 4rem;
+    min-height: 70vh;
+}
+
+.guide-wrap {
+    max-width: 920px;
+}
+
+.crumbs {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.82rem;
+    color: var(--text-faint);
+    margin-bottom: 1.5rem;
+}
+
+.crumbs a {
+    color: var(--text-muted);
+    text-decoration: none;
+}
+
+.crumbs a:hover {
+    color: var(--primary);
+}
+
+.guide-index-header,
+.guide-header {
+    margin-bottom: 1.75rem;
+}
+
+.guide-header {
+    display: flex;
+    gap: 1.1rem;
+    align-items: flex-start;
+}
+
+.guide-emoji {
+    width: 72px;
+    height: 72px;
+    border-radius: 18px;
+    display: grid;
+    place-items: center;
+    font-size: 2.25rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    flex-shrink: 0;
+}
+
+.guide-lede {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    line-height: 1.65;
+    max-width: 42rem;
+    margin-top: 0.5rem;
+}
+
+.guide-article h1,
+.guide-index-header h1 {
+    font-size: clamp(1.85rem, 4vw, 2.5rem);
+    margin-bottom: 0.35rem;
+}
+
+.guide-article h2 {
+    font-size: 1.25rem;
+    margin: 1.75rem 0 0.55rem;
+}
+
+.guide-article h3 {
+    font-size: 1rem;
+    margin: 1rem 0 0.35rem;
+    color: var(--text-main);
+}
+
+.guide-article section p {
+    color: var(--text-muted);
+    line-height: 1.65;
+    margin-bottom: 0.55rem;
+}
+
+.guide-article section ul {
+    color: var(--text-muted);
+    padding-left: 1.2rem;
+    line-height: 1.6;
+}
+
+.guide-article section li {
+    margin-bottom: 0.3rem;
+}
+
+.guide-stats {
+    margin: 1.25rem 0 0.5rem;
+}
+
+.guide-faq {
+    padding: 1rem 0 0.25rem;
+    border-top: 1px solid var(--border);
+    margin-top: 1.5rem;
+}
+
+.guide-cta {
+    margin-top: 2rem;
+    padding: 1.35rem 1.25rem !important;
+}
+
+.guide-cta h2 {
+    font-size: 1.15rem;
+    margin: 0 0 0.4rem;
+}
+
+.guide-cta p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+.guide-section {
+    margin-bottom: 2.5rem;
+}
+
+.section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 0.85rem;
+}
+
+.section-head h2 {
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+.section-head a {
+    color: var(--primary);
+    text-decoration: none;
+    font-size: 0.88rem;
+    font-weight: 600;
+}
+
+.category-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-top: 1.15rem;
+}
+
+.category-pills .chip {
+    text-decoration: none;
+    display: inline-flex;
+}
+
+.guide-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 0.75rem;
+}
+
+.guide-card {
+    display: flex;
+    gap: 0.85rem;
+    align-items: flex-start;
+    padding: 0.95rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    background: var(--surface);
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.18s ease, background 0.18s ease, transform 0.18s ease;
+}
+
+.guide-card:hover {
+    border-color: var(--border-strong);
+    background: var(--surface-strong);
+    transform: translateY(-1px);
+}
+
+.guide-card-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+    font-size: 1.35rem;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    flex-shrink: 0;
+}
+
+.guide-card h3 {
+    font-size: 0.98rem;
+    margin: 0 0 0.15rem;
+}
+
+.guide-card-species {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin: 0 0 0.45rem;
+    font-style: italic;
+}
+
+.guide-card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+}
+
+.guide-card-tags span {
+    font-size: 0.68rem;
+    font-weight: 600;
+    color: var(--text-faint);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0.15rem 0.45rem;
+    font-family: var(--mono);
+}
+
+.related {
+    margin-top: 2.25rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--border);
+}
+
+@media (max-width: 640px) {
+    .guide-header {
+        flex-direction: column;
+    }
+}

@@ -857,6 +857,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (detailContext.mode === 'library' && profile) {
             actions.innerHTML = `
                 <button type="button" class="btn-primary" id="detail-add-garden">Add to garden</button>
+                <a class="btn-secondary" id="detail-full-guide" href="guides/${escapeHtml(profile.id)}.html">Full guide</a>
                 <button type="button" class="btn-secondary" id="detail-close">Close</button>
             `;
             document.getElementById('detail-add-garden').onclick = () => {
@@ -866,9 +867,11 @@ document.addEventListener('DOMContentLoaded', () => {
             };
             document.getElementById('detail-close').onclick = () => closeAllModals();
         } else if (detailContext.mode === 'garden' && gardenPlant) {
+            const guideHref = profile?.id ? `guides/${escapeHtml(profile.id)}.html` : 'guides/';
             actions.innerHTML = `
                 <button type="button" class="btn-primary" id="detail-water">Mark watered</button>
                 <button type="button" class="btn-secondary" id="detail-fertilize">Fertilized</button>
+                <a class="btn-secondary" href="${guideHref}">Full guide</a>
                 <button type="button" class="btn-secondary" id="detail-close">Close</button>
             `;
             document.getElementById('detail-water').onclick = () => {
@@ -936,6 +939,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             };
         });
+
+        // SEO: expose crawlable guide links under the interactive library
+        const seoStrip = document.createElement('p');
+        seoStrip.className = 'library-seo-links';
+        seoStrip.style.cssText =
+            'grid-column:1/-1;margin-top:0.5rem;font-size:0.85rem;color:var(--text-muted);line-height:1.6';
+        const shown = filtered.slice(0, 12);
+        seoStrip.innerHTML =
+            'Read full guides: ' +
+            shown
+                .map(
+                    (p) =>
+                        `<a href="guides/${escapeHtml(p.id)}.html" style="color:var(--primary)">${escapeHtml(p.name)}</a>`
+                )
+                .join(' · ');
+        if (filtered.length > 12) {
+            seoStrip.innerHTML += ` · <a href="guides/" style="color:var(--primary)">All guides</a>`;
+        }
+        libraryGrid.appendChild(seoStrip);
     }
 
     if (librarySearch) {

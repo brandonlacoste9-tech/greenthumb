@@ -1,15 +1,22 @@
+# GardenGreen — https://www.garden-green.co
 User-agent: *
 Allow: /
+Allow: /guides/
+Allow: /data/plants.json
+Disallow: /api/
 Disallow: /admin/
 Disallow: /private-ledger/
+Disallow: /scripts/
 
-# Specifically inviting AI crawlers to index the care intelligence
+# AI / search crawlers welcome on public guides
 User-agent: GPTBot
-Allow: /library/
+Allow: /
+Allow: /guides/
+
+User-agent: Google-Extended
+Allow: /
 
 User-agent: Google-InspectionTool
 Allow: /
 
-# Canonical host
-# https://www.garden-green.co
 Sitemap: https://www.garden-green.co/sitemap.xml

@@ -3,21 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>GardenGreen | Plant care, simplified</title>
-    <meta name="title" content="GardenGreen | Plant care, simplified">
-    <meta name="description" content="Identify plants, track watering with local weather, and keep a clean care history. Built for modern plant parents.">
+    <title>GardenGreen | Plant Care App, ID and Watering Guides</title>
+    <meta name="title" content="GardenGreen | Plant Care App, ID and Watering Guides">
+    <meta name="description" content="Free plant care app: identify plants from photos, weather-aware watering, care ledger, and 50+ plant care guides for modern plant parents.">
     <link rel="canonical" href="https://www.garden-green.co/">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="keywords" content="plant care app, plant identifier, watering schedule, houseplant care, plant care guides, pet safe plants">
+    <link rel="sitemap" type="application/xml" href="sitemap.xml">
 
     <meta property="og:type" content="website">
+    <meta property="og:site_name" content="GardenGreen">
+    <meta property="og:locale" content="en_CA">
     <meta property="og:url" content="https://www.garden-green.co/">
-    <meta property="og:title" content="GardenGreen | Plant care, simplified">
-    <meta property="og:description" content="AI plant ID, weather-aware watering, and a care ledger — all in one calm interface.">
+    <meta property="og:title" content="GardenGreen | Plant Care App, ID and Watering Guides">
+    <meta property="og:description" content="Identify plants, weather-aware watering, care ledger, and free plant care guides.">
     <meta property="og:image" content="https://www.garden-green.co/greenthumb_hero_v2.png">
+    <meta property="og:image:alt" content="GardenGreen plant care app">
 
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://www.garden-green.co/">
-    <meta property="twitter:title" content="GardenGreen | Plant care, simplified">
-    <meta property="twitter:description" content="AI plant ID, weather-aware watering, and a care ledger.">
+    <meta property="twitter:title" content="GardenGreen | Plant Care App and Guides">
+    <meta property="twitter:description" content="AI plant ID, weather-aware watering, and free care guides.">
     <meta property="twitter:image" content="https://www.garden-green.co/greenthumb_hero_v2.png">
 
     <meta name="geo.region" content="CA-QC">
@@ -27,22 +33,72 @@
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "GardenGreen",
-      "operatingSystem": "Web",
-      "applicationCategory": "LifestyleApplication",
-      "offers": {
-        "@type": "Offer",
-        "price": "4.99",
-        "priceCurrency": "USD"
-      },
-      "description": "AI-powered plant care: identification, weather-aware watering, and care history.",
-      "url": "https://www.garden-green.co",
-      "author": {
-        "@type": "Organization",
-        "name": "GardenGreen",
-        "url": "https://www.garden-green.co"
-      }
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://www.garden-green.co/#org",
+          "name": "GardenGreen",
+          "url": "https://www.garden-green.co",
+          "logo": "https://www.garden-green.co/greenthumb_hero_v2.png"
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://www.garden-green.co/#website",
+          "url": "https://www.garden-green.co",
+          "name": "GardenGreen",
+          "description": "Plant care app with identification, watering schedules, and care guides.",
+          "publisher": { "@id": "https://www.garden-green.co/#org" },
+          "inLanguage": "en-CA",
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://www.garden-green.co/guides/?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+          }
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "GardenGreen",
+          "operatingSystem": "Web",
+          "applicationCategory": "LifestyleApplication",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "description": "AI-powered plant care: identification, weather-aware watering, care history, and plant guides.",
+          "url": "https://www.garden-green.co",
+          "author": { "@id": "https://www.garden-green.co/#org" }
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What is GardenGreen?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "GardenGreen is a plant care web app for identifying plants, tracking watering with local weather, keeping a care ledger, and reading free plant care guides."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Is GardenGreen free?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. Core tools and care guides are free. Optional Pro unlocks frost alerts and priority AI features."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Where can I find plant care guides?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Browse free guides at https://www.garden-green.co/guides/ covering watering, light, soil, fertilizer, and pet safety."
+              }
+            }
+          ]
+        }
+      ]
     }
     </script>
 
@@ -66,6 +122,7 @@
 
             <ul class="nav-links">
                 <li><a href="#identify">Identify</a></li>
+                <li><a href="guides/">Guides</a></li>
                 <li><a href="#library">Library</a></li>
                 <li><a href="#dashboard">Garden</a></li>
                 <li><a href="#pricing">Pricing</a></li>
@@ -86,7 +143,8 @@
 
     <div class="mobile-nav" id="mobile-nav">
         <a href="#identify">Identify & diagnose</a>
-        <a href="#library">Care library</a>
+        <a href="guides/">Care guides</a>
+        <a href="#library">Library</a>
         <a href="#dashboard">My garden</a>
         <a href="#pricing">Pricing</a>
         <a href="https://buy.stripe.com/14A4gycFLcWp8O2gxX1Fe0F" target="_blank" rel="noopener">Upgrade to Pro</a>
@@ -200,7 +258,7 @@
                 <div class="section-header text-center">
                     <span class="sub-badge">Guides</span>
                     <h2>Plant care library</h2>
-                    <p class="section-lede">Browse 50+ care profiles — open a plant for full guidance, then add it to your garden.</p>
+                    <p class="section-lede">Browse 50+ care profiles — open a plant for full guidance, then add it to your garden. Prefer a full article? Visit our <a href="guides/" style="color: var(--primary); font-weight: 600;">SEO care guides</a>.</p>
                 </div>
 
                 <div class="category-nav" role="tablist" aria-label="Plant categories">
@@ -400,6 +458,9 @@
             <div class="footer-brand">www.<span>garden-green</span>.co</div>
             <p>Plant care with a calm interface. Identify, track, and keep history — privately by default.</p>
             <div class="footer-links-row">
+                <a href="guides/">Care guides</a>
+                <a href="guides/houseplants.html">Houseplants</a>
+                <a href="guides/succulents.html">Succulents</a>
                 <a href="javascript:void(0)" data-modal="about-modal">About</a>
                 <a href="javascript:void(0)" data-modal="privacy-modal">Privacy</a>
                 <a href="#pricing">Pricing</a>
@@ -410,7 +471,7 @@
 
     <nav class="mobile-dock" aria-label="Quick links">
         <a href="#identify"><span class="dock-ico" aria-hidden="true">🔍</span>ID</a>
-        <a href="#library"><span class="dock-ico" aria-hidden="true">📚</span>Library</a>
+        <a href="guides/"><span class="dock-ico" aria-hidden="true">📖</span>Guides</a>
         <a href="#dashboard"><span class="dock-ico" aria-hidden="true">🪴</span>Garden</a>
         <a href="#pricing"><span class="dock-ico" aria-hidden="true">✦</span>Pro</a>
     </nav>

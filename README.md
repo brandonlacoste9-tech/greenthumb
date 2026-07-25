@@ -4,6 +4,8 @@
 
 AI-assisted plant care web app: identify plants, track a virtual garden, weather-aware watering, care ledger, **Today’s tasks**, and **50+ plant care profiles** (`data/plants.json`).
 
+**SEO guides:** [https://www.garden-green.co/guides/](https://www.garden-green.co/guides/) · [sitemap.xml](https://www.garden-green.co/sitemap.xml)
+
 ## Quick start (static UI)
 
 ```bash
@@ -11,6 +13,15 @@ npm start
 ```
 
 Open [http://localhost:3000](http://localhost:3000). Garden data is stored in `localStorage` by default.
+
+### Regenerate plant data & SEO pages
+
+```bash
+npm run build:content
+# or separately:
+npm run plants   # data/plants.json
+npm run seo      # guides/*.html + sitemap.xml
+```
 
 ## Optional backend (Vercel)
 
