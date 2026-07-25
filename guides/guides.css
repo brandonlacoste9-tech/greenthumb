@@ -233,3 +233,107 @@
         flex-direction: column;
     }
 }
+
+/* Topic / intent pages */
+.topic-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.topic-row {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 0.85rem;
+    align-items: center;
+    padding: 0.95rem 1rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    background: var(--surface);
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.18s ease, background 0.18s ease;
+}
+
+.topic-row:hover {
+    border-color: var(--border-strong);
+    background: var(--surface-strong);
+}
+
+.topic-badge {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-family: var(--mono);
+    color: var(--primary);
+    background: var(--primary-soft);
+    border: 1px solid rgba(52, 211, 153, 0.22);
+    border-radius: 999px;
+    padding: 0.25rem 0.55rem;
+    white-space: nowrap;
+}
+
+.topic-desc {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-top: 0.15rem;
+}
+
+.topic-arrow {
+    color: var(--text-faint);
+    font-size: 1.1rem;
+}
+
+.more-topics {
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+}
+
+.more-topics a {
+    color: var(--primary);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.compare-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    margin: 0.75rem 0 1rem;
+}
+
+.compare-card {
+    padding: 1rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    background: var(--bg);
+}
+
+.compare-card h3 {
+    margin: 0 0 0.5rem;
+    font-size: 0.95rem;
+}
+
+.compare-card ul {
+    margin: 0;
+    padding-left: 1.1rem;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+@media (max-width: 640px) {
+    .compare-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .topic-row {
+        grid-template-columns: 1fr;
+        gap: 0.45rem;
+    }
+
+    .topic-arrow {
+        display: none;
+    }
+}

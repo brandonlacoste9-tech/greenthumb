@@ -4,7 +4,9 @@
 
 AI-assisted plant care web app: identify plants, track a virtual garden, weather-aware watering, care ledger, **Today’s tasks**, and **50+ plant care profiles** (`data/plants.json`).
 
-**SEO guides:** [https://www.garden-green.co/guides/](https://www.garden-green.co/guides/) · [sitemap.xml](https://www.garden-green.co/sitemap.xml)
+**SEO guides:** [https://www.garden-green.co/guides/](https://www.garden-green.co/guides/) · [Topics](https://www.garden-green.co/guides/topics/) · [sitemap.xml](https://www.garden-green.co/sitemap.xml)
+
+**Ops checklist:** [docs/SEO.md](docs/SEO.md) (Search Console setup + monthly hygiene)
 
 ## Quick start (static UI)
 
