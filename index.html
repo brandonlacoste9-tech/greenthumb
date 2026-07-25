@@ -200,7 +200,7 @@
                 <div class="section-header text-center">
                     <span class="sub-badge">Guides</span>
                     <h2>Plant care library</h2>
-                    <p class="section-lede">Filter by type or search — tap a plant to add it to your garden.</p>
+                    <p class="section-lede">Browse 50+ care profiles — open a plant for full guidance, then add it to your garden.</p>
                 </div>
 
                 <div class="category-nav" role="tablist" aria-label="Plant categories">
@@ -296,6 +296,20 @@
                     <button type="button" class="btn-primary" id="open-add-modal">+ Add plant</button>
                 </div>
 
+                <div class="tasks-panel glass-card" id="tasks-panel">
+                    <div class="tasks-panel-header">
+                        <div>
+                            <h3>Today’s care</h3>
+                            <p class="tasks-sub" id="tasks-summary">Loading tasks…</p>
+                        </div>
+                        <div class="tasks-filters" role="tablist" aria-label="Task window">
+                            <button type="button" class="chip active" data-task-range="today">Today</button>
+                            <button type="button" class="chip" data-task-range="week">This week</button>
+                        </div>
+                    </div>
+                    <div id="tasks-list" class="tasks-list"></div>
+                </div>
+
                 <div class="plant-grid glass-card" id="virtual-garden"></div>
 
                 <div class="ledger-container glass-card">
@@ -315,10 +329,20 @@
             </div>
         </section>
 
+        <div id="plant-detail-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="plant-detail-title">
+            <div class="modal-content glass-card plant-detail-sheet">
+                <button type="button" class="close-modal" aria-label="Close">✕</button>
+                <div id="plant-detail-body">
+                    <!-- Filled by script.js -->
+                </div>
+            </div>
+        </div>
+
         <div id="add-plant-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="add-plant-title">
             <div class="modal-content glass-card">
                 <button type="button" class="close-modal" aria-label="Close">✕</button>
                 <h2 id="add-plant-title">Add to garden</h2>
+                <input type="hidden" id="plant-profile-id" value="">
                 <div class="add-form">
                     <div class="form-group">
                         <label>Plant photo</label>

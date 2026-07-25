@@ -125,6 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     };
                     updateAtmosphereUI();
                     renderGarden();
+                    renderTasks();
                 } catch (err) {
                     console.warn('Weather sync failed, using simulation.', err);
                     simulateWeather();
@@ -139,6 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
         localWeather = { temp: 18, humidity: 55, isRaining: false, weatherCode: 1 };
         updateAtmosphereUI();
         renderGarden();
+        renderTasks();
     }
 
     function updateAtmosphereUI() {
@@ -696,24 +698,190 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnDiagnose = document.getElementById('btn-diagnose');
     if (btnDiagnose) btnDiagnose.addEventListener('click', runDiagnosis);
 
-    // --- Plant Care Library ---
-    const plantLibrary = [
-        { name: 'Spider Plant', species: 'Chlorophytum comosum', water: '7 days', sun: 'Partial Sun', difficulty: 'Easy', icon: '🕷️', category: 'houseplants', toxicity: 'safe', interval: 7 },
-        { name: 'Monstera Deliciosa', species: 'Swiss Cheese Plant', water: '7 days', sun: 'Partial Sun', difficulty: 'Easy', icon: '🌿', category: 'houseplants', toxicity: 'toxic', interval: 7 },
-        { name: 'Snake Plant', species: 'Sansevieria', water: '14 days', sun: 'Full Sun', difficulty: 'Beginner', icon: '🌵', category: 'succulents', toxicity: 'toxic', interval: 14 },
-        { name: 'Peace Lily', species: 'Spathiphyllum', water: '3 days', sun: 'Partial Shade', difficulty: 'Medium', icon: '🏳️', category: 'flowers', toxicity: 'toxic', interval: 3 },
-        { name: 'Fiddle Leaf Fig', species: 'Ficus Lyrata', water: '7 days', sun: 'Full Sun', difficulty: 'Hard', icon: '🎻', category: 'houseplants', toxicity: 'toxic', interval: 7 },
-        { name: 'Pothos', species: 'Epipremnum aureum', water: '7 days', sun: 'Partial Shade', difficulty: 'Easy', icon: '🍃', category: 'houseplants', toxicity: 'toxic', interval: 7 },
-        { name: 'ZZ Plant', species: 'Zamioculcas zamiifolia', water: '14 days', sun: 'Full Shade', difficulty: 'Beginner', icon: '🪴', category: 'houseplants', toxicity: 'toxic', interval: 14 },
-        { name: 'Aloe Vera', species: 'Medicinal Aloe', water: '14 days', sun: 'Full Sun', difficulty: 'Easy', icon: '🩹', category: 'succulents', toxicity: 'toxic', interval: 14 },
-        { name: 'Lavender', species: 'Lavandula', water: '7 days', sun: 'Full Sun', difficulty: 'Medium', icon: '🌸', category: 'flowers', toxicity: 'safe', interval: 7 },
-        { name: 'Japanese Maple', species: 'Acer Palmatum', water: '3 days', sun: 'Partial Sun', difficulty: 'Medium', icon: '🍁', category: 'trees', toxicity: 'safe', interval: 3 },
-        { name: 'Chinese Money Plant', species: 'Pilea peperomioides', water: '7 days', sun: 'Partial Sun', difficulty: 'Easy', icon: '💰', category: 'houseplants', toxicity: 'safe', interval: 7 },
-        { name: 'Rose', species: 'Rosa', water: '3 days', sun: 'Full Sun', difficulty: 'Hard', icon: '🌹', category: 'flowers', toxicity: 'toxic', interval: 3 },
-        { name: 'Bonsai Pine', species: 'Pinus thunbergii', water: '1 day', sun: 'Full Sun', difficulty: 'Pro', icon: '🌲', category: 'trees', toxicity: 'toxic', interval: 1 }
-    ];
-
+    // --- Plant Care Library (loaded from data/plants.json) ---
+    let plantLibrary = [];
     let currentCategory = 'all';
+    let taskRange = 'today'; // today | week
+    let detailContext = null; // { mode: 'library'|'garden', profile?, gardenPlant? }
+
+    function findProfile({ id, species, name } = {}) {
+        if (!plantLibrary.length) return null;
+        if (id) {
+            const byId = plantLibrary.find((p) => p.id === id);
+            if (byId) return byId;
+        }
+        const norm = (s) => (s || '').toLowerCase().trim();
+        if (species) {
+            const s = norm(species);
+            const hit = plantLibrary.find(
+                (p) =>
+                    norm(p.species) === s ||
+                    norm(p.species).includes(s) ||
+                    s.includes(norm(p.species)) ||
+                    norm(p.name) === s
+            );
+            if (hit) return hit;
+        }
+        if (name) {
+            const n = norm(name);
+            return (
+                plantLibrary.find((p) => norm(p.name) === n) ||
+                plantLibrary.find((p) => n.includes(norm(p.name)) || norm(p.name).includes(n)) ||
+                null
+            );
+        }
+        return null;
+    }
+
+    function fillAddFormFromProfile(profile, nickname) {
+        const nameInput = document.getElementById('plant-name');
+        const speciesInput = document.getElementById('plant-species');
+        const intervalInput = document.getElementById('plant-interval');
+        const sunInput = document.getElementById('plant-sun');
+        const profileIdInput = document.getElementById('plant-profile-id');
+        if (nameInput) nameInput.value = nickname || profile.name || '';
+        if (speciesInput) speciesInput.value = profile.species || profile.name || '';
+        if (intervalInput) intervalInput.value = profile.interval || 7;
+        if (sunInput && profile.sun) sunInput.value = profile.sun;
+        if (profileIdInput) profileIdInput.value = profile.id || '';
+    }
+
+    function openPlantDetailFromLibrary(profile) {
+        detailContext = { mode: 'library', profile };
+        renderPlantDetail();
+        const el = document.getElementById('plant-detail-modal');
+        if (el) {
+            el.style.display = 'flex';
+            pushNavigationState('plant-detail');
+        }
+    }
+
+    function openPlantDetailFromGarden(gardenPlant) {
+        const profile =
+            findProfile({
+                id: gardenPlant.profileId,
+                species: gardenPlant.species,
+                name: gardenPlant.name
+            }) || null;
+        detailContext = { mode: 'garden', profile, gardenPlant };
+        renderPlantDetail();
+        const el = document.getElementById('plant-detail-modal');
+        if (el) {
+            el.style.display = 'flex';
+            pushNavigationState('plant-detail');
+        }
+    }
+
+    function renderPlantDetail() {
+        const body = document.getElementById('plant-detail-body');
+        if (!body || !detailContext) return;
+
+        const profile = detailContext.profile;
+        const gardenPlant = detailContext.gardenPlant;
+        const title = gardenPlant?.name || profile?.name || 'Plant';
+        const species = gardenPlant?.species || profile?.species || '';
+        const icon = profile?.icon || '🪴';
+        const toxicity = profile?.toxicity || 'toxic';
+        const difficulty = profile?.difficulty || '—';
+        const interval = gardenPlant?.interval || profile?.interval || 7;
+        const sun = gardenPlant?.sun || profile?.sun || '—';
+        const summary = profile?.summary || 'Custom plant in your garden.';
+        const care = profile?.care || {};
+        const tips = profile?.tips || [];
+        const issues = care.commonIssues || [];
+
+        let scheduleBlock = '';
+        if (gardenPlant) {
+            const water = daysUntilWater(gardenPlant);
+            const fert = daysUntilFertilize(gardenPlant, profile);
+            scheduleBlock = `
+                <div class="detail-section">
+                    <h4>Your schedule</h4>
+                    <p>Last watered: <strong style="color:var(--text-main)">${escapeHtml(new Date(gardenPlant.lastWatered).toLocaleString())}</strong></p>
+                    <p>${water.isOverdue ? 'Needs water now' : `Next water in ~${water.daysLeft} day(s)`} · every ${interval} day(s) (weather-adjusted)</p>
+                    <p>Fertilizer: ${fert.isOverdue ? 'due now' : `in ~${fert.daysLeft} day(s)`}</p>
+                </div>
+            `;
+        }
+
+        body.innerHTML = `
+            <div class="detail-hero">
+                <div class="detail-icon" aria-hidden="true">${icon}</div>
+                <div>
+                    <h2 id="plant-detail-title">${escapeHtml(title)}</h2>
+                    <p class="detail-species">${escapeHtml(species)}</p>
+                    <div class="detail-badges">
+                        <span class="safety-badge ${toxicity}">${toxicity === 'safe' ? '🐾 Pet safer' : '⚠️ Toxic'}</span>
+                        <span class="lib-tag">${escapeHtml(difficulty)}</span>
+                        ${profile?.category ? `<span class="lib-tag">${escapeHtml(profile.category)}</span>` : ''}
+                    </div>
+                </div>
+            </div>
+            <p class="detail-summary">${escapeHtml(summary)}</p>
+            <div class="detail-grid">
+                <div class="detail-stat"><span class="label">Water</span><span class="value">Every ${interval}d</span></div>
+                <div class="detail-stat"><span class="label">Light</span><span class="value">${escapeHtml(sun)}</span></div>
+                <div class="detail-stat"><span class="label">Humidity</span><span class="value">${escapeHtml(profile?.humidity || '—')}</span></div>
+                <div class="detail-stat"><span class="label">Temp</span><span class="value">${escapeHtml(profile?.temp || '—')}</span></div>
+            </div>
+            ${scheduleBlock}
+            <div class="detail-section">
+                <h4>Watering</h4>
+                <p>${escapeHtml(care.water || 'Water when the top soil dries; adjust for season.')}</p>
+            </div>
+            <div class="detail-section">
+                <h4>Light</h4>
+                <p>${escapeHtml(care.light || sun)}</p>
+            </div>
+            <div class="detail-section">
+                <h4>Soil & feed</h4>
+                <p>${escapeHtml(care.soil || profile?.soil || 'Well-draining mix.')}</p>
+                <p style="margin-top:0.35rem">${escapeHtml(care.fertilizer || 'Balanced feed in growing season.')}</p>
+            </div>
+            ${
+                issues.length
+                    ? `<div class="detail-section"><h4>Common issues</h4><ul>${issues.map((i) => `<li>${escapeHtml(i)}</li>`).join('')}</ul></div>`
+                    : ''
+            }
+            ${
+                tips.length
+                    ? `<div class="detail-section"><h4>Tips</h4><ul>${tips.map((t) => `<li>${escapeHtml(t)}</li>`).join('')}</ul></div>`
+                    : ''
+            }
+            <div class="detail-actions" id="plant-detail-actions"></div>
+        `;
+
+        const actions = document.getElementById('plant-detail-actions');
+        if (!actions) return;
+
+        if (detailContext.mode === 'library' && profile) {
+            actions.innerHTML = `
+                <button type="button" class="btn-primary" id="detail-add-garden">Add to garden</button>
+                <button type="button" class="btn-secondary" id="detail-close">Close</button>
+            `;
+            document.getElementById('detail-add-garden').onclick = () => {
+                closeAllModals();
+                fillAddFormFromProfile(profile);
+                openAddModal(profile.species || profile.name);
+            };
+            document.getElementById('detail-close').onclick = () => closeAllModals();
+        } else if (detailContext.mode === 'garden' && gardenPlant) {
+            actions.innerHTML = `
+                <button type="button" class="btn-primary" id="detail-water">Mark watered</button>
+                <button type="button" class="btn-secondary" id="detail-fertilize">Fertilized</button>
+                <button type="button" class="btn-secondary" id="detail-close">Close</button>
+            `;
+            document.getElementById('detail-water').onclick = () => {
+                markWatered(gardenPlant.id);
+                openPlantDetailFromGarden(myPlants.find((p) => p.id === gardenPlant.id) || gardenPlant);
+            };
+            document.getElementById('detail-fertilize').onclick = () => {
+                markFertilized(gardenPlant.id);
+                openPlantDetailFromGarden(myPlants.find((p) => p.id === gardenPlant.id) || gardenPlant);
+            };
+            document.getElementById('detail-close').onclick = () => closeAllModals();
+        }
+    }
 
     function renderLibrary(filter = '') {
         if (!libraryGrid) return;
@@ -722,29 +890,30 @@ document.addEventListener('DOMContentLoaded', () => {
             const matchesQuery =
                 !q ||
                 p.name.toLowerCase().includes(q) ||
-                p.species.toLowerCase().includes(q);
+                p.species.toLowerCase().includes(q) ||
+                (p.summary || '').toLowerCase().includes(q);
             const matchesCat = currentCategory === 'all' || p.category === currentCategory;
             return matchesQuery && matchesCat;
         });
 
         if (filtered.length === 0) {
-            libraryGrid.innerHTML = `<div class="empty-state" style="grid-column: 1/-1; padding: 4rem; text-align: center;"><p>No records found${q ? ` for "${escapeHtml(q)}"` : ''}.</p></div>`;
+            libraryGrid.innerHTML = `<div class="empty-state" style="grid-column: 1/-1;"><p>No plants found${q ? ` for “${escapeHtml(q)}”` : ''}.</p></div>`;
             return;
         }
 
         libraryGrid.innerHTML = filtered
             .map(
-                (plant, idx) => `
-            <div class="library-card animate-in" data-lib-index="${idx}" data-plant-name="${escapeHtml(plant.name)}" data-plant-species="${escapeHtml(plant.species)}" data-plant-interval="${plant.interval}" data-plant-sun="${escapeHtml(plant.sun)}">
+                (plant) => `
+            <div class="library-card animate-in" data-plant-id="${escapeHtml(plant.id)}" role="button" tabindex="0">
                 <div class="lib-thumb">${plant.icon}</div>
                 <div class="lib-info">
-                    <div class="lib-header" style="display: flex; justify-content: space-between; align-items: start;">
+                    <div class="lib-header" style="display: flex; justify-content: space-between; align-items: start; gap: 0.5rem;">
                         <h3>${escapeHtml(plant.name)}</h3>
                         <span class="safety-badge ${plant.toxicity}">${plant.toxicity === 'safe' ? '🐾 Safe' : '⚠️ Toxic'}</span>
                     </div>
                     <p style="color: var(--text-muted); font-size: 0.9rem;">${escapeHtml(plant.species)}</p>
                     <div class="lib-tags">
-                        <span class="lib-tag">💧 ${escapeHtml(plant.water)}</span>
+                        <span class="lib-tag">💧 ${escapeHtml(plant.water || `Every ${plant.interval}d`)}</span>
                         <span class="lib-tag">☀️ ${escapeHtml(plant.sun)}</span>
                         <span class="lib-tag">${escapeHtml(plant.difficulty)}</span>
                     </div>
@@ -754,19 +923,16 @@ document.addEventListener('DOMContentLoaded', () => {
             )
             .join('');
 
-        // Re-query filtered by DOM order using data attributes (index on filtered list is wrong after re-render)
         libraryGrid.querySelectorAll('.library-card').forEach((card) => {
-            card.onclick = () => {
-                openAddModal(card.dataset.plantSpecies || '');
-                const nameInput = document.getElementById('plant-name');
-                const intervalInput = document.getElementById('plant-interval');
-                const sunInput = document.getElementById('plant-sun');
-                if (nameInput) nameInput.value = card.dataset.plantName || '';
-                if (intervalInput && card.dataset.plantInterval) {
-                    intervalInput.value = card.dataset.plantInterval;
-                }
-                if (sunInput && card.dataset.plantSun) {
-                    sunInput.value = card.dataset.plantSun;
+            const open = () => {
+                const profile = plantLibrary.find((p) => p.id === card.dataset.plantId);
+                if (profile) openPlantDetailFromLibrary(profile);
+            };
+            card.onclick = open;
+            card.onkeydown = (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    open();
                 }
             };
         });
@@ -784,6 +950,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    document.querySelectorAll('[data-task-range]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('[data-task-range]').forEach((b) => b.classList.remove('active'));
+            btn.classList.add('active');
+            taskRange = btn.dataset.taskRange || 'today';
+            renderTasks();
+        });
+    });
+
     // --- Garden Logic ---
     function daysUntilWater(plant) {
         const modifier = calculateWeatherModifier(plant);
@@ -793,15 +968,185 @@ document.addEventListener('DOMContentLoaded', () => {
         return {
             daysLeft: Math.ceil((nextWaterTime - now) / (1000 * 60 * 60 * 24)),
             dynamicInterval,
-            isOverdue: nextWaterTime <= now
+            isOverdue: nextWaterTime <= now,
+            nextAt: nextWaterTime
         };
+    }
+
+    function daysUntilFertilize(plant, profile) {
+        const days = profile?.fertilizeDays || plant.fertilizeDays || 30;
+        const last = plant.lastFertilized || plant.lastWatered || Date.now();
+        const nextAt = last + days * 24 * 60 * 60 * 1000;
+        const now = Date.now();
+        return {
+            daysLeft: Math.ceil((nextAt - now) / (1000 * 60 * 60 * 24)),
+            isOverdue: nextAt <= now,
+            nextAt,
+            intervalDays: days
+        };
+    }
+
+    function markWatered(id) {
+        const plant = myPlants.find((p) => p.id === id);
+        if (!plant) return;
+        plant.lastWatered = Date.now();
+        saveGarden();
+        renderGarden();
+        renderTasks();
+        updateAtmosphereUI();
+        logLedger(`Watered ${plant.name}.`, '💧');
+    }
+
+    function markFertilized(id) {
+        const plant = myPlants.find((p) => p.id === id);
+        if (!plant) return;
+        plant.lastFertilized = Date.now();
+        saveGarden();
+        renderGarden();
+        renderTasks();
+        logLedger(`Fertilized ${plant.name}.`, '🧪');
+    }
+
+    function collectTasks() {
+        const horizon = taskRange === 'week' ? 7 : 0;
+        const tasks = [];
+        myPlants.forEach((plant) => {
+            const profile = findProfile({
+                id: plant.profileId,
+                species: plant.species,
+                name: plant.name
+            });
+            const water = daysUntilWater(plant);
+            if (water.isOverdue || water.daysLeft <= horizon) {
+                tasks.push({
+                    id: `water-${plant.id}`,
+                    plantId: plant.id,
+                    type: 'water',
+                    urgent: water.isOverdue,
+                    sort: water.isOverdue ? -1000 + water.daysLeft : water.daysLeft,
+                    title: water.isOverdue ? `Water ${plant.name}` : `Water ${plant.name} soon`,
+                    meta: water.isOverdue
+                        ? `Overdue · every ${plant.interval || 7} days`
+                        : `In ${water.daysLeft} day(s) · ${plant.species || ''}`.trim(),
+                    icon: '💧'
+                });
+            }
+            const fert = daysUntilFertilize(plant, profile);
+            if (fert.isOverdue || fert.daysLeft <= horizon) {
+                tasks.push({
+                    id: `fert-${plant.id}`,
+                    plantId: plant.id,
+                    type: 'fertilize',
+                    urgent: fert.isOverdue,
+                    sort: fert.isOverdue ? -500 + fert.daysLeft : fert.daysLeft + 0.5,
+                    title: fert.isOverdue ? `Feed ${plant.name}` : `Feed ${plant.name} soon`,
+                    meta: fert.isOverdue
+                        ? `Fertilizer due · every ~${fert.intervalDays} days`
+                        : `In ${fert.daysLeft} day(s)`,
+                    icon: '🧪'
+                });
+            }
+        });
+        // Frost outdoor tasks
+        if (localWeather.temp < 5) {
+            myPlants
+                .filter((p) => p.env === 'outdoor')
+                .forEach((plant) => {
+                    tasks.push({
+                        id: `frost-${plant.id}`,
+                        plantId: plant.id,
+                        type: 'frost',
+                        urgent: true,
+                        sort: -2000,
+                        title: `Protect ${plant.name}`,
+                        meta: 'Frost risk · outdoor plant',
+                        icon: '🧊'
+                    });
+                });
+        }
+        tasks.sort((a, b) => a.sort - b.sort);
+        return tasks;
+    }
+
+    function renderTasks() {
+        const list = document.getElementById('tasks-list');
+        const summary = document.getElementById('tasks-summary');
+        if (!list) return;
+
+        if (myPlants.length === 0) {
+            list.innerHTML = `<div class="tasks-empty">Add a plant to see watering and feeding tasks.</div>`;
+            if (summary) summary.textContent = 'No plants in your garden yet';
+            return;
+        }
+
+        const tasks = collectTasks();
+        const urgent = tasks.filter((t) => t.urgent).length;
+        if (summary) {
+            summary.textContent =
+                tasks.length === 0
+                    ? taskRange === 'week'
+                        ? 'You’re clear for the next 7 days'
+                        : 'Nothing due today — nice work'
+                    : `${tasks.length} task${tasks.length === 1 ? '' : 's'}${urgent ? ` · ${urgent} urgent` : ''}`;
+        }
+
+        if (tasks.length === 0) {
+            list.innerHTML = `<div class="tasks-empty">${
+                taskRange === 'week'
+                    ? 'No water or feed tasks in the next week.'
+                    : 'All caught up for today.'
+            }</div>`;
+            return;
+        }
+
+        list.innerHTML = tasks
+            .map(
+                (t) => `
+            <div class="task-row ${t.urgent ? 'urgent' : ''}" data-task-id="${t.id}">
+                <div class="task-ico" aria-hidden="true">${t.icon}</div>
+                <div class="task-main">
+                    <div class="task-title">${escapeHtml(t.title)}</div>
+                    <div class="task-meta">${escapeHtml(t.meta)}</div>
+                </div>
+                <div class="task-actions">
+                    ${
+                        t.type === 'water'
+                            ? `<button type="button" class="btn-primary" data-task-act="water" data-plant-id="${t.plantId}">Done</button>`
+                            : ''
+                    }
+                    ${
+                        t.type === 'fertilize'
+                            ? `<button type="button" class="btn-primary" data-task-act="fertilize" data-plant-id="${t.plantId}">Done</button>`
+                            : ''
+                    }
+                    <button type="button" class="btn-secondary" data-task-act="open" data-plant-id="${t.plantId}">Open</button>
+                </div>
+            </div>
+        `
+            )
+            .join('');
+
+        list.querySelectorAll('[data-task-act]').forEach((btn) => {
+            btn.onclick = (e) => {
+                e.stopPropagation();
+                const id = Number(btn.dataset.plantId);
+                const act = btn.dataset.taskAct;
+                if (act === 'water') markWatered(id);
+                else if (act === 'fertilize') markFertilized(id);
+                else if (act === 'open') {
+                    const plant = myPlants.find((p) => p.id === id);
+                    if (plant) openPlantDetailFromGarden(plant);
+                }
+            };
+        });
     }
 
     function renderGarden() {
         const gardenGrid = document.getElementById('virtual-garden');
         if (!gardenGrid) return;
         if (myPlants.length === 0) {
-            gardenGrid.innerHTML = `<div class="empty-state" style="padding: 4rem; text-align: center; grid-column: 1 / -1;"><h3>Garden is Empty</h3><p>Add a plant from the library or use + Add New Plant.</p></div>`;
+            gardenGrid.innerHTML = `<div class="empty-state" style="padding: 2.5rem 1rem; text-align: center; grid-column: 1 / -1;"><h3>Garden is empty</h3><p>Browse the library or tap + Add plant to get started.</p></div>`;
+            renderTasks();
             return;
         }
 
@@ -816,11 +1161,20 @@ document.addEventListener('DOMContentLoaded', () => {
                     : daysLeft === 1
                       ? 'Water tomorrow'
                       : `Water in ${daysLeft} days`;
+                const profile = findProfile({
+                    id: plant.profileId,
+                    species: plant.species,
+                    name: plant.name
+                });
 
                 return `
                 <div class="plant-card animate-in ${isOverdue ? 'overdue-alarm' : ''}" data-id="${plant.id}">
                     <div class="plant-thumb">
-                        <img src="${escapeHtml(plant.image || 'greenthumb_hero_v2.png')}" alt="${escapeHtml(plant.name)}">
+                        ${
+                            plant.image && plant.image !== 'greenthumb_hero_v2.png'
+                                ? `<img src="${escapeHtml(plant.image)}" alt="${escapeHtml(plant.name)}">`
+                                : `<div class="lib-thumb" style="height:160px;border:none;font-size:3rem;">${profile?.icon || '🪴'}</div>`
+                        }
                         ${isOverdue ? '<span class="alarm-badge">THIRSTY</span>' : ''}
                         <button type="button" class="btn-delete" data-action="delete" aria-label="Remove plant">✕</button>
                     </div>
@@ -832,7 +1186,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                         <p class="remind-tag ${isOverdue ? 'text-danger' : ''}">${statusText}</p>
                         <div class="plant-footer">
-                            <button type="button" class="btn-timeline" data-action="timeline">Timeline</button>
+                            <button type="button" class="btn-timeline" data-action="open">Care</button>
                             <button type="button" class="btn-water ${isOverdue ? 'btn-alarm' : ''}" data-action="water">Watered</button>
                         </div>
                     </div>
@@ -841,6 +1195,7 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .join('');
         attachGardenListeners();
+        renderTasks();
     }
 
     function attachGardenListeners() {
@@ -851,15 +1206,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const waterBtn = card.querySelector('[data-action="water"]');
             const deleteBtn = card.querySelector('[data-action="delete"]');
-            const timelineBtn = card.querySelector('[data-action="timeline"]');
+            const openBtn = card.querySelector('[data-action="open"]');
+
+            card.addEventListener('click', (e) => {
+                if (e.target.closest('button')) return;
+                openPlantDetailFromGarden(plant);
+            });
 
             if (waterBtn) {
-                waterBtn.onclick = () => {
-                    plant.lastWatered = Date.now();
-                    saveGarden();
-                    renderGarden();
-                    updateAtmosphereUI();
-                    logLedger(`Watered ${plant.name}.`, '💧');
+                waterBtn.onclick = (e) => {
+                    e.stopPropagation();
+                    markWatered(id);
                 };
             }
             if (deleteBtn) {
@@ -873,8 +1230,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     logLedger(`Removed ${plant.name} from garden.`, '🗑️');
                 };
             }
-            if (timelineBtn) {
-                timelineBtn.onclick = () => showTimeline(id);
+            if (openBtn) {
+                openBtn.onclick = (e) => {
+                    e.stopPropagation();
+                    openPlantDetailFromGarden(plant);
+                };
             }
         });
     }
@@ -909,17 +1269,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function showTimeline(id) {
         const plant = myPlants.find((p) => p.id === id);
-        if (!plant) {
-            triggerBriefing('No care history for this plant yet.', '📈');
-            return;
-        }
-        const { daysLeft, isOverdue } = daysUntilWater(plant);
-        const watered = new Date(plant.lastWatered).toLocaleString();
-        const status = isOverdue ? 'overdue for water' : `next water in ${daysLeft} day(s)`;
-        triggerBriefing(
-            `${plant.name} · ${plant.species || 'species unknown'}\nLast watered: ${watered}\n${status} · every ${plant.interval || 7} day(s)`,
-            '📈'
-        );
+        if (plant) openPlantDetailFromGarden(plant);
+        else triggerBriefing('No care history for this plant yet.', '📈');
     }
     window.showTimeline = showTimeline;
 
@@ -961,8 +1312,10 @@ document.addEventListener('DOMContentLoaded', () => {
         btnOpenModal.addEventListener('click', () => {
             const nameInput = document.getElementById('plant-name');
             const speciesInput = document.getElementById('plant-species');
+            const profileIdInput = document.getElementById('plant-profile-id');
             if (nameInput) nameInput.value = '';
             if (speciesInput) speciesInput.value = '';
+            if (profileIdInput) profileIdInput.value = '';
             currentCapturedPhoto = null;
             resetMainZone();
             openAddModal();
@@ -976,20 +1329,28 @@ document.addEventListener('DOMContentLoaded', () => {
             const interval = parseInt(document.getElementById('plant-interval')?.value, 10) || 7;
             const env = document.getElementById('plant-env')?.value || 'indoor';
             const sun = document.getElementById('plant-sun')?.value || 'Partial Sun';
+            const profileId = (document.getElementById('plant-profile-id')?.value || '').trim();
+            const profile =
+                findProfile({ id: profileId, species, name }) ||
+                findProfile({ species, name });
 
             if (!name || !species) {
                 alert('Please enter both a plant name and species.');
                 return;
             }
 
+            const now = Date.now();
             myPlants.push({
-                id: Date.now(),
+                id: now,
                 name,
                 species,
-                interval: Math.max(1, interval),
+                profileId: profile?.id || profileId || null,
+                interval: Math.max(1, interval || profile?.interval || 7),
+                fertilizeDays: profile?.fertilizeDays || 30,
                 env,
-                sun,
-                lastWatered: Date.now(),
+                sun: sun || profile?.sun || 'Partial Sun',
+                lastWatered: now,
+                lastFertilized: now,
                 image: currentCapturedPhoto || 'greenthumb_hero_v2.png'
             });
             logLedger(`Added ${name}.`, '🪴');
@@ -1000,6 +1361,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (history.state && history.state.activeUI) history.back();
             currentCapturedPhoto = null;
             resetMainZone();
+            const pid = document.getElementById('plant-profile-id');
+            if (pid) pid.value = '';
         });
     }
 
@@ -1090,7 +1453,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    async function loadPlantLibrary() {
+        try {
+            const res = await fetch('data/plants.json', { cache: 'no-cache' });
+            if (!res.ok) throw new Error('plants.json missing');
+            const data = await res.json();
+            plantLibrary = Array.isArray(data.plants) ? data.plants : [];
+        } catch (err) {
+            console.warn('Could not load data/plants.json', err);
+            plantLibrary = [];
+        }
+    }
+
     async function loadGarden() {
+        await loadPlantLibrary();
+
         try {
             myPlants = JSON.parse(localStorage.getItem('greenthumb_garden')) || [];
             if (!Array.isArray(myPlants)) myPlants = [];
@@ -1107,9 +1484,23 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
+        // Backfill profile ids when possible
+        myPlants = myPlants.map((plant) => {
+            if (plant.profileId) return plant;
+            const profile = findProfile({ species: plant.species, name: plant.name });
+            if (!profile) return plant;
+            return {
+                ...plant,
+                profileId: profile.id,
+                fertilizeDays: plant.fertilizeDays || profile.fertilizeDays,
+                lastFertilized: plant.lastFertilized || plant.lastWatered || Date.now()
+            };
+        });
+
         renderGarden();
         renderLedger();
         renderLibrary();
+        renderTasks();
         syncAtmosphere();
     }
 

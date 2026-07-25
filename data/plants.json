@@ -1,0 +1,1897 @@
+{
+  "version": 1,
+  "count": 59,
+  "plants": [
+    {
+      "id": "spider-plant",
+      "name": "Spider Plant",
+      "species": "Chlorophytum comosum",
+      "icon": "🕷️",
+      "category": "houseplants",
+      "toxicity": "safe",
+      "difficulty": "Easy",
+      "interval": 7,
+      "sun": "Partial Sun",
+      "water": "Every 7 days",
+      "humidity": "40–60%",
+      "temp": "15–27°C",
+      "soil": "Loose indoor mix.",
+      "fertilizeDays": 30,
+      "repotMonths": 24,
+      "summary": "Air-purifying classic that thrives with bright indirect light.",
+      "care": {
+        "water": "Water when top 2–3 cm is dry.",
+        "light": "Bright indirect; avoid harsh midday sun.",
+        "soil": "Loose indoor mix.",
+        "fertilizer": "Monthly in growing season.",
+        "commonIssues": [
+          "Brown tips",
+          "Root rot"
+        ]
+      },
+      "tips": [
+        "Propagate plantlets",
+        "Great in hanging baskets"
+      ]
+    },
+    {
+      "id": "monstera",
+      "name": "Monstera Deliciosa",
+      "species": "Monstera deliciosa",
+      "icon": "🌿",
+      "category": "houseplants",
+      "toxicity": "toxic",
+      "difficulty": "Easy",
+      "interval": 7,
+      "sun": "Partial Sun",
+      "water": "Every 7 days",
+      "humidity": "40–60%",
+      "temp": "15–27°C",
+      "soil": "Chunky aroid mix.",
+      "fertilizeDays": 28,
+      "repotMonths": 24,
+      "summary": "Fenestrated climber for bright rooms with a moss pole.",
+      "care": {
+        "water": "Weekly; let top third dry.",
+        "light": "Bright indirect for fenestrations.",
+        "soil": "Chunky aroid mix.",
+        "fertilizer": "Monthly in season.",
+        "commonIssues": [
+          "Yellow leaves",
+          "Crispy edges"
+        ]
+      },
+      "tips": [
+        "Use a moss pole",
+        "Wipe leaves monthly"
+      ]
+    },
+    {
+      "id": "snake-plant",
+      "name": "Snake Plant",
+      "species": "Dracaena trifasciata",
+      "icon": "🌵",
+      "category": "succulents",
+      "toxicity": "toxic",
+      "difficulty": "Beginner",
+      "interval": 14,
+      "sun": "Full Sun",
+      "water": "Every 14 days",
+      "humidity": "Low–medium",
+      "temp": "15–27°C",
+      "soil": "Cactus/succulent mix.",
+      "fertilizeDays": 60,
+      "repotMonths": 36,
+      "summary": "Nearly indestructible upright plant that forgives missed waterings.",
+      "care": {
+        "water": "Every 2–3 weeks when fully dry.",
+        "light": "Low to bright light.",
+        "soil": "Cactus/succulent mix.",
+        "fertilizer": "2–3× per year.",
+        "commonIssues": [
+          "Mushy base",
+          "Wrinkling"
+        ]
+      },
+      "tips": [
+        "Bedroom friendly",
+        "Leaf cuttings propagate"
+      ]
+    },
+    {
+      "id": "peace-lily",
+      "name": "Peace Lily",
+      "species": "Spathiphyllum wallisii",
+      "icon": "🏳️",
+      "category": "flowers",
+      "toxicity": "toxic",
+      "difficulty": "Medium",
+      "interval": 4,
+      "sun": "Partial Shade",
+      "water": "Every 4 days",
+      "humidity": "40–60%",
+      "temp": "15–27°C",
+      "soil": "Peat-rich mix.",
+      "fertilizeDays": 30,
+      "repotMonths": 24,
+      "summary": "Elegant blooms; droops clearly when thirsty.",
+      "care": {
+        "water": "Evenly moist; recovers after droop.",
+        "light": "Medium to low indirect.",
+        "soil": "Peat-rich mix.",
+        "fertilizer": "Half-strength monthly.",
+        "commonIssues": [
+          "Brown tips",
+          "No blooms"
+        ]
+      },
+      "tips": [
+        "Mist for humidity",
+        "Toxic to pets"
+      ]
+    },
+    {
+      "id": "fiddle-leaf",
+      "name": "Fiddle Leaf Fig",
+      "species": "Ficus lyrata",
+      "icon": "🎻",
+      "category": "houseplants",
+      "toxicity": "toxic",
+      "difficulty": "Hard",
+      "interval": 7,
+      "sun": "Full Sun",
+      "water": "Every 7 days",
+      "humidity": "40–60%",
+      "temp": "15–27°C",
+      "soil": "Well-draining indoor mix.",
+      "fertilizeDays": 21,
+      "repotMonths": 24,
+      "summary": "Statement tree that wants stable light and watering.",
+      "care": {
+        "water": "When top 5 cm dry; soak thoroughly.",
+        "light": "Bright consistent window light.",
+        "soil": "Well-draining indoor mix.",
+        "fertilizer": "Biweekly in season.",
+        "commonIssues": [
+          "Brown spots",
+          "Leaf drop after moves"
+        ]
+      },
+      "tips": [
+        "Rotate monthly",
+        "Avoid cold drafts"
+      ]
+    },
+    {
+      "id": "pothos",
+      "name": "Pothos",
+      "species": "Epipremnum aureum",
+      "icon": "🍃",
+      "category": "houseplants",
+      "toxicity": "toxic",
+      "difficulty": "Easy",
+      "interval": 7,
+      "sun": "Partial Shade",
+      "water": "Every 7 days",
+      "humidity": "40–60%",
+      "temp": "15–27°C",
+      "soil": "Standard potting mix.",
+      "fertilizeDays": 30,
+      "repotMonths": 24,
+      "summary": "Trailing workhorse for almost any indoor spot.",
+      "care": {
+        "water": "When top half of soil is dry.",
+        "light": "Low to bright indirect.",
+        "soil": "Standard potting mix.",
+        "fertilizer": "Monthly spring–fall.",
+        "commonIssues": [
+          "Yellow leaves",
+          "Leggy growth"
+        ]
+      },
+      "tips": [
+        "Trim to bush out",
+        "Easy water prop"
+      ]
+    },
+    {
+      "id": "zz-plant",
+      "name": "ZZ Plant",
+      "species": "Zamioculcas zamiifolia",
+      "icon": "🪴",
+      "category": "houseplants",
+      "toxicity": "toxic",
+      "difficulty": "Beginner",
+      "interval": 18,
+      "sun": "Full Shade",
+      "water": "Every 18 days",
+      "humidity": "40–60%",
+      "temp": "15–27°C",
+      "soil": "Well-draining mix.",
+      "fertilizeDays": 60,
+      "repotMonths": 36,
+      "summary": "Glossy low-light survivor with water-storing rhizomes.",
+      "care": {
+        "water": "Every 2–3 weeks.",
+        "light": "Low to medium.",
+        "soil": "Well-draining mix.",
+        "fertilizer": "2–3× yearly.",
+        "commonIssues": [
+          "Yellow stalks",
+          "Dust"
+        ]
+      },
+      "tips": [
+        "Office hero",
+        "Wash hands after pruning"
+      ]
+    },
+    {
+      "id": "aloe",
+      "name": "Aloe Vera",
+      "species": "Aloe vera",
+      "icon": "🩹",
+      "category": "succulents",
+      "toxicity": "toxic",
+      "difficulty": "Easy",
+      "interval": 14,
+      "sun": "Full Sun",
+      "water": "Every 14 days",
+      "humidity": "Low–medium",
+      "temp": "15–27°C",
+      "soil": "Cactus mix + grit.",
+      "fertilizeDays": 60,
+      "repotMonths": 24,
+      "summary": "Medicinal succulent for sunny windowsills.",
+      "care": {
+        "water": "Deep but infrequent.",
+        "light": "Bright direct or strong indirect.",
+        "soil": "Cactus mix + grit.",
+        "fertilizer": "Dilute spring only.",
+        "commonIssues": [
+          "Soft leaves",
+          "Sunburn"
+        ]
+      },
+      "tips": [
+        "Harvest outer leaves",
+        "Pups freely"
+      ]
+    },
+    {
+      "id": "lavender",
+      "name": "Lavender",
+      "species": "Lavandula angustifolia",
+      "icon": "🌸",
+      "category": "flowers",
+      "toxicity": "safe",
+      "difficulty": "Medium",
+      "interval": 7,
+      "sun": "Full Sun",
+      "water": "Every 7 days",
+      "humidity": "Low",
+      "temp": "15–27°C",
+      "soil": "Sandy free-draining.",
+      "fertilizeDays": 45,
+      "repotMonths": 24,
+      "summary": "Fragrant Mediterranean herb needing sun and sharp drainage.",
+      "care": {
+        "water": "Dry between waterings.",
+        "light": "Full sun 6+ hours.",
+        "soil": "Sandy free-draining.",
+        "fertilizer": "Light spring feed.",
+        "commonIssues": [
+          "Root rot",
+          "Woody base"
+        ]
+      },
+      "tips": [
+        "Prune after bloom",
+        "Outdoor summer"
+      ]
+    },
+    {
+      "id": "japanese-maple",
+      "name": "Japanese Maple",
+      "species": "Acer palmatum",
+      "icon": "🍁",
+      "category": "trees",
+      "toxicity": "safe",
+      "difficulty": "Medium",
+      "interval": 3,
+      "sun": "Partial Sun",
+      "water": "Every 3 days",
+      "humidity": "40–60%",
+      "temp": "15–27°C",
+      "soil": "Acidic well-draining loam.",
+      "fertilizeDays": 30,
+      "repotMonths": 24,
+      "summary": "Elegant outdoor tree with seasonal color.",
+      "care": {
+        "water": "Even moisture in pots.",
+        "light": "Morning sun, afternoon shade.",
+        "soil": "Acidic well-draining loam.",
+        "fertilizer": "Slow-release spring.",
+        "commonIssues": [
+          "Leaf scorch",
+          "Drought stress"
+        ]
+      },
+      "tips": [
+        "Mulch roots",
+        "Protect late frost"
+      ]
+    },
+    {
+      "id": "pilea",
+      "name": "Chinese Money Plant",
+      "species": "Pilea peperomioides",
+      "icon": "💰",
+      "category": "houseplants",
+      "toxicity": "safe",
+      "difficulty": "Easy",
+      "interval": 7,
+      "sun": "Partial Sun",
+      "water": "Every 7 days",
+      "humidity": "40–60%",
+      "temp": "15–27°C",
+      "soil": "Well-draining mix.",
+      "fertilizeDays": 30,
+      "repotMonths": 18,
+      "summary": "Coin-leaved pet-safe favorite that pups freely.",
+      "care": {
+        "water": "When top soil dries.",
+        "light": "Bright indirect; rotate.",
+        "soil": "Well-draining mix.",
+        "fertilizer": "Monthly in season.",
+        "commonIssues": [
+          "Curling leaves",
+          "Droop when thirsty"
+        ]
+      },
+      "tips": [
+        "Share pups",
+        "Pet friendly"
+      ]
+    },
+    {
+      "id": "rose",
+      "name": "Rose",
+      "species": "Rosa spp.",
+      "icon": "🌹",
+      "category": "flowers",
+      "toxicity": "toxic",
+      "difficulty": "Hard",
+      "interval": 3,
+      "sun": "Full Sun",
+      "water": "Every 3 days",
+      "humidity": "40–60%",
+      "temp": "15–27°C",
+      "soil": "Rich loam.",
+      "fertilizeDays": 14,
+      "repotMonths": 24,
+      "summary": "Classic blooms needing sun, airflow, and steady feeding.",
+      "care": {
+        "water": "Deep at base; keep foliage dry.",
+        "light": "Full sun 6+ hours.",
+        "soil": "Rich loam.",
+        "fertilizer": "Rose feed biweekly.",
+        "commonIssues": [
+          "Black spot",
+          "Aphids",
+          "Mildew"
+        ]
+      },
+      "tips": [
+        "Prune late winter",
+        "Water mornings"
+      ]
+    },
+    {
+      "id": "bonsai-pine",
+      "name": "Bonsai Pine",
+      "species": "Pinus thunbergii",
+      "icon": "🌲",
+      "category": "trees",
+      "toxicity": "toxic",
+      "difficulty": "Pro",
+      "interval": 2,
+      "sun": "Full Sun",
+      "water": "Every 2 days",
+      "humidity": "40–60%",
+      "temp": "15–27°C",
+      "soil": "Inorganic bonsai mix.",
+      "fertilizeDays": 21,
+      "repotMonths": 24,
+      "summary": "Traditional pine bonsai needing full sun and attentive water.",
+      "care": {
+        "water": "Check daily in summer.",
+        "light": "Full sun outdoors.",
+        "soil": "Inorganic bonsai mix.",
+        "fertilizer": "Bonsai feed in growth.",
+        "commonIssues": [
+          "Needle issues",
+          "Underwatering"
+        ]
+      },
+      "tips": [
+        "Outdoor culture",
+        "Wire carefully"
+      ]
+    },
+    {
+      "id": "calathea",
+      "name": "Calathea Orbifolia",
+      "species": "Goeppertia orbifolia",
+      "icon": "🍃",
+      "category": "houseplants",
+      "toxicity": "safe",
+      "difficulty": "Hard",
+      "interval": 5,
+      "sun": "Partial Shade",
+      "water": "Every 5 days",
+      "humidity": "60%+",
+      "temp": "15–27°C",
+      "soil": "Airy moisture-retentive.",
+      "fertilizeDays": 30,
+      "repotMonths": 18,
+      "summary": "Patterned leaves; humidity lover and pet-safe.",
+      "care": {
+        "water": "Evenly moist; filtered water.",
+        "light": "Medium indirect.",
+        "soil": "Airy moisture-retentive.",
+        "fertilizer": "Half-strength monthly.",
+        "commonIssues": [
+          "Crispy edges",
+          "Fading patterns"
+        ]
+      },
+      "tips": [
+        "Distilled water",
+        "Humidifier helps"
+      ]
+    },
+    {
+      "id": "rubber-plant",
+      "name": "Rubber Plant",
+      "species": "Ficus elastica",
+      "icon": "🌳",
+      "category": "houseplants",
+      "toxicity": "toxic",
+      "difficulty": "Easy",
+      "interval": 9,
+      "sun": "Partial Sun",
+      "water": "Every 9 days",
+      "humidity": "40–60%",
+      "temp": "15–27°C",
+      "soil": "Well-draining mix.",
+      "fertilizeDays": 30,
+      "repotMonths": 24,
+      "summary": "Bold glossy foliage for bright corners.",
+      "care": {
+        "water": "When top 3–5 cm dry.",
+        "light": "Bright indirect.",
+        "soil": "Well-draining mix.",
+        "fertilizer": "Monthly spring–summer.",
+        "commonIssues": [
+          "Leaf drop",
+          "Yellow leaves"
+        ]
+      },
+      "tips": [
+        "Wipe leaves",
+        "Prune hard OK"
+      ]
+    },
+    {
+      "id": "philodendron",
+      "name": "Heartleaf Philodendron",
+      "species": "Philodendron hederaceum",
+      "icon": "💚",
+      "category": "houseplants",
+      "toxicity": "toxic",
+      "difficulty": "Easy",
+      "interval": 7,
+      "sun": "Partial Shade",
+      "water": "Every 7 days",
+      "humidity": "40–60%",
+      "temp": "15–27°C",
+      "soil": "Chunky aroid mix.",
+      "fertilizeDays": 30,
+      "repotMonths": 24,
+      "summary": "Trailing hearts; easy indoor vine.",
+      "care": {
+        "water": "Top half dry between.",
+        "light": "Medium to bright indirect.",
+        "soil": "Chunky aroid mix.",
+        "fertilizer": "Monthly in season.",
+        "commonIssues": [
+          "Legginess",
+          "Yellow leaves"
+        ]
+      },
+      "tips": [
+        "Moss pole",
+        "Easy cuttings"
+      ]
+    },
+    {
+      "id": "bird-of-paradise",
+      "name": "Bird of Paradise",
+      "species": "Strelitzia reginae",
+      "icon": "🦩",
+      "category": "houseplants",
+      "toxicity": "toxic",
+      "difficulty": "Medium",
+      "interval": 6,
+      "sun": "Full Sun",
+      "water": "Every 6 days",
+      "humidity": "40–60%",
+      "temp": "15–27°C",
+      "soil": "Rich free-draining.",
+      "fertilizeDays": 21,
+      "repotMonths": 24,
+      "summary": "Tropical drama; strong light to bloom.",
+      "care": {
+        "water": "Lightly moist in growth.",
+        "light": "Very bright; some direct sun.",
+        "soil": "Rich free-draining.",
+        "fertilizer": "Regular in season.",
+        "commonIssues": [
+          "Split leaves normal",
+          "No flowers"
+        ]
+      },
+      "tips": [
+        "Clean dust",
+        "Summer outdoors"
+      ]
+    },
+    {
+      "id": "jade",
+      "name": "Jade Plant",
+      "species": "Crassula ovata",
+      "icon": "🟢",
+      "category": "succulents",
+      "toxicity": "toxic",
+      "difficulty": "Easy",
+      "interval": 14,
+      "sun": "Full Sun",
+      "water": "Every 14 days",
+      "humidity": "Low–medium",
+      "temp": "15–27°C",
+      "soil": "Cactus mix.",
+      "fertilizeDays": 45,
+      "repotMonths": 36,
+      "summary": "Woody succulent shrub with plump leaves.",
+      "care": {
+        "water": "Soak and dry fully.",
+        "light": "Bright / some direct sun.",
+        "soil": "Cactus mix.",
+        "fertilizer": "Dilute spring only.",
+        "commonIssues": [
+          "Leaf drop",
+          "Etiolation"
+        ]
+      },
+      "tips": [
+        "Prune tree form",
+        "Long-lived"
+      ]
+    },
+    {
+      "id": "string-of-pearls",
+      "name": "String of Pearls",
+      "species": "Curio rowleyanus",
+      "icon": "⚪",
+      "category": "succulents",
+      "toxicity": "toxic",
+      "difficulty": "Medium",
+      "interval": 12,
+      "sun": "Partial Sun",
+      "water": "Every 12 days",
+      "humidity": "Low–medium",
+      "temp": "15–27°C",
+      "soil": "Gritty shallow mix.",
+      "fertilizeDays": 45,
+      "repotMonths": 24,
+      "summary": "Trailing bead succulent for hanging pots.",
+      "care": {
+        "water": "Infrequent; pearls wrinkle when thirsty.",
+        "light": "Bright indirect + sun.",
+        "soil": "Gritty shallow mix.",
+        "fertilizer": "Rare dilute.",
+        "commonIssues": [
+          "Rot",
+          "Sparse pearls"
+        ]
+      },
+      "tips": [
+        "Hang bright",
+        "Stem prop"
+      ]
+    },
+    {
+      "id": "boston-fern",
+      "name": "Boston Fern",
+      "species": "Nephrolepis exaltata",
+      "icon": "🪴",
+      "category": "houseplants",
+      "toxicity": "safe",
+      "difficulty": "Medium",
+      "interval": 3,
+      "sun": "Partial Shade",
+      "water": "Every 3 days",
+      "humidity": "60%+",
+      "temp": "15–27°C",
+      "soil": "Peaty fern mix.",
+      "fertilizeDays": 30,
+      "repotMonths": 18,
+      "summary": "Lush hanging fern; humidity and even moisture.",
+      "care": {
+        "water": "Moist soil, not swampy.",
+        "light": "Bright filtered.",
+        "soil": "Peaty fern mix.",
+        "fertilizer": "Weak monthly.",
+        "commonIssues": [
+          "Crispy fronds",
+          "Yellowing"
+        ]
+      },
+      "tips": [
+        "Bathroom star",
+        "Mist if dry"
+      ]
+    },
+    {
+      "id": "orchid",
+      "name": "Phalaenopsis Orchid",
+      "species": "Phalaenopsis spp.",
+      "icon": "🌺",
+      "category": "flowers",
+      "toxicity": "safe",
+      "difficulty": "Medium",
+      "interval": 7,
+      "sun": "Partial Shade",
+      "water": "Every 7 days",
+      "humidity": "40–60%",
+      "temp": "15–27°C",
+      "soil": "Orchid bark only.",
+      "fertilizeDays": 14,
+      "repotMonths": 18,
+      "summary": "Long-blooming moth orchid for bright spots.",
+      "care": {
+        "water": "Weekly soak; drain fully.",
+        "light": "Bright east window.",
+        "soil": "Orchid bark only.",
+        "fertilizer": "Weakly weekly.",
+        "commonIssues": [
+          "Crown rot",
+          "Wrinkled leaves"
+        ]
+      },
+      "tips": [
+        "Room-temp water",
+        "Keep spike after bloom"
+      ]
+    },
+    {
+      "id": "echeveria",
+      "name": "Echeveria",
+      "species": "Echeveria spp.",
+      "icon": "🩵",
+      "category": "succulents",
+      "toxicity": "safe",
+      "difficulty": "Easy",
+      "interval": 12,
+      "sun": "Full Sun",
+      "water": "Every 12 days",
+      "humidity": "Low–medium",
+      "temp": "15–27°C",
+      "soil": "Gritty cactus mix.",
+      "fertilizeDays": 45,
+      "repotMonths": 24,
+      "summary": "Rosette succulents that color up in strong light.",
+      "care": {
+        "water": "Bottom water when dry.",
+        "light": "Full sun / very bright.",
+        "soil": "Gritty cactus mix.",
+        "fertilizer": "Rare spring.",
+        "commonIssues": [
+          "Etiolation",
+          "Mealybugs",
+          "Rot"
+        ]
+      },
+      "tips": [
+        "Avoid wet rosette",
+        "Summer outdoors"
+      ]
+    },
+    {
+      "id": "basil",
+      "name": "Basil",
+      "species": "Ocimum basilicum",
+      "icon": "🌿",
+      "category": "flowers",
+      "toxicity": "safe",
+      "difficulty": "Easy",
+      "interval": 2,
+      "sun": "Full Sun",
+      "water": "Every 2 days",
+      "humidity": "40–60%",
+      "temp": "18–30°C",
+      "soil": "Rich potting mix.",
+      "fertilizeDays": 14,
+      "repotMonths": 6,
+      "summary": "Kitchen herb wanting heat, sun, and frequent harvest.",
+      "care": {
+        "water": "Consistently moist.",
+        "light": "Full sun 6+ hours.",
+        "soil": "Rich potting mix.",
+        "fertilizer": "Light biweekly.",
+        "commonIssues": [
+          "Downy mildew",
+          "Bolting"
+        ]
+      },
+      "tips": [
+        "Pinch flowers",
+        "Harvest often"
+      ]
+    },
+    {
+      "id": "mint",
+      "name": "Mint",
+      "species": "Mentha spp.",
+      "icon": "🌱",
+      "category": "flowers",
+      "toxicity": "safe",
+      "difficulty": "Easy",
+      "interval": 2,
+      "sun": "Partial Sun",
+      "water": "Every 2 days",
+      "humidity": "40–60%",
+      "temp": "15–27°C",
+      "soil": "Rich mix.",
+      "fertilizeDays": 30,
+      "repotMonths": 12,
+      "summary": "Aggressive herb—always grow in a pot.",
+      "care": {
+        "water": "Keep moist.",
+        "light": "Sun to partial shade.",
+        "soil": "Rich mix.",
+        "fertilizer": "Light monthly.",
+        "commonIssues": [
+          "Rust",
+          "Legginess"
+        ]
+      },
+      "tips": [
+        "Pot only outdoors",
+        "Trim hard"
+      ]
+    },
+    {
+      "id": "tomato",
+      "name": "Tomato",
+      "species": "Solanum lycopersicum",
+      "icon": "🍅",
+      "category": "flowers",
+      "toxicity": "toxic",
+      "difficulty": "Medium",
+      "interval": 2,
+      "sun": "Full Sun",
+      "water": "Every 2 days",
+      "humidity": "40–60%",
+      "temp": "15–27°C",
+      "soil": "Rich garden soil.",
+      "fertilizeDays": 10,
+      "repotMonths": 12,
+      "summary": "Summer staple; heavy feeder needing sun and support.",
+      "care": {
+        "water": "Deep regular water.",
+        "light": "Full sun 8+ hours.",
+        "soil": "Rich garden soil.",
+        "fertilizer": "Tomato feed.",
+        "commonIssues": [
+          "Blight",
+          "Hornworms",
+          "Blossom end rot"
+        ]
+      },
+      "tips": [
+        "Mulch",
+        "Stake early"
+      ]
+    },
+    {
+      "id": "haworthia",
+      "name": "Haworthia",
+      "species": "Haworthia spp.",
+      "icon": "🦓",
+      "category": "succulents",
+      "toxicity": "safe",
+      "difficulty": "Beginner",
+      "interval": 16,
+      "sun": "Partial Sun",
+      "water": "Every 16 days",
+      "humidity": "Low–medium",
+      "temp": "15–27°C",
+      "soil": "Gritty mix.",
+      "fertilizeDays": 60,
+      "repotMonths": 36,
+      "summary": "Zebra succulent for windowsills with softer light needs.",
+      "care": {
+        "water": "Sparse; dry completely.",
+        "light": "Bright indirect.",
+        "soil": "Gritty mix.",
+        "fertilizer": "Almost never.",
+        "commonIssues": [
+          "Translucent leaves",
+          "Stretching"
+        ]
+      },
+      "tips": [
+        "Shallow pots",
+        "Pet safer"
+      ]
+    },
+    {
+      "id": "anthurium",
+      "name": "Anthurium",
+      "species": "Anthurium andraeanum",
+      "icon": "❤️",
+      "category": "flowers",
+      "toxicity": "toxic",
+      "difficulty": "Medium",
+      "interval": 5,
+      "sun": "Partial Shade",
+      "water": "Every 5 days",
+      "humidity": "60%+",
+      "temp": "15–27°C",
+      "soil": "Chunky aroid blend.",
+      "fertilizeDays": 21,
+      "repotMonths": 24,
+      "summary": "Waxy heart blooms; warmth and humidity help.",
+      "care": {
+        "water": "Slightly moist, never soggy.",
+        "light": "Bright indirect.",
+        "soil": "Chunky aroid blend.",
+        "fertilizer": "Bloom feed biweekly.",
+        "commonIssues": [
+          "Brown tips",
+          "No flowers"
+        ]
+      },
+      "tips": [
+        "Wipe spathes",
+        "Keep above 16°C"
+      ]
+    },
+    {
+      "id": "croton",
+      "name": "Croton",
+      "species": "Codiaeum variegatum",
+      "icon": "🎨",
+      "category": "houseplants",
+      "toxicity": "toxic",
+      "difficulty": "Hard",
+      "interval": 6,
+      "sun": "Full Sun",
+      "water": "Every 6 days",
+      "humidity": "40–60%",
+      "temp": "15–27°C",
+      "soil": "Rich indoor mix.",
+      "fertilizeDays": 21,
+      "repotMonths": 24,
+      "summary": "Colorful foliage that drops leaves if conditions swing.",
+      "care": {
+        "water": "Even moisture.",
+        "light": "Very bright for color.",
+        "soil": "Rich indoor mix.",
+        "fertilizer": "Monthly.",
+        "commonIssues": [
+          "Leaf drop",
+          "Spider mites"
+        ]
+      },
+      "tips": [
+        "Humidity",
+        "Acclimate slowly"
+      ]
+    },
+    {
+      "id": "dracaena-marginata",
+      "name": "Dragon Tree",
+      "species": "Dracaena marginata",
+      "icon": "🌴",
+      "category": "houseplants",
+      "toxicity": "toxic",
+      "difficulty": "Easy",
+      "interval": 10,
+      "sun": "Partial Sun",
+      "water": "Every 10 days",
+      "humidity": "40–60%",
+      "temp": "15–27°C",
+      "soil": "Well-draining mix.",
+      "fertilizeDays": 40,
+      "repotMonths": 30,
+      "summary": "Sculptural canes with low water needs.",
+      "care": {
+        "water": "Dry-down between waterings.",
+        "light": "Bright indirect.",
+        "soil": "Well-draining mix.",
+        "fertilizer": "Light monthly.",
+        "commonIssues": [
+          "Brown tips",
+          "Overwatering"
+        ]
+      },
+      "tips": [
+        "Rotate",
+        "Pet toxic"
+      ]
+    },
+    {
+      "id": "english-ivy",
+      "name": "English Ivy",
+      "species": "Hedera helix",
+      "icon": "🧬",
+      "category": "houseplants",
+      "toxicity": "toxic",
+      "difficulty": "Medium",
+      "interval": 5,
+      "sun": "Partial Shade",
+      "water": "Every 5 days",
+      "humidity": "40–60%",
+      "temp": "15–27°C",
+      "soil": "Standard mix.",
+      "fertilizeDays": 30,
+      "repotMonths": 24,
+      "summary": "Trailing climber; prefers cooler rooms.",
+      "care": {
+        "water": "Evenly moist, not wet.",
+        "light": "Medium to bright indirect.",
+        "soil": "Standard mix.",
+        "fertilizer": "Monthly spring–summer.",
+        "commonIssues": [
+          "Spider mites",
+          "Leaf spot"
+        ]
+      },
+      "tips": [
+        "Cooler rooms",
+        "Topiary friendly"
+      ]
+    },
+    {
+      "id": "hoya",
+      "name": "Hoya Carnosa",
+      "species": "Hoya carnosa",
+      "icon": "🌸",
+      "category": "houseplants",
+      "toxicity": "safe",
+      "difficulty": "Easy",
+      "interval": 10,
+      "sun": "Partial Sun",
+      "water": "Every 10 days",
+      "humidity": "40–60%",
+      "temp": "15–27°C",
+      "soil": "Chunky mix.",
+      "fertilizeDays": 30,
+      "repotMonths": 36,
+      "summary": "Waxy vine; blooms on old peduncles—don’t cut them.",
+      "care": {
+        "water": "Dry between waterings.",
+        "light": "Bright indirect.",
+        "soil": "Chunky mix.",
+        "fertilizer": "Monthly bloom formula.",
+        "commonIssues": [
+          "Root rot",
+          "No blooms"
+        ]
+      },
+      "tips": [
+        "Keep flower spurs",
+        "Slightly root-bound"
+      ]
+    },
+    {
+      "id": "prayer-plant",
+      "name": "Prayer Plant",
+      "species": "Maranta leuconeura",
+      "icon": "🙏",
+      "category": "houseplants",
+      "toxicity": "safe",
+      "difficulty": "Medium",
+      "interval": 5,
+      "sun": "Partial Shade",
+      "water": "Every 5 days",
+      "humidity": "60%+",
+      "temp": "15–27°C",
+      "soil": "Peaty airy mix.",
+      "fertilizeDays": 30,
+      "repotMonths": 24,
+      "summary": "Leaves fold at night; pet-safe humidity lover.",
+      "care": {
+        "water": "Lightly moist; soft water.",
+        "light": "Medium indirect.",
+        "soil": "Peaty airy mix.",
+        "fertilizer": "Half-strength monthly.",
+        "commonIssues": [
+          "Crispy margins",
+          "Fading color"
+        ]
+      },
+      "tips": [
+        "Humidifier",
+        "Cat safe"
+      ]
+    },
+    {
+      "id": "schefflera",
+      "name": "Umbrella Tree",
+      "species": "Schefflera arboricola",
+      "icon": "☂️",
+      "category": "houseplants",
+      "toxicity": "toxic",
+      "difficulty": "Easy",
+      "interval": 8,
+      "sun": "Partial Sun",
+      "water": "Every 8 days",
+      "humidity": "40–60%",
+      "temp": "15–27°C",
+      "soil": "Standard mix.",
+      "fertilizeDays": 30,
+      "repotMonths": 24,
+      "summary": "Fast grower; prune into a small tree form.",
+      "care": {
+        "water": "Dry top third between.",
+        "light": "Bright indirect.",
+        "soil": "Standard mix.",
+        "fertilizer": "Monthly.",
+        "commonIssues": [
+          "Leaf drop",
+          "Scale"
+        ]
+      },
+      "tips": [
+        "Pinch bushiness",
+        "Wipe dust"
+      ]
+    },
+    {
+      "id": "aglaonema",
+      "name": "Chinese Evergreen",
+      "species": "Aglaonema spp.",
+      "icon": "🪴",
+      "category": "houseplants",
+      "toxicity": "toxic",
+      "difficulty": "Beginner",
+      "interval": 9,
+      "sun": "Full Shade",
+      "water": "Every 9 days",
+      "humidity": "40–60%",
+      "temp": "15–27°C",
+      "soil": "Well-draining mix.",
+      "fertilizeDays": 40,
+      "repotMonths": 30,
+      "summary": "Colorful low-light champion for offices.",
+      "care": {
+        "water": "Moderate dry-down.",
+        "light": "Low to medium.",
+        "soil": "Well-draining mix.",
+        "fertilizer": "Light monthly.",
+        "commonIssues": [
+          "Cold damage",
+          "Overwatering"
+        ]
+      },
+      "tips": [
+        "Avoid drafts",
+        "Many cultivars"
+      ]
+    },
+    {
+      "id": "begonia-rex",
+      "name": "Rex Begonia",
+      "species": "Begonia rex-cultorum",
+      "icon": "🪩",
+      "category": "houseplants",
+      "toxicity": "toxic",
+      "difficulty": "Hard",
+      "interval": 5,
+      "sun": "Partial Shade",
+      "water": "Every 5 days",
+      "humidity": "55%+",
+      "temp": "15–27°C",
+      "soil": "Light airy mix.",
+      "fertilizeDays": 21,
+      "repotMonths": 18,
+      "summary": "Foliage jewel needing humidity and airflow.",
+      "care": {
+        "water": "Even moisture; avoid wet crowns.",
+        "light": "Bright indirect.",
+        "soil": "Light airy mix.",
+        "fertilizer": "Weak regularly.",
+        "commonIssues": [
+          "Mildew",
+          "Rhizome rot"
+        ]
+      },
+      "tips": [
+        "East window",
+        "Airflow"
+      ]
+    },
+    {
+      "id": "columnar-cactus",
+      "name": "Columnar Cactus",
+      "species": "Cereus spp.",
+      "icon": "🌵",
+      "category": "succulents",
+      "toxicity": "safe",
+      "difficulty": "Easy",
+      "interval": 21,
+      "sun": "Full Sun",
+      "water": "Every 21 days",
+      "humidity": "Low",
+      "temp": "15–27°C",
+      "soil": "Mineral cactus mix.",
+      "fertilizeDays": 60,
+      "repotMonths": 48,
+      "summary": "Architectural desert cactus for max sun.",
+      "care": {
+        "water": "Rare deep soaks; dry winter.",
+        "light": "Full sun.",
+        "soil": "Mineral cactus mix.",
+        "fertilizer": "Sparse cactus feed.",
+        "commonIssues": [
+          "Etiolation",
+          "Winter rot"
+        ]
+      },
+      "tips": [
+        "Heavy pot",
+        "South window"
+      ]
+    },
+    {
+      "id": "olive-tree",
+      "name": "Olive Tree",
+      "species": "Olea europaea",
+      "icon": "🫒",
+      "category": "trees",
+      "toxicity": "safe",
+      "difficulty": "Medium",
+      "interval": 7,
+      "sun": "Full Sun",
+      "water": "Every 7 days",
+      "humidity": "Low–medium",
+      "temp": "15–27°C",
+      "soil": "Gritty free-draining.",
+      "fertilizeDays": 30,
+      "repotMonths": 36,
+      "summary": "Mediterranean container tree; sun and airflow essential.",
+      "care": {
+        "water": "Dry somewhat between deep waterings.",
+        "light": "Full sun.",
+        "soil": "Gritty free-draining.",
+        "fertilizer": "Citrus/olive feed.",
+        "commonIssues": [
+          "Scale",
+          "Indoor decline"
+        ]
+      },
+      "tips": [
+        "Outdoor summer",
+        "Cool bright winter"
+      ]
+    },
+    {
+      "id": "meyer-lemon",
+      "name": "Meyer Lemon",
+      "species": "Citrus × meyeri",
+      "icon": "🍋",
+      "category": "trees",
+      "toxicity": "toxic",
+      "difficulty": "Hard",
+      "interval": 4,
+      "sun": "Full Sun",
+      "water": "Every 4 days",
+      "humidity": "50%+",
+      "temp": "15–27°C",
+      "soil": "Citrus free-draining mix.",
+      "fertilizeDays": 14,
+      "repotMonths": 24,
+      "summary": "Fragrant citrus for bright rooms or patios.",
+      "care": {
+        "water": "Even moisture, never swampy.",
+        "light": "Strongest light possible.",
+        "soil": "Citrus free-draining mix.",
+        "fertilizer": "Citrus fertilizer often.",
+        "commonIssues": [
+          "Yellow leaves",
+          "Spider mites"
+        ]
+      },
+      "tips": [
+        "Humidity tray",
+        "Hand pollinate indoors"
+      ]
+    },
+    {
+      "id": "blueberry",
+      "name": "Blueberry",
+      "species": "Vaccinium corymbosum",
+      "icon": "🫐",
+      "category": "trees",
+      "toxicity": "safe",
+      "difficulty": "Medium",
+      "interval": 3,
+      "sun": "Full Sun",
+      "water": "Every 3 days",
+      "humidity": "40–60%",
+      "temp": "15–27°C",
+      "soil": "Acidic peat-based (pH 4.5–5.5).",
+      "fertilizeDays": 30,
+      "repotMonths": 36,
+      "summary": "Acid-loving fruit shrub; containers work with ericaceous soil.",
+      "care": {
+        "water": "Even moisture.",
+        "light": "Full sun.",
+        "soil": "Acidic peat-based (pH 4.5–5.5).",
+        "fertilizer": "Acid-loving feed.",
+        "commonIssues": [
+          "Chlorosis",
+          "Birds"
+        ]
+      },
+      "tips": [
+        "Two varieties",
+        "Pine bark mulch"
+      ]
+    },
+    {
+      "id": "hosta",
+      "name": "Hosta",
+      "species": "Hosta spp.",
+      "icon": "🍃",
+      "category": "flowers",
+      "toxicity": "toxic",
+      "difficulty": "Easy",
+      "interval": 3,
+      "sun": "Partial Shade",
+      "water": "Every 3 days",
+      "humidity": "40–60%",
+      "temp": "15–27°C",
+      "soil": "Rich organic soil.",
+      "fertilizeDays": 30,
+      "repotMonths": 36,
+      "summary": "Shade garden staple with bold leaves.",
+      "care": {
+        "water": "Moist rich soil.",
+        "light": "Shade to morning sun.",
+        "soil": "Rich organic soil.",
+        "fertilizer": "Spring compost.",
+        "commonIssues": [
+          "Slugs",
+          "Sun scorch"
+        ]
+      },
+      "tips": [
+        "Slug control",
+        "Divide spring"
+      ]
+    },
+    {
+      "id": "hydrangea",
+      "name": "Hydrangea",
+      "species": "Hydrangea macrophylla",
+      "icon": "💙",
+      "category": "flowers",
+      "toxicity": "toxic",
+      "difficulty": "Medium",
+      "interval": 2,
+      "sun": "Partial Sun",
+      "water": "Every 2 days",
+      "humidity": "40–60%",
+      "temp": "15–27°C",
+      "soil": "Rich moist drained.",
+      "fertilizeDays": 21,
+      "repotMonths": 24,
+      "summary": "Big blooms; pH can influence color on some types.",
+      "care": {
+        "water": "Thirsty—deep regular water.",
+        "light": "Morning sun, PM shade.",
+        "soil": "Rich moist drained.",
+        "fertilizer": "Spring bloom feed.",
+        "commonIssues": [
+          "Midday wilt",
+          "Frosted buds"
+        ]
+      },
+      "tips": [
+        "Mulch roots",
+        "Mind pH for color"
+      ]
+    },
+    {
+      "id": "sunflower",
+      "name": "Sunflower",
+      "species": "Helianthus annuus",
+      "icon": "🌻",
+      "category": "flowers",
+      "toxicity": "safe",
+      "difficulty": "Easy",
+      "interval": 2,
+      "sun": "Full Sun",
+      "water": "Every 2 days",
+      "humidity": "40–60%",
+      "temp": "15–27°C",
+      "soil": "Average drained.",
+      "fertilizeDays": 14,
+      "repotMonths": 4,
+      "summary": "Annual giant for full sun gardens.",
+      "care": {
+        "water": "Deep water, more when blooming.",
+        "light": "Full sun.",
+        "soil": "Average drained.",
+        "fertilizer": "Balanced then bloom.",
+        "commonIssues": [
+          "Birds",
+          "Mildew"
+        ]
+      },
+      "tips": [
+        "Stake tall types",
+        "Direct sow"
+      ]
+    },
+    {
+      "id": "maidenhair",
+      "name": "Maidenhair Fern",
+      "species": "Adiantum raddianum",
+      "icon": "💫",
+      "category": "houseplants",
+      "toxicity": "safe",
+      "difficulty": "Hard",
+      "interval": 2,
+      "sun": "Partial Shade",
+      "water": "Every 2 days",
+      "humidity": "70%+",
+      "temp": "15–27°C",
+      "soil": "Rich peat mix.",
+      "fertilizeDays": 30,
+      "repotMonths": 24,
+      "summary": "Delicate fronds; hates drying out.",
+      "care": {
+        "water": "Constant light moisture.",
+        "light": "Bright shade.",
+        "soil": "Rich peat mix.",
+        "fertilizer": "Very weak monthly.",
+        "commonIssues": [
+          "Crisp fronds",
+          "Sun burn"
+        ]
+      },
+      "tips": [
+        "Terrarium",
+        "Never bone dry"
+      ]
+    },
+    {
+      "id": "areca-palm",
+      "name": "Areca Palm",
+      "species": "Dypsis lutescens",
+      "icon": "🌴",
+      "category": "houseplants",
+      "toxicity": "safe",
+      "difficulty": "Medium",
+      "interval": 5,
+      "sun": "Partial Sun",
+      "water": "Every 5 days",
+      "humidity": "40–60%",
+      "temp": "15–27°C",
+      "soil": "Palm mix.",
+      "fertilizeDays": 30,
+      "repotMonths": 30,
+      "summary": "Pet-safe tropical palm for bright rooms.",
+      "care": {
+        "water": "Lightly moist; reduce winter.",
+        "light": "Bright indirect.",
+        "soil": "Palm mix.",
+        "fertilizer": "Palm feed monthly.",
+        "commonIssues": [
+          "Spider mites",
+          "Tip burn"
+        ]
+      },
+      "tips": [
+        "Flush soil",
+        "Pet safe"
+      ]
+    },
+    {
+      "id": "lucky-bamboo",
+      "name": "Lucky Bamboo",
+      "species": "Dracaena sanderiana",
+      "icon": "🎋",
+      "category": "houseplants",
+      "toxicity": "toxic",
+      "difficulty": "Beginner",
+      "interval": 7,
+      "sun": "Partial Shade",
+      "water": "Every 7 days",
+      "humidity": "40–60%",
+      "temp": "15–27°C",
+      "soil": "Water culture or moist soil.",
+      "fertilizeDays": 60,
+      "repotMonths": 24,
+      "summary": "Often grown in water; actually a dracaena.",
+      "care": {
+        "water": "Change vase water weekly.",
+        "light": "Bright indirect.",
+        "soil": "Water culture or moist soil.",
+        "fertilizer": "Tiny monthly dose.",
+        "commonIssues": [
+          "Algae",
+          "Chlorine yellowing"
+        ]
+      },
+      "tips": [
+        "Filtered water",
+        "Not true bamboo"
+      ]
+    },
+    {
+      "id": "peperomia",
+      "name": "Peperomia Obtusifolia",
+      "species": "Peperomia obtusifolia",
+      "icon": "🥒",
+      "category": "houseplants",
+      "toxicity": "safe",
+      "difficulty": "Easy",
+      "interval": 10,
+      "sun": "Partial Sun",
+      "water": "Every 10 days",
+      "humidity": "40–60%",
+      "temp": "15–27°C",
+      "soil": "Airy mix.",
+      "fertilizeDays": 40,
+      "repotMonths": 30,
+      "summary": "Compact pet-safe plant with thick leaves.",
+      "care": {
+        "water": "Dry-down; don’t drown.",
+        "light": "Medium to bright indirect.",
+        "soil": "Airy mix.",
+        "fertilizer": "Light monthly.",
+        "commonIssues": [
+          "Stem rot",
+          "Fading color"
+        ]
+      },
+      "tips": [
+        "Small pots OK",
+        "Many cultivars"
+      ]
+    },
+    {
+      "id": "tradescantia",
+      "name": "Tradescantia Zebrina",
+      "species": "Tradescantia zebrina",
+      "icon": "💜",
+      "category": "houseplants",
+      "toxicity": "toxic",
+      "difficulty": "Easy",
+      "interval": 5,
+      "sun": "Partial Sun",
+      "water": "Every 5 days",
+      "humidity": "40–60%",
+      "temp": "15–27°C",
+      "soil": "Standard mix.",
+      "fertilizeDays": 30,
+      "repotMonths": 18,
+      "summary": "Fast purple trailer; pinch for density.",
+      "care": {
+        "water": "Slightly moist.",
+        "light": "Bright for best stripes.",
+        "soil": "Standard mix.",
+        "fertilizer": "Monthly.",
+        "commonIssues": [
+          "Bald stems",
+          "Fading stripes"
+        ]
+      },
+      "tips": [
+        "Pinch tips",
+        "Propagate easily"
+      ]
+    },
+    {
+      "id": "coleus",
+      "name": "Coleus",
+      "species": "Plectranthus scutellarioides",
+      "icon": "🌈",
+      "category": "flowers",
+      "toxicity": "toxic",
+      "difficulty": "Easy",
+      "interval": 3,
+      "sun": "Partial Sun",
+      "water": "Every 3 days",
+      "humidity": "40–60%",
+      "temp": "15–27°C",
+      "soil": "Rich mix.",
+      "fertilizeDays": 14,
+      "repotMonths": 12,
+      "summary": "Painted foliage color bomb for pots and beds.",
+      "care": {
+        "water": "Even moisture.",
+        "light": "Bright; some sun for color.",
+        "soil": "Rich mix.",
+        "fertilizer": "Regular light feed.",
+        "commonIssues": [
+          "Legginess",
+          "Heat wilt"
+        ]
+      },
+      "tips": [
+        "Pinch flowers",
+        "Easy cuttings"
+      ]
+    },
+    {
+      "id": "asparagus-fern",
+      "name": "Asparagus Fern",
+      "species": "Asparagus setaceus",
+      "icon": "🪶",
+      "category": "houseplants",
+      "toxicity": "toxic",
+      "difficulty": "Medium",
+      "interval": 4,
+      "sun": "Partial Sun",
+      "water": "Every 4 days",
+      "humidity": "40–60%",
+      "temp": "15–27°C",
+      "soil": "Well-draining mix.",
+      "fertilizeDays": 30,
+      "repotMonths": 24,
+      "summary": "Feathery fronds; tubers store water (not a true fern).",
+      "care": {
+        "water": "Regular with light dry-down.",
+        "light": "Bright indirect.",
+        "soil": "Well-draining mix.",
+        "fertilizer": "Monthly.",
+        "commonIssues": [
+          "Needle drop",
+          "Spines"
+        ]
+      },
+      "tips": [
+        "Gloves for pruning",
+        "Humidity helps"
+      ]
+    },
+    {
+      "id": "yucca",
+      "name": "Yucca Cane",
+      "species": "Yucca elephantipes",
+      "icon": "🗡️",
+      "category": "houseplants",
+      "toxicity": "toxic",
+      "difficulty": "Easy",
+      "interval": 12,
+      "sun": "Full Sun",
+      "water": "Every 12 days",
+      "humidity": "Low",
+      "temp": "15–27°C",
+      "soil": "Sandy free-draining.",
+      "fertilizeDays": 45,
+      "repotMonths": 36,
+      "summary": "Architectural cane for bright dry rooms.",
+      "care": {
+        "water": "Infrequent deep water.",
+        "light": "Bright to full sun.",
+        "soil": "Sandy free-draining.",
+        "fertilizer": "Sparse.",
+        "commonIssues": [
+          "Root rot",
+          "Brown tips"
+        ]
+      },
+      "tips": [
+        "Tough office plant",
+        "Slow grower"
+      ]
+    },
+    {
+      "id": "sago-palm",
+      "name": "Sago Palm",
+      "species": "Cycas revoluta",
+      "icon": "🌀",
+      "category": "trees",
+      "toxicity": "toxic",
+      "difficulty": "Medium",
+      "interval": 12,
+      "sun": "Partial Sun",
+      "water": "Every 12 days",
+      "humidity": "40–60%",
+      "temp": "15–27°C",
+      "soil": "Gritty mix.",
+      "fertilizeDays": 45,
+      "repotMonths": 48,
+      "summary": "Ancient cycad look; highly toxic—keep from pets/kids.",
+      "care": {
+        "water": "Dry thoroughly between.",
+        "light": "Bright light.",
+        "soil": "Gritty mix.",
+        "fertilizer": "Light cycad/palm feed.",
+        "commonIssues": [
+          "Scale",
+          "Overwatering"
+        ]
+      },
+      "tips": [
+        "Extremely toxic seeds",
+        "Patience"
+      ]
+    },
+    {
+      "id": "kalanchoe",
+      "name": "Kalanchoe",
+      "species": "Kalanchoe blossfeldiana",
+      "icon": "🌼",
+      "category": "succulents",
+      "toxicity": "toxic",
+      "difficulty": "Easy",
+      "interval": 10,
+      "sun": "Full Sun",
+      "water": "Every 10 days",
+      "humidity": "Low–medium",
+      "temp": "15–27°C",
+      "soil": "Cactus mix.",
+      "fertilizeDays": 30,
+      "repotMonths": 24,
+      "summary": "Florist succulent with long-lasting clusters.",
+      "care": {
+        "water": "Dry between waterings.",
+        "light": "Bright light for blooms.",
+        "soil": "Cactus mix.",
+        "fertilizer": "Monthly when growing.",
+        "commonIssues": [
+          "Stretching",
+          "Bloom fade"
+        ]
+      },
+      "tips": [
+        "Deadhead",
+        "Short days reflower"
+      ]
+    },
+    {
+      "id": "geranium",
+      "name": "Geranium",
+      "species": "Pelargonium × hortorum",
+      "icon": "🌺",
+      "category": "flowers",
+      "toxicity": "toxic",
+      "difficulty": "Easy",
+      "interval": 4,
+      "sun": "Full Sun",
+      "water": "Every 4 days",
+      "humidity": "40–60%",
+      "temp": "15–27°C",
+      "soil": "Well-draining mix.",
+      "fertilizeDays": 14,
+      "repotMonths": 18,
+      "summary": "Sunny patio bloomer; slight dry-down between waterings.",
+      "care": {
+        "water": "Moderate; avoid constant wet.",
+        "light": "Full sun.",
+        "soil": "Well-draining mix.",
+        "fertilizer": "Bloom feed biweekly.",
+        "commonIssues": [
+          "Edema",
+          "Botrytis"
+        ]
+      },
+      "tips": [
+        "Deadhead",
+        "Overwinter bright"
+      ]
+    },
+    {
+      "id": "money-tree",
+      "name": "Money Tree",
+      "species": "Pachira aquatica",
+      "icon": "🌳",
+      "category": "houseplants",
+      "toxicity": "safe",
+      "difficulty": "Easy",
+      "interval": 8,
+      "sun": "Partial Sun",
+      "water": "Every 8 days",
+      "humidity": "40–60%",
+      "temp": "15–27°C",
+      "soil": "Well-draining mix.",
+      "fertilizeDays": 30,
+      "repotMonths": 24,
+      "summary": "Braided trunk tropical; pet-safer choice.",
+      "care": {
+        "water": "Top half dry; hates wet feet.",
+        "light": "Bright indirect.",
+        "soil": "Well-draining mix.",
+        "fertilizer": "Monthly season.",
+        "commonIssues": [
+          "Leaf drop",
+          "Pests"
+        ]
+      },
+      "tips": [
+        "Rotate weekly",
+        "Don’t overpot"
+      ]
+    },
+    {
+      "id": "string-of-hearts",
+      "name": "String of Hearts",
+      "species": "Ceropegia woodii",
+      "icon": "💕",
+      "category": "succulents",
+      "toxicity": "safe",
+      "difficulty": "Easy",
+      "interval": 12,
+      "sun": "Partial Sun",
+      "water": "Every 12 days",
+      "humidity": "Low–medium",
+      "temp": "15–27°C",
+      "soil": "Gritty mix.",
+      "fertilizeDays": 40,
+      "repotMonths": 30,
+      "summary": "Trailing hearts with tubers; bright light for color.",
+      "care": {
+        "water": "Sparse; tubers store water.",
+        "light": "Bright + some sun.",
+        "soil": "Gritty mix.",
+        "fertilizer": "Rare.",
+        "commonIssues": [
+          "Rot",
+          "Sparse vines"
+        ]
+      },
+      "tips": [
+        "Hanging pot",
+        "Tuber props"
+      ]
+    },
+    {
+      "id": "fittonia",
+      "name": "Nerve Plant",
+      "species": "Fittonia albivenis",
+      "icon": "🧠",
+      "category": "houseplants",
+      "toxicity": "safe",
+      "difficulty": "Medium",
+      "interval": 3,
+      "sun": "Partial Shade",
+      "water": "Every 3 days",
+      "humidity": "60%+",
+      "temp": "15–27°C",
+      "soil": "Peaty mix.",
+      "fertilizeDays": 30,
+      "repotMonths": 24,
+      "summary": "Veined leaves; faints when dry, then rebounds.",
+      "care": {
+        "water": "Keep moist; avoid full dry-out.",
+        "light": "Low to medium indirect.",
+        "soil": "Peaty mix.",
+        "fertilizer": "Weak monthly.",
+        "commonIssues": [
+          "Wilting cycle",
+          "Crispy edges"
+        ]
+      },
+      "tips": [
+        "Terrarium perfect",
+        "Pinch bushiness"
+      ]
+    },
+    {
+      "id": "staghorn",
+      "name": "Staghorn Fern",
+      "species": "Platycerium bifurcatum",
+      "icon": "🦌",
+      "category": "houseplants",
+      "toxicity": "safe",
+      "difficulty": "Medium",
+      "interval": 5,
+      "sun": "Partial Shade",
+      "water": "Every 5 days",
+      "humidity": "60%+",
+      "temp": "15–27°C",
+      "soil": "Mounted sphagnum/wood.",
+      "fertilizeDays": 30,
+      "repotMonths": 0,
+      "summary": "Epiphytic fern often mounted on wood.",
+      "care": {
+        "water": "Soak mount weekly.",
+        "light": "Bright indirect.",
+        "soil": "Mounted sphagnum/wood.",
+        "fertilizer": "Weak monthly.",
+        "commonIssues": [
+          "Dry mounts",
+          "Shield browning normal"
+        ]
+      },
+      "tips": [
+        "Bath soak",
+        "Keep brown shields"
+      ]
+    },
+    {
+      "id": "boxwood",
+      "name": "Boxwood",
+      "species": "Buxus sempervirens",
+      "icon": "🟩",
+      "category": "trees",
+      "toxicity": "toxic",
+      "difficulty": "Medium",
+      "interval": 5,
+      "sun": "Partial Sun",
+      "water": "Every 5 days",
+      "humidity": "40–60%",
+      "temp": "15–27°C",
+      "soil": "Well-drained loam.",
+      "fertilizeDays": 45,
+      "repotMonths": 48,
+      "summary": "Evergreen shrub for hedges and formal pots.",
+      "care": {
+        "water": "Deep occasional once established.",
+        "light": "Sun to partial shade.",
+        "soil": "Well-drained loam.",
+        "fertilizer": "Spring slow-release.",
+        "commonIssues": [
+          "Blight",
+          "Leafminer"
+        ]
+      },
+      "tips": [
+        "Airflow",
+        "Avoid late wet foliage"
+      ]
+    },
+    {
+      "id": "chrysanthemum",
+      "name": "Chrysanthemum",
+      "species": "Chrysanthemum spp.",
+      "icon": "🌼",
+      "category": "flowers",
+      "toxicity": "toxic",
+      "difficulty": "Easy",
+      "interval": 3,
+      "sun": "Full Sun",
+      "water": "Every 3 days",
+      "humidity": "40–60%",
+      "temp": "15–27°C",
+      "soil": "Rich well-drained.",
+      "fertilizeDays": 14,
+      "repotMonths": 12,
+      "summary": "Fall classic with bright seasonal color.",
+      "care": {
+        "water": "Even moisture while blooming.",
+        "light": "Full sun.",
+        "soil": "Rich well-drained.",
+        "fertilizer": "Bloom feed.",
+        "commonIssues": [
+          "Aphids",
+          "Mildew"
+        ]
+      },
+      "tips": [
+        "Pinch early",
+        "Seasonal gift plant"
+      ]
+    }
+  ]
+}

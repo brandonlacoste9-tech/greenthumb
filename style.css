@@ -2065,3 +2065,282 @@ footer::after {
     background: color-mix(in srgb, var(--bg) 78%, transparent);
     border-bottom: 1px solid var(--border);
 }
+
+/* ---------- Today’s tasks ---------- */
+.tasks-panel {
+    margin-bottom: 1rem;
+    padding: 1.1rem 1.15rem 1.15rem !important;
+    border-radius: var(--radius-lg) !important;
+    border: 1px solid var(--border) !important;
+    background: var(--surface) !important;
+    box-shadow: none !important;
+}
+
+.tasks-panel-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 0.85rem;
+}
+
+.tasks-panel-header h3 {
+    margin-bottom: 0.2rem;
+    font-size: 1.05rem;
+}
+
+.tasks-sub {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+.tasks-filters {
+    display: flex;
+    gap: 0.35rem;
+}
+
+.chip {
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--text-muted);
+    border-radius: var(--radius-pill);
+    padding: 0.35rem 0.75rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background var(--transition), color var(--transition), border-color var(--transition);
+}
+
+.chip:hover {
+    color: var(--text-main);
+    border-color: var(--border-strong);
+}
+
+.chip.active {
+    background: var(--primary-soft);
+    color: var(--primary);
+    border-color: rgba(52, 211, 153, 0.35);
+}
+
+.tasks-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+}
+
+.task-row {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 0.75rem;
+    align-items: center;
+    padding: 0.7rem 0.8rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    background: var(--bg);
+}
+
+.task-row.urgent {
+    border-color: rgba(251, 113, 133, 0.35);
+    background: rgba(251, 113, 133, 0.06);
+}
+
+.task-ico {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: grid;
+    place-items: center;
+    background: var(--primary-soft);
+    border: 1px solid rgba(52, 211, 153, 0.18);
+    font-size: 1rem;
+}
+
+.task-row.urgent .task-ico {
+    background: rgba(251, 113, 133, 0.12);
+    border-color: rgba(251, 113, 133, 0.22);
+}
+
+.task-main {
+    min-width: 0;
+}
+
+.task-title {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--text-main);
+}
+
+.task-meta {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-top: 0.1rem;
+}
+
+.task-actions {
+    display: flex;
+    gap: 0.35rem;
+    flex-shrink: 0;
+}
+
+.task-actions .btn-secondary,
+.task-actions .btn-primary {
+    padding: 0.4rem 0.7rem;
+    font-size: 0.75rem;
+}
+
+.tasks-empty {
+    text-align: center;
+    padding: 1.25rem 0.5rem;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+/* ---------- Plant detail sheet ---------- */
+.plant-detail-sheet {
+    max-width: 560px !important;
+    padding: 1.35rem 1.25rem 1.5rem !important;
+}
+
+.detail-hero {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    margin-bottom: 1.15rem;
+    padding-right: 1.5rem;
+}
+
+.detail-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    display: grid;
+    place-items: center;
+    font-size: 2rem;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    flex-shrink: 0;
+}
+
+.detail-hero h2 {
+    font-size: 1.35rem;
+    margin-bottom: 0.25rem;
+    padding-right: 0;
+}
+
+.detail-species {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 0.55rem;
+}
+
+.detail-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+}
+
+.detail-summary {
+    color: var(--text-muted);
+    font-size: 0.92rem;
+    line-height: 1.55;
+    margin-bottom: 1rem;
+}
+
+.detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.detail-stat {
+    padding: 0.7rem 0.75rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    background: var(--bg);
+}
+
+.detail-stat .label {
+    display: block;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-faint);
+    font-family: var(--mono);
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.detail-stat .value {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.detail-section {
+    margin-bottom: 0.95rem;
+}
+
+.detail-section h4 {
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-faint);
+    font-family: var(--mono);
+    margin-bottom: 0.4rem;
+}
+
+.detail-section p,
+.detail-section li {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    line-height: 1.55;
+}
+
+.detail-section ul {
+    margin: 0;
+    padding-left: 1.1rem;
+}
+
+.detail-section li {
+    margin-bottom: 0.25rem;
+}
+
+.detail-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1.15rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+}
+
+.detail-actions .btn-primary,
+.detail-actions .btn-secondary {
+    flex: 1;
+    min-width: 120px;
+}
+
+.plant-card {
+    cursor: pointer;
+}
+
+.plant-card .plant-footer button {
+    cursor: pointer;
+}
+
+@media (max-width: 520px) {
+    .detail-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .task-row {
+        grid-template-columns: auto 1fr;
+    }
+
+    .task-actions {
+        grid-column: 1 / -1;
+        justify-content: flex-end;
+    }
+}
