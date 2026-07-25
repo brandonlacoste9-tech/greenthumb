@@ -34,33 +34,54 @@ document.addEventListener('DOMContentLoaded', () => {
     const themeToggle = document.getElementById('theme-toggle');
     const themeIcon = document.getElementById('theme-icon');
 
-    // Theme Toggle Logic
-    const currentTheme = localStorage.getItem('theme') || 'light';
-    if (currentTheme === 'dark') {
-        document.documentElement.setAttribute('data-theme', 'dark');
-        if (themeIcon) themeIcon.innerText = '☀️';
+    // Theme: dark-first (Grok-style). Stored preference wins.
+    function applyTheme(theme) {
+        if (theme === 'light') {
+            document.documentElement.setAttribute('data-theme', 'light');
+            if (themeIcon) themeIcon.innerText = '🌙';
+            document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#fafafa');
+        } else {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            if (themeIcon) themeIcon.innerText = '☀️';
+            document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#09090b');
+        }
     }
+
+    const savedTheme = localStorage.getItem('theme');
+    applyTheme(savedTheme === 'light' ? 'light' : 'dark');
 
     if (themeToggle) {
         themeToggle.addEventListener('click', () => {
-            const theme = document.documentElement.getAttribute('data-theme');
-            if (theme === 'dark') {
-                document.documentElement.removeAttribute('data-theme');
-                if (themeIcon) themeIcon.innerText = '🌙';
-                localStorage.setItem('theme', 'light');
-            } else {
-                document.documentElement.setAttribute('data-theme', 'dark');
-                if (themeIcon) themeIcon.innerText = '☀️';
-                localStorage.setItem('theme', 'dark');
-            }
+            const next =
+                document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+            localStorage.setItem('theme', next);
+            applyTheme(next);
         });
     }
 
-    window.addEventListener('scroll', () => {
-        if (!header) return;
-        if (window.scrollY > 50) header.classList.add('scrolled');
-        else header.classList.remove('scrolled');
+    // Mobile nav
+    const navToggle = document.getElementById('nav-toggle');
+    const mobileNav = document.getElementById('mobile-nav');
+    function setNavOpen(open) {
+        document.body.classList.toggle('nav-open', open);
+        if (navToggle) navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+    if (navToggle) {
+        navToggle.addEventListener('click', () => {
+            setNavOpen(!document.body.classList.contains('nav-open'));
+        });
+    }
+    mobileNav?.querySelectorAll('a').forEach((a) => {
+        a.addEventListener('click', () => setNavOpen(false));
     });
+
+    const onScrollChrome = () => {
+        if (!header) return;
+        if (window.scrollY > 12) header.classList.add('scrolled');
+        else header.classList.remove('scrolled');
+    };
+    window.addEventListener('scroll', onScrollChrome, { passive: true });
+    onScrollChrome();
 
     // Virtual Garden State
     let myPlants = [];
@@ -139,31 +160,31 @@ document.addEventListener('DOMContentLoaded', () => {
             card.classList.add('frost-pulse');
             adviceEl.innerText = '❄️ FROST ALERT: Move outdoor plants inside!';
             iconEl.innerText = '🧊';
-            if (!wasInDanger) logLedger('Frost Sentinel Alert: Temperature dropped below 5°C.', '❄️');
+            if (!wasInDanger) logLedger('Frost alert: temperature below 5°C.', '❄️');
             wasInDanger = true;
             if (!hasBriefed) {
-                triggerBriefing('Frost detected. Protecting your botanical assets is our priority.', '🧊');
+                triggerBriefing('Frost nearby. Move outdoor plants inside if you can.', '🧊');
             }
         } else if (localWeather.temp > 10 && wasInDanger) {
             card.classList.add('recovery-glow');
-            adviceEl.innerText = '✅ SUCCESS: Frost snap avoided. Assets secured.';
-            adviceEl.style.color = '#16a34a';
+            adviceEl.innerText = '✅ Frost risk eased — plants should be fine.';
+            adviceEl.style.color = 'var(--primary)';
             iconEl.innerText = '🌿';
-            logLedger('Recovery Success: Garden survived the cold snap.', '✅');
+            logLedger('Garden recovered after cold snap.', '✅');
             wasInDanger = false;
         } else if (localWeather.temp > 30) {
             adviceEl.innerText =
                 localWeather.humidity < 40
-                    ? '🔥 Heatwave: Water after 7 PM.'
-                    : '🌡️ Hot/Humid: Watch for root rot.';
+                    ? '🔥 Heat: water in the evening.'
+                    : '🌡️ Hot & humid — watch for root rot.';
             iconEl.innerText = '🔥';
-            if (!wasInDanger) logLedger('Heatwave Warning: High-evaporation state detected.', '🔥');
+            if (!wasInDanger) logLedger('Heat warning: high evaporation conditions.', '🔥');
             wasInDanger = true;
         } else if (localWeather.isRaining) {
-            adviceEl.innerText = '🌧️ Rain detected: Skip outdoor watering today.';
+            adviceEl.innerText = '🌧️ Rain — skip outdoor watering.';
             iconEl.innerText = '🌧️';
         } else {
-            adviceEl.innerText = '✨ Optimal: Your garden is in the Green Zone.';
+            adviceEl.innerText = 'Conditions look good for most plants.';
             adviceEl.style.color = 'var(--text-muted)';
             iconEl.innerText = '🌦️';
         }
@@ -574,7 +595,7 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
         }
 
-        triggerBriefing('Analyzing botanical signals…', '🧬');
+        triggerBriefing('Looking at your plant…', '🧬');
 
         setTimeout(() => {
             // Prefer API when deployed with PlantNet key; otherwise local heuristic
@@ -889,14 +910,14 @@ document.addEventListener('DOMContentLoaded', () => {
     function showTimeline(id) {
         const plant = myPlants.find((p) => p.id === id);
         if (!plant) {
-            triggerBriefing('No heritage record found for this plant.', '📈');
+            triggerBriefing('No care history for this plant yet.', '📈');
             return;
         }
         const { daysLeft, isOverdue } = daysUntilWater(plant);
         const watered = new Date(plant.lastWatered).toLocaleString();
         const status = isOverdue ? 'overdue for water' : `next water in ${daysLeft} day(s)`;
         triggerBriefing(
-            `${plant.name} (${plant.species || 'unknown species'}). Last watered: ${watered}. Status: ${status}. Interval: every ${plant.interval || 7} day(s).`,
+            `${plant.name} · ${plant.species || 'species unknown'}\nLast watered: ${watered}\n${status} · every ${plant.interval || 7} day(s)`,
             '📈'
         );
     }

@@ -1,5 +1,7 @@
 # GardenGreen (greenthumb)
 
+**Live site:** [https://www.garden-green.co](https://www.garden-green.co)
+
 AI-assisted plant care web app: identify plants, track a virtual garden, weather-aware watering, and a care ledger.
 
 ## Quick start (static UI)

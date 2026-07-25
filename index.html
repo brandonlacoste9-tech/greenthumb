@@ -1,35 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GardenGreen | Imperial Botanical Intelligence & Plant Care</title>
-    <meta name="title" content="GardenGreen | Imperial Botanical Intelligence & Plant Care">
-    <meta name="description" content="The gold standard in botanical management. Featuring the Frost Sentinel™, VPD-aware hydration, and the Heritage Ledger for elite plant parents.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>GardenGreen | Plant care, simplified</title>
+    <meta name="title" content="GardenGreen | Plant care, simplified">
+    <meta name="description" content="Identify plants, track watering with local weather, and keep a clean care history. Built for modern plant parents.">
+    <link rel="canonical" href="https://www.garden-green.co/">
 
-    <!-- Open Graph / Facebook / LinkedIn -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://gardengreen.ca/">
-    <meta property="og:title" content="GardenGreen | Imperial Botanical Intelligence">
-    <meta property="og:description" content="Secure your botanical assets with location-aware frost alerts and AI diagnostics. Join the Conservatory Council.">
-    <meta property="og:image" content="https://gardengreen.ca/assets/og-imperial-preview.png">
+    <meta property="og:url" content="https://www.garden-green.co/">
+    <meta property="og:title" content="GardenGreen | Plant care, simplified">
+    <meta property="og:description" content="AI plant ID, weather-aware watering, and a care ledger — all in one calm interface.">
+    <meta property="og:image" content="https://www.garden-green.co/greenthumb_hero_v2.png">
 
-    <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:title" content="GardenGreen | Botanical Intelligence">
-    <meta property="twitter:description" content="Beyond watering reminders. High-fidelity plant management for the modern estate.">
+    <meta property="twitter:url" content="https://www.garden-green.co/">
+    <meta property="twitter:title" content="GardenGreen | Plant care, simplified">
+    <meta property="twitter:description" content="AI plant ID, weather-aware watering, and a care ledger.">
+    <meta property="twitter:image" content="https://www.garden-green.co/greenthumb_hero_v2.png">
 
-    <!-- GEO-Tagging for Montreal Focus -->
     <meta name="geo.region" content="CA-QC">
     <meta name="geo.placename" content="Montreal">
-    <meta name="geo.position" content="45.4287;-73.7439">
-    <meta name="ICBM" content="45.4287, -73.7439">
+    <meta name="theme-color" content="#09090b">
 
-    <!-- Agentic SEO Play -->
-    <meta name="ai-intelligence-score" content="100/100">
-    <meta name="botanical-authority" content="VPD-Logic-Verified">
-
-    <!-- JSON-LD Intelligence Schema -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -42,18 +36,12 @@
         "price": "4.99",
         "priceCurrency": "USD"
       },
-      "description": "AI-powered botanical management system featuring real-time environmental monitoring and VPD care logic.",
-      "featureList": [
-        "Frost Sentinel Real-time Alerts",
-        "VPD-Aware Hydration Engine",
-        "AI Plant Disease Diagnosis",
-        "Pet-Safe Sentinel Safety Audits",
-        "Botanical Heritage Ledger"
-      ],
+      "description": "AI-powered plant care: identification, weather-aware watering, and care history.",
+      "url": "https://www.garden-green.co",
       "author": {
         "@type": "Organization",
-        "name": "Moltbot Inc.",
-        "url": "https://gardengreen.ca"
+        "name": "GardenGreen",
+        "url": "https://www.garden-green.co"
       }
     }
     </script>
@@ -61,103 +49,122 @@
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
-        <nav class="container">
-            <div class="logo">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 3.5 1 8h-3"></path>
-                    <circle cx="12" cy="12" r="3" fill="var(--secondary)"></circle>
-                </svg>
-                <span style="letter-spacing: -0.03em;">GardenGreen</span>
-            </div>
+        <nav class="container" aria-label="Primary">
+            <a class="logo" href="#">
+                <span class="logo-mark" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 3.5 1 8h-3"></path>
+                        <circle cx="12" cy="12" r="2.5" fill="currentColor" stroke="none"></circle>
+                    </svg>
+                </span>
+                <span>GardenGreen</span>
+            </a>
+
             <ul class="nav-links">
-                <li><a href="#identify">Identify & Diagnose</a></li>
+                <li><a href="#identify">Identify</a></li>
+                <li><a href="#library">Library</a></li>
+                <li><a href="#dashboard">Garden</a></li>
                 <li><a href="#pricing">Pricing</a></li>
             </ul>
+
             <div class="nav-actions">
-                <button id="theme-toggle" class="glass-card" style="border: none; padding: 0.5rem 1rem; border-radius: 50px; cursor: pointer; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; background: var(--primary-light);">
-                    <span id="theme-icon">🌙</span>
+                <button type="button" id="theme-toggle" aria-label="Toggle theme">
+                    <span id="theme-icon">☀️</span>
                 </button>
-                <a href="https://buy.stripe.com/14A4gycFLcWp8O2gxX1Fe0F" class="btn-pro" target="_blank">Council</a>
-                <a href="#dashboard" class="btn-primary" style="padding: 0.6rem 1.2rem; font-size: 0.85rem;">My Garden</a>
+                <a href="https://buy.stripe.com/14A4gycFLcWp8O2gxX1Fe0F" class="btn-pro" target="_blank" rel="noopener">Pro</a>
+                <a href="#dashboard" class="btn-primary">My Garden</a>
+                <button type="button" class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false">
+                    <span></span>
+                </button>
             </div>
         </nav>
     </header>
 
+    <div class="mobile-nav" id="mobile-nav">
+        <a href="#identify">Identify & diagnose</a>
+        <a href="#library">Care library</a>
+        <a href="#dashboard">My garden</a>
+        <a href="#pricing">Pricing</a>
+        <a href="https://buy.stripe.com/14A4gycFLcWp8O2gxX1Fe0F" target="_blank" rel="noopener">Upgrade to Pro</a>
+    </div>
+
     <main>
-        <!-- Hero Section -->
         <section class="hero">
             <div class="container hero-content">
                 <div class="hero-text">
-                    <span class="sub-badge" style="background: var(--primary-light); color: var(--primary); padding: 0.5rem 1rem; border-radius: 50px; font-weight: 700; font-size: 0.8rem; margin-bottom: 1.5rem; display: inline-block;">AI BOTANICAL INTELLIGENCE</span>
-                    <h1>Every Plant Deserves <br><span class="accent">Perfect Care.</span></h1>
-                    <p style="font-size: 1.2rem; color: var(--text-muted); margin-bottom: 2.5rem; max-width: 600px;">Unlock the secrets of your garden with AI-powered diagnosis, automated watering schedules, and 10,000+ expert guides.</p>
+                    <span class="sub-badge">Plant intelligence</span>
+                    <h1>Every plant deserves <span class="accent">perfect care.</span></h1>
+                    <p class="hero-lede">Identify species, diagnose issues, and water on time — with weather awareness built in. Clean interface. Local-first privacy.</p>
                     <div class="hero-actions">
-                        <a href="#identify" class="btn-primary-large" id="cta-start">Identify My Plant</a>
-                        <a href="#library" class="btn-secondary-large">Browse Care Guides</a>
+                        <a href="#identify" class="btn-primary-large" id="cta-start">Identify a plant</a>
+                        <a href="#library" class="btn-secondary-large">Browse guides</a>
                     </div>
                 </div>
                 <div class="hero-image">
-                    <div class="glass-card" style="padding: 1rem; border-radius: 30px; position: relative; overflow: hidden;">
-                        <img src="greenthumb_hero_v2.png" alt="Luxury Botanical Living Room" id="main-hero-img" style="width: 100%; border-radius: 20px; display: block;">
-                        <div class="status-badge health-good" style="position: absolute; bottom: 2rem; right: 2rem; background: white; padding: 0.8rem 1.5rem; border-radius: 50px; font-weight: 700; box-shadow: var(--shadow); display: flex; align-items: center; gap: 0.5rem;">
-                            <span class="dot" style="width: 10px; height: 10px; background: #16a34a; border-radius: 50%;"></span> Healthy Garden Active
+                    <div class="hero-frame glass-card">
+                        <img src="greenthumb_hero_v2.png" alt="Healthy indoor plants in a modern living space" id="main-hero-img" width="800" height="600">
+                        <div class="status-badge health-good">
+                            <span class="dot" aria-hidden="true"></span>
+                            Garden healthy
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Features Section -->
         <section id="features" class="features">
             <div class="container">
-                <h2 class="text-center">Gardening Made Smart</h2>
+                <div class="section-header text-center">
+                    <span class="sub-badge">Why GardenGreen</span>
+                    <h2>Care that stays out of the way</h2>
+                    <p class="section-lede">Fast tools when you need them. Quiet tracking when you don’t.</p>
+                </div>
                 <div class="feature-grid">
                     <div class="feature-card">
-                        <div class="icon">💧</div>
-                        <h3>Smart Watering</h3>
-                        <p>Receive precise reminders based on your local weather and plant species.</p>
+                        <div class="icon" aria-hidden="true">💧</div>
+                        <h3>Smart watering</h3>
+                        <p>Reminders that adapt to local temp, humidity, and rain — not a fixed calendar.</p>
                     </div>
                     <div class="feature-card">
-                        <div class="icon">🔍</div>
+                        <div class="icon" aria-hidden="true">🔍</div>
                         <h3>Instant ID</h3>
-                        <p>Identify over 10,000+ plant species with a single photo.</p>
+                        <p>Snap a photo to identify species and pull practical care basics in seconds.</p>
                     </div>
                     <div class="feature-card">
-                        <div class="icon">🩺</div>
-                        <h3>AI Plant Doctor</h3>
-                        <p>Diagnose pests and diseases instantly with professional treatment plans.</p>
+                        <div class="icon" aria-hidden="true">🩺</div>
+                        <h3>Plant doctor</h3>
+                        <p>Describe symptoms or upload a leaf shot for a clear read and next steps.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- AI Doctor Tool Section -->
         <section id="identify" class="ai-tool">
             <div class="container">
-                <div class="ai-grid glass-card" style="padding: 3rem; border-radius: 40px; border: none;">
+                <div class="ai-grid glass-card">
                     <div class="ai-upload">
-                        <h2>Identify & Diagnose</h2>
-                        <p>Upload a clear photo to identify your plant and check its health.</p>
-                        
+                        <h2>Identify & diagnose</h2>
+                        <p>Drop a photo or add notes. We’ll return an ID and a practical care plan.</p>
+
                         <div class="diagnosis-form">
                             <div class="form-group">
                                 <label>Photo</label>
                                 <div class="upload-zone" id="drop-zone">
-                                    <div class="upload-icon">📸</div>
-                                    <p>Drag & drop or <span class="accent-text" id="link-diag-camera">Take Photo</span></p>
+                                    <div class="upload-icon" aria-hidden="true">📸</div>
+                                    <p>Drag & drop or <span class="accent-text" id="link-diag-camera">take photo</span></p>
                                     <span class="file-hint">JPG, PNG · up to 8MB</span>
                                     <input type="file" id="plant-upload" hidden accept="image/*">
                                 </div>
-                                <p class="tip">Tip: focus on the affected leaves in good light.</p>
+                                <p class="tip">Tip: focus on the leaves in good light.</p>
                             </div>
 
                             <div class="form-group">
                                 <label for="diag-name">Plant name (optional)</label>
-                                <input type="text" id="diag-name" placeholder="e.g. Monstera deliciosa">
+                                <input type="text" id="diag-name" placeholder="e.g. Monstera deliciosa" autocomplete="off">
                             </div>
 
                             <div class="form-group">
@@ -174,172 +181,160 @@
                                 <textarea id="diag-notes" placeholder="Yellowing leaves, brown spots, recently repotted…"></textarea>
                             </div>
 
-                            <button class="btn-primary-large" id="btn-diagnose" style="width: 100%;">Diagnose</button>
+                            <button type="button" class="btn-primary-large" id="btn-diagnose" style="width: 100%;">Run diagnosis</button>
                         </div>
                     </div>
                     <div class="ai-results" id="diagnosis-results">
                         <div class="placeholder-results">
-                            <div class="icon">🩺</div>
-                            <h3>Awaiting Data...</h3>
-                            <p>Complete the form and upload a photo to receive your AI diagnosis.</p>
+                            <div class="icon" aria-hidden="true">🩺</div>
+                            <h3>Results appear here</h3>
+                            <p>Add a photo or notes, then run diagnosis.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Care Guides Section -->
         <section id="library" class="library">
             <div class="container">
                 <div class="section-header text-center">
-                    <span class="sub-badge">Expert Knowledge</span>
-                    <h2>Plant Care Library</h2>
-                    <p>Browse by category or search our expert botanical database.</p>
+                    <span class="sub-badge">Guides</span>
+                    <h2>Plant care library</h2>
+                    <p class="section-lede">Filter by type or search — tap a plant to add it to your garden.</p>
                 </div>
 
-                <!-- Circular Categories -->
-                <div class="category-nav">
-                    <div class="cat-item active" data-category="all">
-                        <div class="cat-circle">🌿</div>
-                        <span>All Plants</span>
+                <div class="category-nav" role="tablist" aria-label="Plant categories">
+                    <div class="cat-item active" data-category="all" role="tab" aria-selected="true">
+                        <div class="cat-circle" aria-hidden="true">🌿</div>
+                        <span>All</span>
                     </div>
-                    <div class="cat-item" data-category="houseplants">
-                        <div class="cat-circle">🏠</div>
+                    <div class="cat-item" data-category="houseplants" role="tab">
+                        <div class="cat-circle" aria-hidden="true">🏠</div>
                         <span>Houseplants</span>
                     </div>
-                    <div class="cat-item" data-category="succulents">
-                        <div class="cat-circle">🌵</div>
+                    <div class="cat-item" data-category="succulents" role="tab">
+                        <div class="cat-circle" aria-hidden="true">🌵</div>
                         <span>Succulents</span>
                     </div>
-                    <div class="cat-item" data-category="flowers">
-                        <div class="cat-circle">🌸</div>
+                    <div class="cat-item" data-category="flowers" role="tab">
+                        <div class="cat-circle" aria-hidden="true">🌸</div>
                         <span>Flowers</span>
                     </div>
-                    <div class="cat-item" data-category="trees">
-                        <div class="cat-circle">🌳</div>
+                    <div class="cat-item" data-category="trees" role="tab">
+                        <div class="cat-circle" aria-hidden="true">🌳</div>
                         <span>Trees</span>
                     </div>
                 </div>
 
                 <div class="search-container">
-                    <input type="text" id="library-search" placeholder="Search 10,000+ care guides...">
+                    <input type="search" id="library-search" placeholder="Search plants…" autocomplete="off" enterkeyhint="search">
                 </div>
 
-                <div class="library-grid" id="library-grid">
-                    <!-- Dynamic Library Cards -->
-                </div>
+                <div class="library-grid" id="library-grid"></div>
             </div>
         </section>
 
-        <!-- Pricing Section -->
-        <section id="pricing" class="pricing-section" style="padding: 6rem 0;">
-            <div class="container" style="text-align: center;">
-                <h2 style="margin-bottom: 3rem;">Choose Your Level of Intelligence</h2>
-                <div class="pricing-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; max-width: 900px; margin: 0 auto;">
-                    <!-- Free Tier -->
-                    <div class="glass-card" style="padding: 3rem; border-radius: 40px; text-align: left; border: 1px solid rgba(0,0,0,0.05);">
-                        <h3 style="color: var(--primary);">Botanist</h3>
-                        <div class="price" style="font-size: 2.5rem; font-weight: 800; margin: 1rem 0;">Free</div>
-                        <ul style="list-style: none; padding: 0; margin-bottom: 2rem; line-height: 2;">
-                            <li>✅ AI Plant Diagnosis</li>
-                            <li>✅ 10,000+ Care Guides</li>
-                            <li>✅ Basic Hydration Alerts</li>
-                            <li>✅ Community Access</li>
-                        </ul>
-                        <a href="#dashboard" class="btn-secondary-large" style="display: block; text-align: center;">Start for Free</a>
-                    </div>
-                    <!-- Pro Tier -->
-                    <div class="glass-card council-card" style="padding: 3rem; border-radius: 40px; text-align: left; border: 2px solid #D4AF37; background: rgba(212, 175, 55, 0.05); position: relative; overflow: hidden;">
-                        <span style="position: absolute; top: 1.5rem; right: 1.5rem; background: #D4AF37; color: #fff; padding: 0.3rem 0.8rem; border-radius: 50px; font-size: 0.7rem; font-weight: 700;">MOST ELITE</span>
-                        <h3 style="color: #D4AF37;">Conservatory Council</h3>
-                        <div class="price" style="font-size: 2.5rem; font-weight: 800; margin: 1rem 0;">$4.99 <span style="font-size: 1rem; font-weight: 400;">/mo</span></div>
-                        <ul style="list-style: none; padding: 0; margin-bottom: 2rem; line-height: 2;">
-                            <li>✅ <b>All Free Features</b></li>
-                            <li>✅ <b>Frost Sentinel Alerts</b></li>
-                            <li>✅ <b>VPD-Aware Care Engine</b></li>
-                            <li>✅ <b>Heritage Ledger Access</b></li>
-                            <li>✅ <b>Priority AI Processing</b></li>
-                        </ul>
-                        <a href="https://buy.stripe.com/14A4gycFLcWp8O2gxX1Fe0F" class="btn-pro" style="display: block; text-align: center; margin-right: 0;">Upgrade to Council</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Dashboard Preview -->
-        <section id="dashboard" class="dashboard-preview" style="padding: 6rem 0;">
+        <section id="pricing" class="pricing-section">
             <div class="container">
-                <div class="dashboard-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 3rem;">
-                    <div>
-                        <h2 style="margin-bottom: 0.5rem;">My Virtual Garden</h2>
-                        <p style="color: var(--text-muted);">Real-time care tracking across all your devices.</p>
+                <div class="section-header text-center">
+                    <span class="sub-badge">Pricing</span>
+                    <h2>Simple plans</h2>
+                    <p class="section-lede">Start free. Upgrade when you want frost alerts and priority AI.</p>
+                </div>
+                <div class="pricing-grid">
+                    <div class="glass-card pricing-card">
+                        <h3>Botanist</h3>
+                        <div class="price">Free</div>
+                        <ul>
+                            <li>AI plant diagnosis</li>
+                            <li>Care library</li>
+                            <li>Basic hydration tracking</li>
+                            <li>Local-first garden storage</li>
+                        </ul>
+                        <a href="#dashboard" class="btn-secondary-large" style="width: 100%;">Start free</a>
                     </div>
-                    
-                    <!-- Atmosphere Intelligence Card -->
+                    <div class="glass-card council-card">
+                        <span class="elite-pill">Popular</span>
+                        <h3>Conservatory</h3>
+                        <div class="price">$4.99 <span style="font-size: 1rem; font-weight: 500; color: var(--text-muted);">/mo</span></div>
+                        <ul>
+                            <li><b>Everything in Free</b></li>
+                            <li><b>Frost Sentinel alerts</b></li>
+                            <li><b>Weather-aware care engine</b></li>
+                            <li><b>Full care ledger</b></li>
+                            <li><b>Priority AI processing</b></li>
+                        </ul>
+                        <a href="https://buy.stripe.com/14A4gycFLcWp8O2gxX1Fe0F" class="btn-pro" style="width: 100%; margin: 0;" target="_blank" rel="noopener">Upgrade</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="dashboard" class="dashboard-preview">
+            <div class="container">
+                <div class="dashboard-header">
+                    <div>
+                        <h2>My garden</h2>
+                        <p>Track watering, weather, and history in one place.</p>
+                    </div>
+
                     <div id="atmosphere-card" class="atmosphere-card glass-card">
-                        <div class="atmo-icon">🌦️</div>
+                        <div class="atmo-icon" aria-hidden="true">🌦️</div>
                         <div class="atmo-data">
                             <div class="atmo-row">
-                                <span class="atmo-label">Temp / Humidity</span>
+                                <span class="atmo-label">Temp / humidity</span>
                                 <span id="atmo-temp-hum" class="atmo-value">--°C / --%</span>
                             </div>
                             <div class="atmo-row">
-                                <span class="atmo-label">Garden Health Score</span>
+                                <span class="atmo-label">Health score</span>
                                 <span id="garden-health-score" class="atmo-value">--/100</span>
                             </div>
-                            <div id="atmo-advice" style="font-size: 0.7rem; color: var(--text-muted); margin-top: 0.3rem; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 0.3rem; font-weight: 600;">
-                                Syncing environmental intelligence...
-                            </div>
+                            <div id="atmo-advice">Syncing local weather…</div>
                         </div>
                     </div>
-                    
-                    <button class="btn-primary" id="open-add-modal" style="padding: 1rem 2rem;">+ Add New Plant</button>
-                </div>
-                <div class="plant-grid glass-card" id="virtual-garden" style="padding: 3rem; border-radius: 40px; min-height: 400px; display: grid; gap: 2rem;">
-                    <!-- Dynamic Content -->
+
+                    <button type="button" class="btn-primary" id="open-add-modal">+ Add plant</button>
                 </div>
 
-                <!-- Unified Botanical Ledger (Diary) -->
-                <div class="ledger-container glass-card" style="margin-top: 4rem; padding: 3rem; border-radius: 40px; border: none;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                <div class="plant-grid glass-card" id="virtual-garden"></div>
+
+                <div class="ledger-container glass-card">
+                    <div class="ledger-header">
                         <div>
-                            <h3 style="margin-bottom: 0.3rem;">Botanical Ledger</h3>
-                            <p style="font-size: 0.85rem; color: var(--text-muted);">Historical records of your garden's evolution.</p>
+                            <h3>Care ledger</h3>
+                            <p>A quiet log of what you did and when.</p>
                         </div>
-                        <button type="button" class="btn-secondary" id="btn-clear-ledger" style="font-size: 0.7rem; padding: 0.5rem 1rem;">Archive Records</button>
+                        <button type="button" class="btn-secondary" id="btn-clear-ledger">Clear</button>
                     </div>
-                    <div id="global-ledger" style="max-height: 400px; overflow-y: auto; display: flex; flex-direction: column; gap: 1rem;">
-                        <!-- Ledger entries appear here -->
-                        <div class="empty-state" style="opacity: 0.5; text-align: center; padding: 2rem;">
-                            <p>Your ledger is empty. Start caring for your plants to build their history.</p>
+                    <div id="global-ledger">
+                        <div class="empty-state">
+                            <p>No entries yet. Water a plant or run a diagnosis to start the log.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-
-        <!-- Add Plant Modal -->
-        <div id="add-plant-modal" class="modal">
+        <div id="add-plant-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="add-plant-title">
             <div class="modal-content glass-card">
-                <span class="close-modal">&times;</span>
-                <h2>Add to My Garden</h2>
+                <button type="button" class="close-modal" aria-label="Close">✕</button>
+                <h2 id="add-plant-title">Add to garden</h2>
                 <div class="add-form">
                     <div class="form-group">
-                        <label>Plant Photo</label>
-                        <div id="modal-drop-zone" class="upload-zone-small" style="height: 150px; border: 2px dashed rgba(0,0,0,0.1); border-radius: 15px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem; cursor: pointer; margin-bottom: 1.5rem;">
-                            <span>📸 Add Photo</span>
-                            <button type="button" class="btn-secondary" id="link-camera" style="font-size: 0.7rem;">Open Camera</button>
+                        <label>Plant photo</label>
+                        <div id="modal-drop-zone" class="upload-zone-small">
+                            <span>📸 Add photo</span>
+                            <button type="button" class="btn-secondary" id="link-camera">Open camera</button>
                             <input type="file" id="modal-plant-upload" hidden accept="image/*">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="plant-name">Plant Name</label>
-                        <input type="text" id="plant-name" placeholder="e.g. Bessy the Fern">
+                        <label for="plant-name">Nickname</label>
+                        <input type="text" id="plant-name" placeholder="e.g. Bessy the Fern" autocomplete="off">
                     </div>
                     <div class="form-group">
                         <label for="plant-species">Species</label>
-                        <input type="text" id="plant-species" placeholder="e.g. Boston Fern">
+                        <input type="text" id="plant-species" placeholder="e.g. Boston Fern" autocomplete="off">
                     </div>
                     <div class="form-group">
                         <label for="plant-env">Environment</label>
@@ -349,89 +344,89 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="plant-sun">Sun Requirement</label>
+                        <label for="plant-sun">Sun</label>
                         <select id="plant-sun">
-                            <option value="Full Sun">Full Sun</option>
-                            <option value="Partial Sun">Partial Sun</option>
-                            <option value="Partial Shade">Partial Shade</option>
-                            <option value="Full Shade">Full Shade</option>
+                            <option value="Full Sun">Full sun</option>
+                            <option value="Partial Sun">Partial sun</option>
+                            <option value="Partial Shade">Partial shade</option>
+                            <option value="Full Shade">Full shade</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="plant-interval">Watering Interval (Days)</label>
-                        <input type="number" id="plant-interval" placeholder="e.g. 7" min="1" value="7">
+                        <label for="plant-interval">Water every (days)</label>
+                        <input type="number" id="plant-interval" placeholder="7" min="1" value="7">
                     </div>
-                    <button class="btn-primary" id="save-plant" style="width: 100%;">Save Plant</button>
+                    <button type="button" class="btn-primary" id="save-plant" style="width: 100%;">Save plant</button>
                 </div>
             </div>
         </div>
     </main>
 
-    <div id="imperial-briefing" class="modal" style="z-index: 10000; display: none; align-items: center; justify-content: center;">
+    <div id="imperial-briefing" class="modal" role="alertdialog" aria-modal="true" aria-labelledby="briefing-title">
         <div class="modal-content imperial-modal animate-in">
-            <div id="briefing-icon" style="font-size: 4rem; margin-bottom: 1rem;">🧊</div>
-            <h2>Critical Briefing</h2>
-            <p id="briefing-text">Frost detected. Protecting your botanical assets is our priority.</p>
-            <button class="btn-imperial" onclick="document.getElementById('imperial-briefing').style.display='none'">Acknowledge Briefing</button>
+            <div id="briefing-icon" style="font-size: 2.5rem; margin-bottom: 0.75rem;" aria-hidden="true">🧊</div>
+            <h2 id="briefing-title">Heads up</h2>
+            <p id="briefing-text">Frost detected. Protect outdoor plants if you can.</p>
+            <button type="button" class="btn-imperial" onclick="document.getElementById('imperial-briefing').style.display='none'">Got it</button>
         </div>
     </div>
 
-    <footer style="padding: 6rem 0; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 8rem;">
-        <div class="container" style="text-align: center;">
-            <div style="font-size: 2rem; font-weight: 800; color: var(--primary); margin-bottom: 1.5rem;">GardenGreen.ca</div>
-            <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto 2.5rem;">The gold standard in botanical intelligence. Established 2026 to bring optical sovereignty to the modern estate.</p>
-            <div style="display: flex; justify-content: center; gap: 3rem; margin-bottom: 3rem; font-weight: 600;">
-                <a href="javascript:void(0)" data-modal="about-modal" style="color: var(--text-muted); text-decoration: none;">About Us</a>
-                <a href="javascript:void(0)" data-modal="privacy-modal" style="color: var(--text-muted); text-decoration: none;">Privacy Policy</a>
-                <a href="#" style="color: var(--text-muted); text-decoration: none;">Terms</a>
+    <footer>
+        <div class="container site-footer">
+            <div class="footer-brand">www.<span>garden-green</span>.co</div>
+            <p>Plant care with a calm interface. Identify, track, and keep history — privately by default.</p>
+            <div class="footer-links-row">
+                <a href="javascript:void(0)" data-modal="about-modal">About</a>
+                <a href="javascript:void(0)" data-modal="privacy-modal">Privacy</a>
+                <a href="#pricing">Pricing</a>
             </div>
-            <p style="font-size: 0.8rem; color: rgba(255,255,255,0.15);">© 2026 GardenGreen Intelligence. All botanical rights reserved. 🇨🇦</p>
+            <p class="footer-copy">© 2026 GardenGreen · Canada</p>
         </div>
     </footer>
 
-    <!-- About Modal -->
-    <div id="about-modal" class="modal">
-        <div class="modal-content glass-card" style="max-width: 700px; padding: 4rem;">
-            <button class="close-modal">✕</button>
-            <h2 style="color: var(--primary); margin-bottom: 1.5rem;">The Imperial Manifesto</h2>
-            <div style="line-height: 1.8; color: var(--text-muted);">
-                <p style="margin-bottom: 1rem;">GardenGreen is the result of a singular vision: to grant every plant owner <strong>Total Optical Sovereignty</strong>. Founded in 2026 by a collective of botanical engineers and AI specialists, we believe that garden management should be as precise as aerospace engineering.</p>
-                <p style="margin-bottom: 1rem;">Our platform utilizes advanced VPD-aware care engines, the Frost Sentinel™ climate network, and the sovereign Heritage Ledger to ensure your botanical assets thrive in any environment.</p>
-                <p>Welcome to the gold standard. Welcome to GardenGreen.</p>
+    <nav class="mobile-dock" aria-label="Quick links">
+        <a href="#identify"><span class="dock-ico" aria-hidden="true">🔍</span>ID</a>
+        <a href="#library"><span class="dock-ico" aria-hidden="true">📚</span>Library</a>
+        <a href="#dashboard"><span class="dock-ico" aria-hidden="true">🪴</span>Garden</a>
+        <a href="#pricing"><span class="dock-ico" aria-hidden="true">✦</span>Pro</a>
+    </nav>
+
+    <div id="about-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="about-title">
+        <div class="modal-content glass-card" style="max-width: 560px;">
+            <button type="button" class="close-modal" aria-label="Close">✕</button>
+            <h2 id="about-title">About GardenGreen</h2>
+            <div style="line-height: 1.7; color: var(--text-muted); font-size: 0.95rem;">
+                <p style="margin-bottom: 0.9rem;">GardenGreen helps you identify plants, schedule watering with local weather in mind, and keep a simple care history.</p>
+                <p style="margin-bottom: 0.9rem;">Built for people who want clarity — not another noisy app. Most data stays on your device unless you enable cloud sync.</p>
+                <p>Live at <strong style="color: var(--primary);">www.garden-green.co</strong>.</p>
             </div>
         </div>
     </div>
 
-    <!-- Privacy Modal -->
-    <div id="privacy-modal" class="modal">
-        <div class="modal-content glass-card" style="max-width: 700px; padding: 4rem;">
-            <button class="close-modal">✕</button>
-            <h2 style="color: var(--primary); margin-bottom: 1.5rem;">Sovereign Privacy Policy</h2>
-            <div style="line-height: 1.8; color: var(--text-muted); font-size: 0.95rem;">
-                <h4 style="color: var(--text-main); margin-top: 1.5rem;">1. Data Sovereignty</h4>
-                <p>Your botanical telemetry is your property. GardenGreen does not sell, trade, or distribute your plant photos or care data.</p>
-                
-                <h4 style="color: var(--text-main); margin-top: 1.5rem;">2. Local Intelligence</h4>
-                <p>Most of your garden's heritage is stored locally via our Imperial Vault (localStorage) to ensure zero-latency privacy.</p>
-
-                <h4 style="color: var(--text-main); margin-top: 1.5rem;">3. AI Ethics</h4>
-                <p>Our diagnosis engine is trained on botanical signatures only. We do not use your personal images to train general-purpose models.</p>
-                
-                <p style="margin-top: 2rem; font-style: italic; color: var(--primary);">"Your garden is your sanctuary. We keep it that way."</p>
+    <div id="privacy-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="privacy-title">
+        <div class="modal-content glass-card" style="max-width: 560px;">
+            <button type="button" class="close-modal" aria-label="Close">✕</button>
+            <h2 id="privacy-title">Privacy</h2>
+            <div style="line-height: 1.7; color: var(--text-muted); font-size: 0.95rem;">
+                <h4 style="color: var(--text-main); margin: 1rem 0 0.4rem; font-size: 0.95rem;">1. Your data</h4>
+                <p>We don’t sell plant photos or care data.</p>
+                <h4 style="color: var(--text-main); margin: 1rem 0 0.4rem; font-size: 0.95rem;">2. Local first</h4>
+                <p>Garden and ledger data live in your browser storage by default.</p>
+                <h4 style="color: var(--text-main); margin: 1rem 0 0.4rem; font-size: 0.95rem;">3. AI</h4>
+                <p>Optional cloud ID uses your photo only for that request. We don’t train general models on your personal library.</p>
             </div>
         </div>
     </div>
 
-    <!-- Universal Root Viewfinders (Escaping Containment) -->
     <div id="diag-camera-container" class="camera-container" style="display: none;">
-        <video id="diag-camera-preview" autoplay playsinline></video>
-        <button class="btn-primary" id="btn-diag-snap"></button>
+        <video id="diag-camera-preview" autoplay playsinline muted></video>
+        <button type="button" class="btn-primary" id="btn-diag-snap" aria-label="Capture photo"></button>
         <canvas id="diag-camera-canvas" style="display: none;"></canvas>
     </div>
 
     <div id="camera-container" class="camera-container" style="display: none;">
-        <video id="camera-preview" autoplay playsinline></video>
-        <button class="btn-primary" id="btn-snap"></button>
+        <video id="camera-preview" autoplay playsinline muted></video>
+        <button type="button" class="btn-primary" id="btn-snap" aria-label="Capture photo"></button>
         <canvas id="camera-canvas" style="display: none;"></canvas>
     </div>
 

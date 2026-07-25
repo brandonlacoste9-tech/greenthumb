@@ -9,3 +9,7 @@ Allow: /library/
 
 User-agent: Google-InspectionTool
 Allow: /
+
+# Canonical host
+# https://www.garden-green.co
+Sitemap: https://www.garden-green.co/sitemap.xml
